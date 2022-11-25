@@ -1,10 +1,10 @@
 .menu {
-    width: 20vw;
-    height: 90vh;
-    backdrop-filter: blur(25px);
-    /* background-color: rgba(13, 13, 17, 0.5);; */
-    border-radius: 25px;
-    box-shadow: 10px 10px 20px black;
-    /* box-shadow: -10px -10px white; */
-
+  width: 20vw;
+  height: 90vh;
+  /* background-color: rgba(255, 255, 255, 0.288); */
+  backdrop-filter: blur(25px);
+  border-radius: 50px;
+  background: #ffffff63;
+  box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1),
+    -20px -20px 60px rgba(0, 0, 0, 0.1);
 }
