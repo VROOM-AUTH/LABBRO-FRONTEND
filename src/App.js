@@ -1,5 +1,5 @@
 import "./App.css";
-import Menu from "./components/Menu";
+import Menu from "./components/Menu/Menu";
 import MyBarChart from "./components/BarChart/BarChart";
 
 function App() {
