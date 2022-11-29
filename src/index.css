@@ -17,7 +17,7 @@ body {
 
   background: -moz-linear-gradient(
     135deg,
-    hsla(250, 70%, 60%, 1) 0%,
+    #6952e0 0%,
     hsla(343, 70%, 60%, 1) 100%
   );
 
