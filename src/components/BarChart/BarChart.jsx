@@ -19,11 +19,15 @@ const MyBarChart = () => {
   const [dataAttendance, setAttendance] = useState(null);
   const [userHours, setUserHours] = useState({});
 
+  const [dataGraph, setdataGraph] = useState([]);
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${base_url}users/`)
+    fetch(`${base_url}users/`, {
+      method: "GET",
+    })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -32,21 +36,26 @@ const MyBarChart = () => {
       })
       .then((data) => {
         setDataUsers(data);
+        for (let i = 0; i < 10000; i++) {}
+        getUserHours();
       })
       .catch((error) => {
-        console.log("Error loading dataUsers! Try again later");
+        console.log("Error loading dataUsers! Try again later" + error);
         setError(true);
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoading(true));
   }, []);
 
   let users_identifiers = {};
-
-  let dataGraph = [];
-  if (dataUsers) {
+  // let dataGraph = [];
+  const getUserHours = () => {
+    setdataGraph([]);
     for (let entry of dataUsers) {
       users_identifiers[entry.id] = entry.name;
-      fetch(`${base_url}users-time/?user_id=${parseInt(entry.id)}`)
+      console.log(users_identifiers[entry.id]);
+      fetch(`${base_url}users-time/?user_id=${entry.id}`, {
+        method: "GET",
+      })
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -54,84 +63,55 @@ const MyBarChart = () => {
           throw response;
         })
         .then((data) => {
-          // setDataUsers(data);
-          for (let entry of data) {
-            dataGraph.push({
-              name: users_identifiers[entry.user_id],
-              hours: entry["total_hours"],
-            });
-            console.log(dataGraph);
-          }
+          setdataGraph((oldData) => [
+            ...oldData,
+            {
+              name: users_identifiers[data.user_id],
+              hours: data.total_hours,
+            },
+          ]);
         })
         .catch((error) => {
-          console.log("Error loading dataAttendance! Try again later");
+          console.log(error);
           setError(true);
         })
-        .finally(() => setLoading(false));
+        .finally(() => setLoading(true));
     }
-    console.log(users_identifiers);
-  }
+    setLoading(false);
+  };
 
-  // let dataGraph = [
-  //   {
-  //     name: "giannis",
-  //     hours: 15,
-  //   },
-  //   {
-  //     name: "seba",
-  //     hours: 13,
-  //   },
-  //   {
-  //     name: "ankel",
-  //     hours: 19,
-  //   },
-  //   {
-  //     name: "re broo",
-  //     hours: 10,
-  //   },
-  //   {
-  //     name: "re brooo",
-  //     hours: 21,
-  //   },
-  //   {
-  //     name: "re broo",
-  //     hours: 22,
-  //   },
-  //   {
-  //     name: "re broo",
-  //     hours: 24,
-  //   },
-  // ];
   return (
     <ResponsiveContainer width="100%" height="50%">
-      <BarChart width={600} data={dataGraph}>
-        <defs>
-          <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#0F3460" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#0F3460" stopOpacity={0.0} />
-            {/* <stop offset="100%" stopColor="#000000" stopOpacity={0} /> */}
-          </linearGradient>
-        </defs>
-        <defs>
-          <linearGradient id="color-stroke" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#16213E" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#16213E" stopOpacity={0.0} />
-          </linearGradient>
-        </defs>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} ho />
-        <XAxis dataKey="name" color="#16213E" />
-        <YAxis />
-        <Tooltip />
-        <Legend color="#16213E" />
-        <Bar
-          dataKey="hours"
-          fill="url(#color)"
-          radius={10}
-          stroke={"url(#color-stroke)"}
-          strokeWidth={2}
-          barSize={40}
-        />
-      </BarChart>
+      {loading && (
+        <BarChart width={600} data={dataGraph}>
+          <defs>
+            <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#0F3460" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#0F3460" stopOpacity={0.0} />
+              {/* <stop offset="100%" stopColor="#000000" stopOpacity={0} /> */}
+            </linearGradient>
+          </defs>
+          <defs>
+            <linearGradient id="color-stroke" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#16213E" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#16213E" stopOpacity={0.0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="name" color="#16213E" />
+          <YAxis />
+          <Tooltip />
+          <Legend color="#16213E" />
+          <Bar
+            dataKey="hours"
+            fill="url(#color)"
+            radius={10}
+            stroke={"url(#color-stroke)"}
+            strokeWidth={2}
+            barSize={40}
+          />
+        </BarChart>
+      )}
     </ResponsiveContainer>
   );
 };
