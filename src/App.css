@@ -9,7 +9,7 @@
 
 .menu-container {
   margin: 20px;
-  width: 20vw;
+  /* width: 20vw; */
   height: 90vh;
   display: flex;
   justify-content: space-evenly;
@@ -30,6 +30,8 @@
 
 
 .activity-container {
+  margin: 20px;
+  height: 90vh;
   flex: 1 1 0;
 }
 
