@@ -7,17 +7,18 @@
     height: 70px;
     border-radius: 1rem;
     backdrop-filter: blur(20px);
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.2),
-    -20px -20px 60px rgba(0, 0, 0, 0.2);
+        -20px -20px 60px rgba(0, 0, 0, 0.2);
     margin: 10px 0 10px 0;
+    padding-right: 15px;
 }
 
 .profile-pic-container {
     height: 50px;
     width: 50px;
     border-radius: 2rem;
-    background-color: #B85BB4;
+    background-color: #b85bb4;
     flex: 1 1 0;
     margin-left: 20px;
 }
@@ -30,7 +31,8 @@
 .name {
     flex: 3 1 0;
     color: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
     font-size: larger;
     text-align: left;
     margin-left: 20px;

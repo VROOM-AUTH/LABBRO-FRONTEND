@@ -6,9 +6,12 @@ import './Dashboard.css';
 const Dashboard = () => {
     const [labStatus, setLabStatus] = useState({ closed: 'failed' });
     const [totalUsers, setTotalUsers] = useState(0);
-    const base_url = 'http://127.0.0.1:8000/';
+    const [usersInLab, setUsersInLab] = useState(0);
+    const [userHours, setUserHours] = useState([{}]);
+
     useEffect(() => {
-        fetch(`${base_url}lab-status/`)
+        console.log(process.env.REACT_APP_BASE_URL);
+        fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -57,7 +60,7 @@ const Dashboard = () => {
                 console.log(`Error ${error}`);
             });
 
-        fetch(`${base_url}users/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -65,6 +68,32 @@ const Dashboard = () => {
             })
             .then((data) => {
                 setTotalUsers(data.length);
+            });
+
+        fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                let counter = 0;
+                let temp_arr = [];
+                for (let user of data) {
+                    if (user.in_lab) {
+                        counter++;
+                    }
+                    temp_arr.push({
+                        name: user.user_id,
+                        hours: user.total_hours / 3600,
+                    });
+                }
+                setUsersInLab(counter);
+                setUserHours(temp_arr);
+                console.log('HEUEUUE    ');
+            })
+            .catch((error) => {
+                console.log(`Error: ${error}`);
             });
     }, []);
 
@@ -87,9 +116,11 @@ const Dashboard = () => {
                 <StatisticsCard
                     info={`${Math.floor(
                         labStatus.total_hours / 3600
-                    )}:${0}${Math.floor((labStatus.total_hours % 3600) / 60)}`}
+                    )} h and ${Math.floor(
+                        (labStatus.total_hours % 3600) / 60
+                    )} min`}
                 />
-                <StatisticsCard title='Vroomers at Lab' info='5' />
+                <StatisticsCard title='Vroomers at Lab' info={usersInLab} />
                 <StatisticsCard
                     title='Lab Opened'
                     info={labStatus.opened_time}
@@ -97,8 +128,8 @@ const Dashboard = () => {
                 <StatisticsCard title='Total Users' info={totalUsers} />
             </div>
             <div className='charts'>
-                <BarChartCom />
-                <BarChartCom />
+                <BarChartCom data={userHours} />
+                {/* <BarChartCom data={userHours} /> */}
             </div>
         </div>
     );
