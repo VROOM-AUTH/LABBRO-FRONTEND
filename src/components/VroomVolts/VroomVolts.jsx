@@ -8,7 +8,7 @@ import print2 from "../../assets/3dprint2.png";
 import print3 from "../../assets/3dprint3.png";
 
 const VroomVolts = () => {
-    const [userLevel, setUserLevel] = useState(1);
+    const [userLevel, setUserLevel] = useState(16);
     const [totalVolts, setTotalVolts] = useState(86);
     const [showHowTo, setShowHowTo] = useState(false);
 
@@ -24,14 +24,14 @@ const VroomVolts = () => {
             <div className="current-level">
                 <div className="level-box">
                     <div className="progress-stats-container">
-                        <h2>Level 4</h2>
-                        <h2>Level 5</h2>
+                        <h2>Level {userLevel}</h2>
+                        <h2>Level {userLevel + 1}</h2>
                     </div>
                     <div className="progress-bar-container">
                         <ProgressBar bgcolor={"#feb800"} completed={83} />
                     </div>
                     <h2 className="print">
-                        Reach level 5 and win this awesome 3d print!
+                        Reach level {userLevel + 1} and win this awesome 3d print!
                         <img alt="print" src={print}></img>
                     </h2>
                 </div>
@@ -39,14 +39,14 @@ const VroomVolts = () => {
             <div className="next-levels">
                 <div className="level-box">
                     <div className="progress-stats-container">
-                        <h2>Level 5</h2>
-                        <h2>Level 6</h2>
+                        <h2>Level {userLevel + 1}</h2>
+                        <h2>Level {userLevel + 2}</h2>
                     </div>
                     <div className="progress-bar-container">
                         <ProgressBar bgcolor={"#feb800"} completed={0} />
                     </div>
                     <h2 className="print">
-                        Reach level 6 and win this awesome 3d print!
+                        Reach level {userLevel + 2} and win this awesome 3d print!
                         <img alt="print" src={print2}></img>
                     </h2>
                 </div>
@@ -54,14 +54,14 @@ const VroomVolts = () => {
             <div className="next-levels smaller">
                 <div className="level-box">
                     <div className="progress-stats-container">
-                        <h2>Level 6</h2>
-                        <h2>Level 7</h2>
+                        <h2>Level {userLevel + 2}</h2>
+                        <h2>Level {userLevel + 3}</h2>
                     </div>
                     <div className="progress-bar-container">
                         <ProgressBar bgcolor={"#feb800"} completed={0} />
                     </div>
                     <h2 className="print">
-                        Reach level 7 and win this awesome 3d print!
+                        Reach level {userLevel + 3} and win this awesome 3d print!
                         <img alt="print" src={print3}></img>
                     </h2>
                 </div>
