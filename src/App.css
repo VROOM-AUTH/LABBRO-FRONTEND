@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+  backdrop-filter: blur(18px);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu-container {
+  margin: 20px;
+  /* width: 20vw; */
+  height: 90vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 1 1 0;
+}
+
+.bar-chart {
+  width: 40vw;
+  height: 800px;
+}
+
+.dashboard-container {
+  margin: 20px;
+  height: 90vh;
+  flex: 3 1 0;
+}
+
+
+.activity-container {
+  margin: 20px;
+  height: 90vh;
+  flex: 1 1 0;
+}
+
+@media only screen and (max-width: 800px) {
+  .App {
+    flex-direction: column;
+  }
+  
+}
