@@ -1,13 +1,23 @@
 import "./LoginReg.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LBL from "../assets/LabBro_Logo.png";
 import VL from "../assets/Vroom Logo.png";
+var CryptoJS = require("crypto-js");
 
 const LoginScreen = ({}) => {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
+    const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
+
+    useEffect(() => {
+        // setHashedPwd(CryptoJS.AES.encrypt(pwd, "Secret"));
+        setHashedPwd(
+            CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
+        );
+        console.log(hashedPwd.toString());
+    }, [pwd]);
     const handleSignIn = async (event) => {
         event.preventDefault();
         try {
@@ -35,8 +45,19 @@ const LoginScreen = ({}) => {
                             value={email} //clear fields when you sign in
                             required
                         />
-                        <input className="labels input h2" type="password" id="Password" placeholder="  Password" onChange={(event) => setPwd(event.target.value)} value={pwd} required />
-                        <button className="mainButton h3" onSubmit={handleSignIn}>
+                        <input
+                            className="labels input h2"
+                            type="password"
+                            id="Password"
+                            placeholder="  Password"
+                            onChange={(event) => setPwd(event.target.value)}
+                            value={pwd}
+                            required
+                        />
+                        <button
+                            className="mainButton h3"
+                            onSubmit={handleSignIn}
+                        >
                             Login
                         </button>
                         <button className="secondButton h3" onClick={register}>
