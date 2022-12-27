@@ -5,8 +5,8 @@ import LBL from "../assets/LabBro_Logo.png";
 import VL from "../assets/Vroom Logo.png";
 var CryptoJS = require("crypto-js");
 
-const LoginScreen = ({}) => {
-    const [email, setEmail] = useState("");
+const LoginScreen = ({ userData, setUserData }) => {
+    const [loginName, setLoginName] = useState("");
     const [pwd, setPwd] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
@@ -18,11 +18,31 @@ const LoginScreen = ({}) => {
         );
         console.log(hashedPwd.toString());
     }, [pwd]);
-    const handleSignIn = async (event) => {
+    const login = async (event) => {
         event.preventDefault();
         try {
-            // await signInWithEmailAndPassword(auth, email, pwd);
-            Navigate("/home");
+            fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${loginName}`)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw response;
+                })
+                .then((data) => {
+                    console.log(data);
+                    ///THIS IS WORKING WHEN ONLY ONE USER WITH EACH NAME EXISTS .IT IS CHECKING THE FIRST USER WITH THIS NAME
+                    if (data[0].password == hashedPwd) {
+                        setUserData({
+                            username: loginName,
+                            userId: data[0].id,
+                            isLoggedIn: true,
+                        });
+                        Navigate("/");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         } catch (error) {
             alert(error.message);
         }
@@ -33,7 +53,7 @@ const LoginScreen = ({}) => {
     return (
         <div className="big-container">
             <div className="column box">
-                <h1 className="h1">Welcome to Lab Bro Portal</h1>
+                <h1 className="h1 loginreg-title">Welcome to Lab Bro Portal</h1>
                 <div className="container">
                     <form className="column">
                         <input
@@ -41,8 +61,9 @@ const LoginScreen = ({}) => {
                             type="text"
                             id="Name"
                             placeholder="  Name"
-                            onChange={(event) => setEmail(event.target.value)} //user state
-                            value={email} //clear fields when you sign in
+                            onChange={(event) => {
+                                setLoginName(event.target.value);
+                            }} //user state
                             required
                         />
                         <input
@@ -54,10 +75,7 @@ const LoginScreen = ({}) => {
                             value={pwd}
                             required
                         />
-                        <button
-                            className="mainButton h3"
-                            onSubmit={handleSignIn}
-                        >
+                        <button className="mainButton h3" onClick={login}>
                             Login
                         </button>
                         <button className="secondButton h3" onClick={register}>

@@ -6,7 +6,6 @@ import VL from "../assets/Vroom Logo.png";
 var CryptoJS = require("crypto-js");
 
 const RegisterScreen = ({}) => {
-    const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
     const [name, setName] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
@@ -14,25 +13,47 @@ const RegisterScreen = ({}) => {
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
-            // await createUserWithEmailAndPassword(auth, email, pwd);
-            // await updateProfile(auth.currentUser, { displayName: name });
-            Navigate("/home");
+            fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw response;
+                })
+                .then((data) => {
+                    if (data[0].password == null && data[0].name != null) {
+                        fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                discord_id: data[0].discord_id,
+                                name: data[0].name,
+                                rfid_uid: data[0].rfid_uid,
+                                password: hashedPwd,
+                            }),
+                        });
+                        console.log("Register");
+                        Navigate("/login");
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         } catch (error) {
             alert(error.message);
         }
     };
 
     useEffect(() => {
-        // setHashedPwd(CryptoJS.AES.encrypt(pwd, "Secret"));
         setHashedPwd(
             CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
         );
         console.log(hashedPwd.toString());
     }, [pwd]);
 
-    const login = () => {
-        Navigate("/login");
-    };
+    // const login = () => {
+    //     Navigate("/login");
+    // };
     return (
         <div className="big-container">
             <div className="column box">
@@ -47,15 +68,7 @@ const RegisterScreen = ({}) => {
                             onChange={(event) => setName(event.target.value)}
                             value={name}
                         />
-                        <input
-                            className="labels input h2"
-                            placeholder="  E-mail"
-                            type="email"
-                            id="E-mail"
-                            onChange={(event) => setEmail(event.target.value)}
-                            value={email}
-                            required
-                        />
+
                         <input
                             className="labels input h2"
                             placeholder="  Password"
@@ -71,7 +84,10 @@ const RegisterScreen = ({}) => {
                         >
                             Register
                         </button>
-                        <button className="secondButton h3" onClick={login}>
+                        <button
+                            className="secondButton h3"
+                            onClick={() => Navigate("/login")}
+                        >
                             Login
                         </button>
                     </form>

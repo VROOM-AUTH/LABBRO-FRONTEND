@@ -4,35 +4,37 @@ import RegisterScreen from "./screens/RegisterScreen";
 import MainScreen from "./screens/MainScreen";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
+    const [userData, setUserData] = useState({
+        username: "",
+        userId: 0,
+        isLoggedIn: false,
+    });
+
     return (
-        // <Router>
-        //     <div className="App">
-        //         <div className="menu-container">
-        //             <Menu />
-        //         </div>
-        //         <div className="dashboard-container">
-        //             {/* <Dashboard /> */}
-        //             <Routes>
-        //                 <Route path="/" element={<Dashboard />} />
-        //                 <Route path="/volts" element={<VroomVolts />} />
-        //                 <Route path="/register" element={<RegisterScreen />} />
-        //                 <Route path="/login" element={<LoginScreen />} />
-        //             </Routes>
-        //         </div>
-        //         <div className="activity-container">
-        //             <ActivityPanel />
-        //         </div>
-        //     </div>
-        // </Router>
         <Router>
             <Routes>
                 <Route>
-                    <Route path="/" element={<MainScreen path={"/"} />} />
-                    <Route path="/volts" element={<MainScreen path={"/volts"} />} />
+                    <Route
+                        path="/"
+                        element={<MainScreen path={"/"} userData={userData} />}
+                    />
+                    <Route
+                        path="/volts"
+                        element={<MainScreen path={"/volts"} />}
+                    />
                     <Route path="/register" element={<RegisterScreen />} />
-                    <Route path="/login" element={<LoginScreen />} />
+                    <Route
+                        path="/login"
+                        element={
+                            <LoginScreen
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        }
+                    />
                 </Route>
             </Routes>
         </Router>
