@@ -5,10 +5,11 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import ActivityPanel from '../components/ActivityPanel/ActivityPanel';
 import VroomVolts from '../components/VroomVolts/VroomVolts';
 import Users from '../components/Users/Users';
+import UserStatistics from '../components/UserStatistics/UserStatistics';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-export default function MainScreen({ path }) {
+export default function MainScreen({ path, id = 0 }) {
     return (
         <div className='App'>
             <div className='menu-container'>

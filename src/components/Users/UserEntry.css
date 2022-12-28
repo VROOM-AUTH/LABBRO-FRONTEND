@@ -1,12 +1,36 @@
 .entry-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 0 50px 0 50px;
     width: 80%;
-    height: 100px;
+    height: fit-content;
     border-radius: 1rem;
-    background-color: #241f38;
+    background-color: #222338;
     color: #fff;
+    margin: 10px 0 10px 0;
+}
+
+.total-vroomvolts img {
+    height: 40px;
+    padding-left: 10px;
+}
+
+.entry-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.total-vroomvolts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-charts-hidden {
+    display: none;
 }

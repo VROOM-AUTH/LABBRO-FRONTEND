@@ -19,6 +19,9 @@
 .user-entries {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    overflow-y: scroll;
+    height: 90%;
+    /* background-color: aliceblue; */
 }

@@ -61,8 +61,8 @@ const ActivityPanel = () => {
             {/* <div className="header"></div> */}
             <div className='activity-panel-container'>
                 <h3>Recent activity</h3>
-                {recentActivity.map((item) => (
-                    <UserCard user={item} />
+                {recentActivity.map((item, index) => (
+                    <UserCard user={item} index={index} />
                 ))}
             </div>
             <div className='classification'>
