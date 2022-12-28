@@ -1,46 +1,70 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Menu.css';
 import LOGO from '../../assets/LabBro_Logo.png';
 
 import { Link } from 'react-router-dom';
 
 const Menu = () => {
-    const [activeMenu, setActiveMenu] = useState('<Active Menu>');
+    const [activeMenu, setActiveMenu] = useState(window.location.href);
     const [isClicked1, setIsClicked1] = useState(false);
     const [isClicked2, setIsClicked2] = useState(false);
     const [isClicked3, setIsClicked3] = useState(false);
     const [isClicked4, setIsClicked4] = useState(false);
 
-    const menuClicked = (menu_id) => {
-        switch (menu_id) {
-            case 1:
-                setIsClicked1(true);
-                setIsClicked2(false);
-                setIsClicked3(false);
-                setIsClicked4(false);
-                setActiveMenu('Dashboard');
-                break;
-            case 2:
-                setIsClicked2(true);
-                setIsClicked1(false);
-                setIsClicked3(false);
-                setIsClicked4(false);
-                setActiveMenu('Lab Charts');
-                break;
-            case 3:
-                setIsClicked3(true);
-                setIsClicked1(false);
-                setIsClicked2(false);
-                setIsClicked4(false);
-                setActiveMenu('Users');
-                break;
-            case 4:
-                setIsClicked4(true);
-                setIsClicked1(false);
-                setIsClicked2(false);
-                setIsClicked3(false);
-                setActiveMenu('Marathon');
+    useEffect(() => {
+        const url = window.location.href;
+
+        if (url.includes('volts')) {
+            setIsClicked2(true);
+            setIsClicked1(false);
+            setIsClicked3(false);
+            setIsClicked4(false);
+            setActiveMenu('Vroom Volts');
+        } else if (url.includes('users')) {
+            setIsClicked3(true);
+            setIsClicked1(false);
+            setIsClicked2(false);
+            setIsClicked4(false);
+            setActiveMenu('Users');
+        } else {
+            setIsClicked1(true);
+            setIsClicked2(false);
+            setIsClicked3(false);
+            setIsClicked4(false);
+            setActiveMenu('Dashboard');
         }
+    }, [window.location.href]);
+
+    const menuClicked = (menu_id) => {
+        // switch (menu_id) {
+        //     case 1:
+        //         setIsClicked1(true);
+        //         setIsClicked2(false);
+        //         setIsClicked3(false);
+        //         setIsClicked4(false);
+        //         setActiveMenu('Dashboard');
+        //         break;
+        //     case 2:
+        //         setIsClicked2(true);
+        //         setIsClicked1(false);
+        //         setIsClicked3(false);
+        //         setIsClicked4(false);
+        //         setActiveMenu('Lab Charts');
+        //         break;
+        //     case 3:
+        //         setIsClicked3(true);
+        //         setIsClicked1(false);
+        //         setIsClicked2(false);
+        //         setIsClicked4(false);
+        //         setActiveMenu('Users');
+        //         break;
+        //     case 4:
+        //         setIsClicked4(true);
+        //         setIsClicked1(false);
+        //         setIsClicked2(false);
+        //         setIsClicked3(false);
+        //         setActiveMenu('Marathon');
+        // }
     };
 
     return (

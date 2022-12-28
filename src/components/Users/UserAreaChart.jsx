@@ -26,7 +26,7 @@ const UserAreaChart = ({ user_id }) => {
                 let temp_data = [];
                 for (let entry of data) {
                     temp_data.push({
-                        name: entry.date,
+                        name: new Date(entry.date).toLocaleDateString(),
                         hours: +entry.session_seconds / 3600,
                     });
                 }
@@ -79,12 +79,12 @@ const UserAreaChart = ({ user_id }) => {
                     <linearGradient id='area' x1='0' y1='0' x2='0' y2='1'>
                         <stop
                             offset='5%'
-                            stopColor='#7133E5'
+                            stopColor='#FFDD00'
                             stopOpacity={0.8}
                         />
                         <stop
                             offset='95%'
-                            stopColor='#BB56E4'
+                            stopColor='#FBB034'
                             stopOpacity={0}
                         />
                     </linearGradient>
@@ -104,10 +104,10 @@ const UserAreaChart = ({ user_id }) => {
                 <Area
                     type='monotone'
                     dataKey='hours'
-                    stroke='url(#line)'
+                    stroke='url(#area)'
                     strokeWidth={5}
                     fillOpacity={1}
-                    fill='url(#line)'
+                    fill='url(#area)'
                 />
             </AreaChart>
         </ResponsiveContainer>
