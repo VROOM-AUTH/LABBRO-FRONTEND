@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import "./Menu.css";
 import LOGO from "../../assets/LabBro_Logo.png";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Menu = () => {
-    const [activeMenu, setActiveMenu] = useState("<Active Menu>");
+const Menu = ({ userData, setUserData }) => {
+    const [activeMenu, setActiveMenu] = useState("Dashboard");
     const [isClicked1, setIsClicked1] = useState(false);
     const [isClicked2, setIsClicked2] = useState(false);
     const [isClicked3, setIsClicked3] = useState(false);
     const [isClicked4, setIsClicked4] = useState(false);
+    const Navigate = useNavigate();
 
     const menuClicked = (menu_id) => {
         switch (menu_id) {
@@ -42,6 +43,7 @@ const Menu = () => {
                 setActiveMenu("Marathon");
         }
     };
+    console.log(userData);
 
     return (
         <div className="menu">
@@ -50,6 +52,11 @@ const Menu = () => {
                     <img src={LOGO} alt="logo" className="logo" />
                 </div>
                 <h3 className="active-menu">{activeMenu}</h3>
+                <h3 className="active-menu">
+                    {userData.isLoggedIn
+                        ? "Welcome back " + userData.username + "!"
+                        : ""}
+                </h3>
             </div>
             <div className="component-parts list-menu-container">
                 <div className={isClicked1 ? "clicked" : "non-clicked"}>
@@ -77,9 +84,35 @@ const Menu = () => {
                     </a>
                 </div>
             </div>
-            <div className="component-parts checkout-container">
-                <button className="checkout-button">Check-Out!</button>
-            </div>
+            {userData.isLoggedIn ? (
+                <>
+                    <div className="component-parts checkout-container">
+                        <button className="checkout-button">Check-Out!</button>
+                    </div>
+                    <button
+                        className="mainButton h3"
+                        onClick={() => {
+                            setUserData({
+                                username: "",
+                                userId: 0,
+                                isLoggedIn: false,
+                            });
+                            Navigate("/");
+                        }}
+                    >
+                        Log out
+                    </button>
+                </>
+            ) : (
+                <button
+                    className="mainButton h3"
+                    onClick={() => {
+                        Navigate("/login");
+                    }}
+                >
+                    Login
+                </button>
+            )}
         </div>
     );
 };

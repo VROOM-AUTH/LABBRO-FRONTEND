@@ -10,6 +10,10 @@ const RegisterScreen = ({}) => {
     const [name, setName] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
+
+    // const hashCode = (s) =>
+    //     s.split("").reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
+
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
@@ -22,16 +26,16 @@ const RegisterScreen = ({}) => {
                 })
                 .then((data) => {
                     if (data[0].password == null && data[0].name != null) {
-                        fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                discord_id: data[0].discord_id,
-                                name: data[0].name,
-                                rfid_uid: data[0].rfid_uid,
-                                password: hashedPwd,
-                            }),
-                        });
+                        fetch(
+                            `${process.env.REACT_APP_BASE_URL}users/${data[0].id}`,
+                            {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    password: hashedPwd,
+                                }),
+                            }
+                        );
                         console.log("Register");
                         Navigate("/login");
                     }

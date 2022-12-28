@@ -19,11 +19,23 @@ function App() {
                 <Route>
                     <Route
                         path="/"
-                        element={<MainScreen path={"/"} userData={userData} />}
+                        element={
+                            <MainScreen
+                                path={"/"}
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        }
                     />
                     <Route
                         path="/volts"
-                        element={<MainScreen path={"/volts"} />}
+                        element={
+                            <MainScreen
+                                path={"/volts"}
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        }
                     />
                     <Route path="/register" element={<RegisterScreen />} />
                     <Route

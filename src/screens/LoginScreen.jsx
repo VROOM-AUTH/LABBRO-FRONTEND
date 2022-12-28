@@ -33,7 +33,7 @@ const LoginScreen = ({ userData, setUserData }) => {
                     ///THIS IS WORKING WHEN ONLY ONE USER WITH EACH NAME EXISTS .IT IS CHECKING THE FIRST USER WITH THIS NAME
                     if (data[0].password == hashedPwd) {
                         setUserData({
-                            username: loginName,
+                            username: data[0].name,
                             userId: data[0].id,
                             isLoggedIn: true,
                         });
