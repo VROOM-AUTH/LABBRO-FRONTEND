@@ -20,7 +20,7 @@
 .entry-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -33,4 +33,44 @@
 
 .user-charts-hidden {
     display: none;
+}
+
+.circle {
+    width: 35px;
+}
+
+.circle-hidden {
+    display: none;
+}
+
+.user-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.status {
+    margin: 0;
+}
+
+.status-hidden {
+    display: none;
+}
+
+.user-icon-con {
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.user-name-con {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.total-vroomvolts-con {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
