@@ -5,7 +5,6 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import ActivityPanel from '../components/ActivityPanel/ActivityPanel';
 import VroomVolts from '../components/VroomVolts/VroomVolts';
 import Users from '../components/Users/Users';
-import UserStatistics from '../components/UserStatistics/UserStatistics';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 

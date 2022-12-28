@@ -4,12 +4,13 @@ import coin from '../../assets/coin.png';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import UserAreaChart from './UserAreaChart';
 
 const UserEntry = ({ user_id }) => {
     const [userName, setUserName] = useState('');
     const [userVroomvolts, setUserVroomvolts] = useState(0);
     const [inLab, setInLab] = useState(false);
-    // const [charts, setCharts] = useState(true);
+    const [charts, setCharts] = useState(false);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`)
@@ -58,7 +59,9 @@ const UserEntry = ({ user_id }) => {
 
     return (
         <div className='entry-container'>
-            <div className='entry-header'>
+            <div
+                className='entry-header'
+                onClick={() => setCharts((prev) => !prev)}>
                 <div className='user-icon-con'>
                     <div className='user-icon'>
                         <svg className={inLab ? 'circle-hidden' : 'circle'}>
@@ -110,9 +113,9 @@ const UserEntry = ({ user_id }) => {
                     </div>
                 </div>
             </div>
-            {/* <div className='user-charts-hidden'>
-                <p>hhh</p>
-            </div> */}
+            <div className={charts ? 'user-charts' : 'user-charts-hidden'}>
+                <UserAreaChart user_id={user_id} />
+            </div>
         </div>
     );
 };
