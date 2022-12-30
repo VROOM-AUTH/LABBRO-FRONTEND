@@ -90,7 +90,6 @@ const Dashboard = () => {
                 }
                 setUsersInLab(counter);
                 setUserHours(temp_arr);
-                console.log('HEUEUUE    ');
             })
             .catch((error) => {
                 console.log(`Error: ${error}`);
@@ -119,13 +118,23 @@ const Dashboard = () => {
                     )} h and ${Math.floor(
                         (labStatus.total_hours % 3600) / 60
                     )} min`}
+                    icon={1}
                 />
-                <StatisticsCard title='Vroomers at Lab' info={usersInLab} />
+                <StatisticsCard
+                    title='Vroomers at Lab'
+                    info={usersInLab}
+                    icon={2}
+                />
                 <StatisticsCard
                     title='Lab Opened'
                     info={labStatus.opened_time}
+                    icon={3}
                 />
-                <StatisticsCard title='Total Users' info={totalUsers} />
+                <StatisticsCard
+                    title='Total Users'
+                    info={totalUsers}
+                    icon={4}
+                />
             </div>
             <div className='charts'>
                 <BarChartCom data={userHours} />
