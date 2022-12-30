@@ -9,8 +9,12 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 
+import './UserAreaChart.css';
+
 const UserAreaChart = ({ user_id }) => {
     const [data, setData] = useState([]);
+    const [averageTime, setAverageTime] = useState('0 min');
+    const [atLabDuration, setAtLabDuration] = useState(0);
 
     useEffect(() => {
         fetch(
@@ -24,11 +28,38 @@ const UserAreaChart = ({ user_id }) => {
             })
             .then((data) => {
                 let temp_data = [];
+                let sessionSum = 0;
                 for (let entry of data) {
                     temp_data.push({
                         name: new Date(entry.date).toLocaleDateString(),
                         hours: +entry.session_seconds / 3600,
                     });
+                    sessionSum += +entry.session_seconds / 3600;
+                }
+                if (data.length > 0) {
+                    let startD = new Date(data[0].date); // start date of measurements
+                    // let endD = new Date(data[data.length - 1].date);
+                    let endD = new Date(); // today
+
+                    let duration = endD - startD; // duration in ms between starting date and today
+                    duration = duration / (3600 * 24 * 1000); // tranform in days
+
+                    if (duration > 0) {
+                        let minutes = (sessionSum * 60) / duration; // total minutes at Lab
+                        let hours = Math.floor(minutes / 60); // total hours at lab
+                        let avgTimeString = '';
+                        let tmp_min = minutes % 60;
+                        if (hours != 0) {
+                            avgTimeString = `${hours} h and ${Math.floor(
+                                tmp_min
+                            )} min`;
+                            console.log(avgTimeString);
+                        } else {
+                            avgTimeString = `${Math.floor(tmp_min)} min`;
+                            console.log(avgTimeString);
+                        }
+                        setAverageTime(avgTimeString);
+                    }
                 }
                 setData(temp_data);
             })
@@ -69,48 +100,70 @@ const UserAreaChart = ({ user_id }) => {
     // ];
 
     return (
-        <ResponsiveContainer width='100%' height='90%'>
-            <AreaChart
-                width={730}
-                height={250}
-                data={data}
-                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <defs>
-                    <linearGradient id='area' x1='0' y1='0' x2='0' y2='1'>
-                        <stop
-                            offset='5%'
-                            stopColor='#FFDD00'
-                            stopOpacity={0.8}
+        <>
+            <div className='statistics-container'>
+                <div className='avg-time'>
+                    <span>Average Time at Lab: </span>
+                    {averageTime}
+                </div>
+                <ResponsiveContainer width='100%' height='90%'>
+                    <AreaChart
+                        width={730}
+                        height={250}
+                        data={data}
+                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                        <defs>
+                            <linearGradient
+                                id='area'
+                                x1='0'
+                                y1='0'
+                                x2='0'
+                                y2='1'>
+                                <stop
+                                    offset='5%'
+                                    stopColor='#FFDD00'
+                                    stopOpacity={0.8}
+                                />
+                                <stop
+                                    offset='95%'
+                                    stopColor='#FBB034'
+                                    stopOpacity={0}
+                                />
+                            </linearGradient>
+                            <linearGradient
+                                id='line'
+                                x1='0'
+                                y1='0'
+                                x2='0'
+                                y2='1'>
+                                <stop
+                                    offset='5%'
+                                    stopColor='#BB56E4'
+                                    stopOpacity={1}
+                                />
+                                <stop
+                                    offset='95%'
+                                    stopColor='#7133E5'
+                                    stopOpacity={0}
+                                />
+                            </linearGradient>
+                        </defs>
+                        <XAxis dataKey='name' />
+                        <YAxis />
+                        <CartesianGrid strokeDasharray='3 3' opacity={0.1} />
+                        <Tooltip />
+                        <Area
+                            type='monotone'
+                            dataKey='hours'
+                            stroke='url(#area)'
+                            strokeWidth={5}
+                            fillOpacity={1}
+                            fill='url(#area)'
                         />
-                        <stop
-                            offset='95%'
-                            stopColor='#FBB034'
-                            stopOpacity={0}
-                        />
-                    </linearGradient>
-                    <linearGradient id='line' x1='0' y1='0' x2='0' y2='1'>
-                        <stop offset='5%' stopColor='#BB56E4' stopOpacity={1} />
-                        <stop
-                            offset='95%'
-                            stopColor='#7133E5'
-                            stopOpacity={0}
-                        />
-                    </linearGradient>
-                </defs>
-                <XAxis dataKey='name' />
-                <YAxis />
-                <CartesianGrid strokeDasharray='3 3' opacity={0.1} />
-                <Tooltip />
-                <Area
-                    type='monotone'
-                    dataKey='hours'
-                    stroke='url(#area)'
-                    strokeWidth={5}
-                    fillOpacity={1}
-                    fill='url(#area)'
-                />
-            </AreaChart>
-        </ResponsiveContainer>
+                    </AreaChart>
+                </ResponsiveContainer>
+            </div>
+        </>
     );
 };
 
