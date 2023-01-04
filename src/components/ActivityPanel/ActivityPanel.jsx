@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './ActivityPanel.css';
-import UserCard from './UserCard';
-import AreaChartCom from '../AreaChartCom/AreaChartCom';
-import { useEffect } from 'react';
+import React, { useState } from "react";
+import "./ActivityPanel.css";
+import UserCard from "./UserCard";
+import AreaChartCom from "../AreaChartCom/AreaChartCom";
+import { useEffect } from "react";
 
 const ActivityPanel = () => {
     const [recentActivity, setRecentActivity] = useState([]);
@@ -41,7 +41,7 @@ const ActivityPanel = () => {
                 for (let entry of data) {
                     if (entry.status === 0) {
                         temp_arr.push(
-                            `${user_id[entry.user_id]} just leaved the Lab`
+                            `${user_id[entry.user_id]} just left the Lab`
                         );
                     } else {
                         temp_arr.push(
@@ -57,15 +57,15 @@ const ActivityPanel = () => {
     };
 
     return (
-        <div className='activity-panel'>
+        <div className="activity-panel">
             {/* <div className="header"></div> */}
-            <div className='activity-panel-container'>
+            <div className="activity-panel-container">
                 <h3>Recent activity</h3>
                 {recentActivity.map((item, index) => (
                     <UserCard user={item} index={index} key={index} />
                 ))}
             </div>
-            <div className='classification'>
+            <div className="classification">
                 <AreaChartCom />
             </div>
         </div>
