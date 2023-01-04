@@ -4,6 +4,7 @@ import './StatisticsCard.css';
 const StatisticsCard = ({
     title = 'Lab Total Open Hours',
     info = '15,645 hours',
+    icon,
 }) => {
     const [bgColor, setBgColor] = useState({
         card: '#222338',
@@ -25,7 +26,10 @@ const StatisticsCard = ({
             <div
                 className='icon-container'
                 style={{ background: bgColor.icon }}>
-                <div>&#8987;</div>
+                {icon == 1 && <div>&#9201;</div>}
+                {icon == 2 && <div>&#128065;</div>}
+                {icon == 3 && <div>&#128197;</div>}
+                {icon == 4 && <div>&#128101;</div>}
             </div>
             <div className='info-container'>
                 <h3 className='info'>{info}</h3>

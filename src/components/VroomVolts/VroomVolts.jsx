@@ -7,11 +7,13 @@ import print from "../../assets/3dprint.png";
 import print2 from "../../assets/3dprint2.png";
 import print3 from "../../assets/3dprint3.png";
 import { useEffect } from "react";
+import SpinningWheel from "../SpinningWheel/SpinningWheel";
 
 const VroomVolts = () => {
   const [userLevel, setUserLevel] = useState(16);
   const [totalUserVolts, setTotalUserVolts] = useState(60);
   const [showHowTo, setShowHowTo] = useState(false);
+  const [lucky, setLucky] = useState(false);
   const [levelMax, setLevelMax] = useState(120);
 
   return (
@@ -88,6 +90,9 @@ const VroomVolts = () => {
       </div>
 
       <div className="how-to">
+        <button id="myBtn" onClick={() => setLucky(true)}>
+          <p>I'm feeling lucky!?</p>
+        </button>
         <button id="myBtn" onClick={() => setShowHowTo(true)}>
           <p>How do I collect VroomVolts?</p>
         </button>
@@ -122,6 +127,28 @@ const VroomVolts = () => {
                   VroomVolts.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
+      {lucky ? (
+        <div id="myModal" className="modal">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1
+                className="close"
+                onClick={() => {
+                  setLucky(false);
+                }}
+              >
+                &times;
+              </h1>
+            </div>
+            <div className="modal-body">
+              <SpinningWheel />
             </div>
           </div>
         </div>
