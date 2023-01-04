@@ -8,18 +8,22 @@ import Users from '../components/Users/Users';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-export default function MainScreen({ path, id = 0 }) {
+export default function MainScreen({ path, userData, setUserData }) {
     return (
-        <div className='App'>
-            <div className='menu-container'>
-                <Menu />
+        <div className="App">
+            <div className="menu-container">
+                <Menu userData={userData} setUserData={setUserData} />
             </div>
-            <div className='dashboard-container'>
-                {path === '/' && <Dashboard />}
-                {path === '/volts' && <VroomVolts />}
-                {path === '/users' && <Users />}
+            <div className="dashboard-container">
+                {path === "/" ? (
+                    <Dashboard />
+                ) : path === "/volts" ? (
+                    <VroomVolts />
+                ) : (
+                    <></>
+                )}
             </div>
-            <div className='activity-container'>
+            <div className="activity-container">
                 <ActivityPanel />
             </div>
         </div>

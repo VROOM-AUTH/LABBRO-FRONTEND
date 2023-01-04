@@ -4,7 +4,7 @@ import BarChartCom from '../BarChartCom/BarChartCom';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const [labStatus, setLabStatus] = useState({ closed: 'failed' });
+    const [labStatus, setLabStatus] = useState({ closed: "failed" });
     const [totalUsers, setTotalUsers] = useState(0);
     const [usersInLab, setUsersInLab] = useState(0);
     const [userHours, setUserHours] = useState([{}]);
