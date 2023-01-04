@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const ActivityPanel = () => {
     const [recentActivity, setRecentActivity] = useState([]);
-    const [userIdentifier, setUserIdentifier] = useState({});
+    // const [userIdentifier, setUserIdentifier] = useState({});
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/`)
@@ -61,8 +61,8 @@ const ActivityPanel = () => {
             {/* <div className="header"></div> */}
             <div className='activity-panel-container'>
                 <h3>Recent activity</h3>
-                {recentActivity.map((item) => (
-                    <UserCard user={item} />
+                {recentActivity.map((item, index) => (
+                    <UserCard user={item} index={index} key={index} />
                 ))}
             </div>
             <div className='classification'>
