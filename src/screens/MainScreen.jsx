@@ -7,13 +7,21 @@ import VroomVolts from "../components/VroomVolts/VroomVolts";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-export default function MainScreen({ path }) {
+export default function MainScreen({ path, userData, setUserData }) {
     return (
         <div className="App">
             <div className="menu-container">
-                <Menu />
+                <Menu userData={userData} setUserData={setUserData} />
             </div>
-            <div className="dashboard-container">{path === "/" ? <Dashboard /> : path === "/volts" ? <VroomVolts /> : <div></div>}</div>
+            <div className="dashboard-container">
+                {path === "/" ? (
+                    <Dashboard />
+                ) : path === "/volts" ? (
+                    <VroomVolts />
+                ) : (
+                    <></>
+                )}
+            </div>
             <div className="activity-container">
                 <ActivityPanel />
             </div>
