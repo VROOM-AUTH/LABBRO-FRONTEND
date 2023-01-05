@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import wheel from "../../assets/wheel3.png";
-import arrowDown from "../../assets/arrow-down.png";
-
+import arrowDown from "../../assets/arrow.png";
+import "./SpinningWheel.css";
 const SpinningWheel = () => {
     // State to store the selected prize
     const [prize, setPrize] = useState("");
@@ -28,7 +28,15 @@ const SpinningWheel = () => {
         Math.floor(Math.floor(Math.random() * (50 - 20 + 1)) + 20) * 360 -
         (360 / prizes.length) * prizes.indexOf(prize);
     return (
-        <div>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
+            <h1>Every wheel spin costs 5 VroomVolts!</h1>
             <button
                 onClick={spin}
                 disabled={spinning}
@@ -37,8 +45,13 @@ const SpinningWheel = () => {
             >
                 {spinning ? "Spinning..." : "Spin the wheel"}
             </button>
-            {prize && <p>You won: {prize}</p>}
-            <img src={arrowDown} alt="arrow" width="50" />
+            {/* {prize && <p className="fadeIn">You won: {prize}</p>} */}
+            <img
+                src={arrowDown}
+                alt="arrow"
+                width="50"
+                style={{ marginTop: "1rem" }}
+            />
             <div
                 style={{
                     transform: `rotate(${finalAngle}deg)`,

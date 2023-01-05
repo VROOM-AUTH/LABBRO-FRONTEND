@@ -1,0 +1,19 @@
+.fadeIn {
+    /* opacity: 0; */
+    animation: fadeIn 6s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    80% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
