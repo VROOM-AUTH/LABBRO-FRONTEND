@@ -44,7 +44,7 @@ const SpinningWheel = () => {
                     transform: `rotate(${finalAngle}deg)`,
                     transition: spinning
                         ? "none"
-                        : "transform 2s cubic-bezier(0.25, 0.1, 0.25, 1)",
+                        : "transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)",
                     transitionTimingFunction: spinning
                         ? "linear"
                         : "cubic-bezier(0.25, 0.1, 0.25, 1)",

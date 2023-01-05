@@ -18,7 +18,7 @@ export default function MainScreen({ path, userData, setUserData }) {
                 {path === "/" ? (
                     <Dashboard />
                 ) : path === "/volts" ? (
-                    <VroomVolts />
+                    <VroomVolts userData={userData} />
                 ) : path === "/users" ? (
                     <Users />
                 ) : (
