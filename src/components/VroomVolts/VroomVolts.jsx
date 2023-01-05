@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const VroomVolts = ({ userData }) => {
     const [userLevel, setUserLevel] = useState(16);
-    const [totalUserVolts, setTotalUserVolts] = useState(60);
+    const [totalUserVolts, setTotalUserVolts] = useState(100);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
     const [levelMax, setLevelMax] = useState(120);
@@ -120,7 +120,7 @@ const VroomVolts = ({ userData }) => {
 
             {showHowTo ? (
                 <div id="myModal" className="modal">
-                    <div className="modal-content">
+                    <div className="modal-content how">
                         <div className="modal-header">
                             <h1
                                 className="close"
@@ -162,7 +162,7 @@ const VroomVolts = ({ userData }) => {
 
             {lucky ? (
                 <div id="myModal" className="modal">
-                    <div className="modal-content">
+                    <div className="modal-content lucky">
                         <div className="modal-header">
                             <h1
                                 className="close"
@@ -174,7 +174,10 @@ const VroomVolts = ({ userData }) => {
                             </h1>
                         </div>
                         <div className="modal-body">
-                            <SpinningWheel />
+                            <SpinningWheel
+                                totalUserVolts={totalUserVolts}
+                                setTotalUserVolts={setTotalUserVolts}
+                            />
                         </div>
                     </div>
                 </div>
