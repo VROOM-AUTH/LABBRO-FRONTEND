@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import wheel from "../../assets/wheel3.png";
-import arrowDown from "../../assets/arrow.png";
+import wheel from "../../assets/VroomWheel.png";
+import arrowDown from "../../assets/wheelArrow.png";
 import "./SpinningWheel.css";
-const SpinningWheel = () => {
+const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
     // State to store the selected prize
     const [prize, setPrize] = useState("");
     // State to store the spinning status of the wheel
@@ -17,13 +17,28 @@ const SpinningWheel = () => {
     const spin = () => {
         // Generate a random index to select a prize
         const randomIndex = Math.floor(Math.random() * prizes.length);
-
-        // Update the prize state with the randomly selected prize
         setPrize(prizes[randomIndex]);
+        // Update the prize state with the randomly selected prize
+        console.log(totalUserVolts);
+        if (prize === "1") {
+            setTotalUserVolts(totalUserVolts * 2);
+        } else if (prize === "2") {
+            setTotalUserVolts(totalUserVolts + 10);
+            console.log(totalUserVolts);
+        } else if (prize === "3") {
+            setTotalUserVolts(totalUserVolts - 25);
+            console.log(totalUserVolts);
+        } else if (prize === "4") {
+            setTotalUserVolts(totalUserVolts + 25);
+            console.log(totalUserVolts);
+        } else if (prize === "5") {
+            setTotalUserVolts(Math.floor(totalUserVolts / 2) + 1);
+            console.log(totalUserVolts);
+        }
+
         // Set the spinning status to true
         // setSpinning(true);
     };
-
     const finalAngle =
         Math.floor(Math.floor(Math.random() * (50 - 20 + 1)) + 20) * 360 -
         (360 / prizes.length) * prizes.indexOf(prize);
@@ -36,16 +51,18 @@ const SpinningWheel = () => {
                 alignItems: "center",
             }}
         >
-            <h1>Every wheel spin costs 5 VroomVolts!</h1>
+            <h1 style={{ margin: "1rem" }}>
+                Every wheel spin costs 5 VroomVolts!
+            </h1>
             <button
                 onClick={spin}
                 disabled={spinning}
                 className="mainButton"
-                style={{ color: "white", fontSize: 20 }}
+                style={{ color: "white", fontSize: 20, marginTop: 0 }}
             >
                 {spinning ? "Spinning..." : "Spin the wheel"}
             </button>
-            {/* {prize && <p className="fadeIn">You won: {prize}</p>} */}
+            {prize && <p className="fadeIn">You won: {prize}</p>}
             <img
                 src={arrowDown}
                 alt="arrow"
@@ -63,7 +80,7 @@ const SpinningWheel = () => {
                         : "cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
             >
-                <img src={wheel} width="400" alt="Spinning wheel" />
+                <img src={wheel} width="700" alt="Spinning wheel" />
             </div>
         </div>
     );
