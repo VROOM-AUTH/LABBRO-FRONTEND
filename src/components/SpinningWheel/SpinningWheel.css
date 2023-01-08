@@ -3,6 +3,30 @@
     animation: fadeIn 6s;
 }
 
+.animated-element {
+    /* define the animation */
+    animation: myAnimation 5s linear;
+}
+
+@keyframes myAnimation {
+    0% {
+        scale: 1;
+        opacity: 0;
+    }
+    80% {
+        scale: 1;
+        opacity: 0;
+    }
+    90% {
+        opacity: 1;
+        scale: 1.1;
+    }
+    100% {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

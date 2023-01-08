@@ -17,6 +17,7 @@ const RegisterScreen = ({}) => {
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
+            console.log("try");
             fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`)
                 .then((response) => {
                     if (response.ok) {
@@ -25,7 +26,8 @@ const RegisterScreen = ({}) => {
                     throw response;
                 })
                 .then((data) => {
-                    if (data[0].password == null && data[0].name != null) {
+                    console.log(data);
+                    if (data[0].password == "" && data[0].name != null) {
                         fetch(
                             `${process.env.REACT_APP_BASE_URL}users/${data[0].id}`,
                             {
