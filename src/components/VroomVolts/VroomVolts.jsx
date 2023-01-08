@@ -12,11 +12,76 @@ import { useNavigate } from "react-router-dom";
 
 const VroomVolts = ({ userData }) => {
     const [userLevel, setUserLevel] = useState(16);
-    const [totalUserVolts, setTotalUserVolts] = useState(10);
+    const [totalUserVolts, setTotalUserVolts] = useState(1500);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
     const [levelMax, setLevelMax] = useState(120);
+    const [firstFetch, setFirstFetch] = useState(true);
     const Navigate = useNavigate();
+
+    useEffect(() => {
+        console.log("Fetching initial vroomvolts value...");
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then((data) => {
+                console.log("Initial vroomvolts value:", data);
+                setTotalUserVolts(data.vroomvolts);
+                setFirstFetch(false);
+            });
+    }, []);
+    const putVroomvolts = () => {
+        return new Promise((resolve, reject) => {
+            fetch(
+                `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        vroomvolts: totalUserVolts,
+                    }),
+                }
+            )
+                .then((response) => {
+                    if (response.ok) {
+                        resolve();
+                    } else {
+                        reject(response);
+                    }
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    };
+
+    const fetchVroomvolts = () => {
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then((data) => {
+                console.log("Fetched vroomvolts value:", data);
+                setTotalUserVolts(data[0].vroomvolts);
+            });
+    };
+    useEffect(() => {
+        console.log(totalUserVolts);
+        if (!firstFetch) {
+            putVroomvolts().then(fetchVroomvolts);
+        }
+    }, [totalUserVolts]);
 
     return (
         <div className="vroom-volts">

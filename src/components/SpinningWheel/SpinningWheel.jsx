@@ -21,7 +21,6 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
         const randomIndex = Math.floor(Math.random() * prizes.length);
         setPrize(prizes[randomIndex]);
         // Update the prize state with the randomly selected prize
-        console.log(totalUserVolts);
         if (prizes[randomIndex] === "1") {
             setTimeout(() => {
                 setSpinning(false);
@@ -56,6 +55,9 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
             setTimeout(() => {
                 setSpinning(false);
                 setTotalUserVolts((prev) => prev - 25);
+                if (totalUserVolts < 0) {
+                    setTotalUserVolts(0);
+                }
             }, 5000);
 
             prizes = ["4", "5", "1", "2", "3"];
@@ -72,17 +74,26 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
             // setTotalUserVolts(Math.floor(totalUserVolts / 2) + 1);
             console.log("case 5" + totalUserVolts);
         }
-        setTimeout(() => {
-            if (totalUserVolts < 0) {
-                setTotalUserVolts(0);
-            }
-        }, 5000);
+
         // Set the spinning status to true
         // setSpinning(true);
     };
     const finalAngle =
         Math.floor(Math.floor(Math.random() * (50 - 20 + 1)) + 20) * 360 +
         72 * prizes.indexOf(prize);
+
+    const putVroomvolts = () => {
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    vroomvolts: totalUserVolts,
+                }),
+            }
+        );
+    };
     return (
         <div
             style={{
