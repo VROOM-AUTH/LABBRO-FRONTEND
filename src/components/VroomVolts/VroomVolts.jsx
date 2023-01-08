@@ -12,11 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 const VroomVolts = ({ userData }) => {
     const [userLevel, setUserLevel] = useState(16);
-    const [totalUserVolts, setTotalUserVolts] = useState(100);
+    const [totalUserVolts, setTotalUserVolts] = useState(10);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
     const [levelMax, setLevelMax] = useState(120);
     const Navigate = useNavigate();
+
     return (
         <div className="vroom-volts">
             {userData.username === "" ? (
@@ -164,19 +165,37 @@ const VroomVolts = ({ userData }) => {
                 <div id="myModal" className="modal">
                     <div className="modal-content lucky">
                         <div className="modal-header">
-                            <h1
-                                className="close"
-                                onClick={() => {
-                                    setLucky(false);
-                                }}
-                            >
-                                &times;
+                            <h1 className="modal-title-lucky">
+                                Take a spin! It costs 5 VroomVolts.
                             </h1>
+                            <div className="row">
+                                <h1 style={{ justifySelf: "flex-end" }}>
+                                    {totalUserVolts}
+                                </h1>
+                                <img
+                                    alt="coin"
+                                    style={{
+                                        width: "30px",
+                                        marginLeft: "3px",
+                                        marginRight: "3rem",
+                                    }}
+                                    src={coin}
+                                ></img>
+                                <h1
+                                    className="close"
+                                    onClick={() => {
+                                        setLucky(false);
+                                    }}
+                                >
+                                    &times;
+                                </h1>
+                            </div>
                         </div>
                         <div className="modal-body">
                             <SpinningWheel
                                 totalUserVolts={totalUserVolts}
                                 setTotalUserVolts={setTotalUserVolts}
+                                userData={userData}
                             />
                         </div>
                     </div>
