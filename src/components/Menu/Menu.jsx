@@ -122,6 +122,7 @@ const Menu = ({ userData, setUserData }) => {
                                 userId: 0,
                                 isLoggedIn: false,
                             });
+                            localStorage.setItem("isLoggedIn", false);
                             Navigate("/");
                         }}
                     >

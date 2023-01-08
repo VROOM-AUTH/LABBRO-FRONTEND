@@ -37,6 +37,7 @@ const LoginScreen = ({ userData, setUserData }) => {
                             userId: data[0].id,
                             isLoggedIn: true,
                         });
+                        localStorage.setItem("isLoggedIn", true);
                         Navigate("/");
                     }
                 })
