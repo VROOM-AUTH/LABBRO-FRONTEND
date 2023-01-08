@@ -11,8 +11,8 @@ import SpinningWheel from "../SpinningWheel/SpinningWheel";
 import { useNavigate } from "react-router-dom";
 
 const VroomVolts = ({ userData }) => {
-    const [userLevel, setUserLevel] = useState(16);
-    const [totalUserVolts, setTotalUserVolts] = useState(1500);
+    const [userLevel, setUserLevel] = useState(1);
+    const [totalUserVolts, setTotalUserVolts] = useState(0);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
     const [levelMax, setLevelMax] = useState(120);
@@ -82,6 +82,33 @@ const VroomVolts = ({ userData }) => {
             putVroomvolts().then(fetchVroomvolts);
         }
     }, [totalUserVolts]);
+
+    fetch(`${process.env.REACT_APP_BASE_URL}vroomvolts/`)
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw response;
+        })
+        .then((data) => {
+            console.log(data);
+            if (data[0].vroomvolts > totalUserVolts) {
+                setUserLevel(data[0].id);
+                setLevelMax(data[0].vroomvolts);
+            } else if (data[1].vroomvolts > totalUserVolts) {
+                setUserLevel(data[1].id);
+                setLevelMax(data[1].vroomvolts);
+            } else if (data[2].vroomvolts > totalUserVolts) {
+                setUserLevel(data[2].id);
+                setLevelMax(data[2].vroomvolts);
+            } else if (data[3].vroomvolts > totalUserVolts) {
+                setUserLevel(data[3].id);
+                setLevelMax(data[3].vroomvolts);
+            } else if (data[4].vroomvolts > totalUserVolts) {
+                setUserLevel(data[4].id);
+                setLevelMax(data[4].vroomvolts);
+            }
+        });
 
     return (
         <div className="vroom-volts">
