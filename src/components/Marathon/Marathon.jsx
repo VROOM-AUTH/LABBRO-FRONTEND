@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Marathon.css";
-
+import first from "../../assets/first.png";
 export default function Marathon() {
     const [loading1, setLoading1] = useState(true);
     const [loading2, setLoading2] = useState(true);
@@ -65,34 +65,38 @@ export default function Marathon() {
 
     return (
         <div className="marathon">
-            {loading1 && loading2 ? (
+            {loading1 || loading2 ? (
                 <></>
             ) : (
-                <div>
-                    <p>
-                        First is{" "}
-                        {
-                            idToName.find(
-                                (o) => o.id === marathonData[0].user_id // SEARCHES FOR the objects whos id is the id of the first in the time array
-                            ).name
-                        }
-                    </p>
-                    <p>
-                        Second is{" "}
-                        {
-                            idToName.find(
-                                (o) => o.id === marathonData[1].user_id // SEARCHES FOR the objects whos id is the id of the first in the time array
-                            ).name
-                        }
-                    </p>
-                    <p>
-                        Third is{" "}
-                        {
-                            idToName.find(
-                                (o) => o.id === marathonData[2].user_id // SEARCHES FOR the objects whos id is the id of the first in the time array
-                            ).name
-                        }
-                    </p>
+                <div className="leaderboard-container">
+                    <div>
+                        <h1 className="second">
+                            {
+                                idToName.find(
+                                    (o) => o.id === marathonData[1].user_id // SEARCHES FOR the objects whos id is the id of the first in the time array
+                                ).name
+                            }
+                        </h1>
+                    </div>
+                    <div className="marathon-card">
+                        <h1 className="first">
+                            {
+                                idToName.find(
+                                    (o) => o.id === marathonData[0].user_id // SEARCHES FOR the objects whos id is the id of the first in the time array
+                                ).name
+                            }
+                        </h1>
+                        <img src={first} alt="first" width="400px"></img>
+                    </div>
+                    <div>
+                        <h1 className="third">
+                            {
+                                idToName.find(
+                                    (o) => o.id === marathonData[2].user_id // SEARCHES FOR the objects whos id is the id of the first in the time array
+                                ).name
+                            }
+                        </h1>
+                    </div>
                 </div>
             )}
         </div>

@@ -110,9 +110,9 @@ const Menu = ({ userData, setUserData }) => {
                     </Link>
                 </div>
                 <div className={isClicked4 ? "clicked" : "non-clicked"}>
-                    <a href="/marathon" onClick={() => menuClicked(4)}>
+                    <Link to="/marathon" onClick={() => menuClicked(4)}>
                         Marathon
-                    </a>
+                    </Link>
                 </div>
             </div>
             {userData.username != "" ? (

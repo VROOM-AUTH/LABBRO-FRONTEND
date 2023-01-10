@@ -23,7 +23,7 @@ export default function MainScreen({ path, userData, setUserData }) {
                 ) : path === "/users" ? (
                     <Users />
                 ) : path === "/marathon" ? (
-                    <Marathon />
+                    <Marathon userData={userData} />
                 ) : (
                     <></>
                 )}
