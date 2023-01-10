@@ -57,6 +57,16 @@ function App() {
                             />
                         }
                     />
+                    <Route
+                        path="/marathon"
+                        element={
+                            <MainScreen
+                                path={"/marathon"}
+                                userData={userData}
+                                setUserData={setUserData}
+                            />
+                        }
+                    />
                 </Route>
             </Routes>
         </Router>

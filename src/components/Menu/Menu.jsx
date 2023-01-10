@@ -28,6 +28,12 @@ const Menu = ({ userData, setUserData }) => {
             setIsClicked2(false);
             setIsClicked4(false);
             setActiveMenu("Users");
+        } else if (url.includes("marathon")) {
+            setIsClicked3(false);
+            setIsClicked1(false);
+            setIsClicked2(false);
+            setIsClicked4(true);
+            setActiveMenu("Marathon");
         } else {
             setIsClicked1(true);
             setIsClicked2(false);
@@ -104,7 +110,7 @@ const Menu = ({ userData, setUserData }) => {
                     </Link>
                 </div>
                 <div className={isClicked4 ? "clicked" : "non-clicked"}>
-                    <a href="#" onClick={() => menuClicked(4)}>
+                    <a href="/marathon" onClick={() => menuClicked(4)}>
                         Marathon
                     </a>
                 </div>

@@ -15,7 +15,7 @@ const VroomVolts = ({ userData }) => {
     const [totalUserVolts, setTotalUserVolts] = useState(0);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
-    const [levelMax, setLevelMax] = useState(120);
+    const [levelMax, setLevelMax] = useState(2000);
     const [firstFetch, setFirstFetch] = useState(true);
     const Navigate = useNavigate();
 
