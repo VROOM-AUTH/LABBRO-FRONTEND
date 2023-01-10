@@ -114,37 +114,39 @@ const Menu = ({ userData, setUserData }) => {
                         Marathon
                     </Link>
                 </div>
-            </div>
-            {userData.username != "" ? (
-                <>
-                    <div className="component-parts checkout-container">
-                        <button className="checkout-button">Check-Out!</button>
-                    </div>
+                {userData.username != "" ? (
+                    <>
+                        <div className="component-parts checkout-container">
+                            <button className="checkout-button">
+                                Check-Out!
+                            </button>
+                        </div>
+                        <button
+                            className="mainButton h3 no-margin"
+                            onClick={() => {
+                                setUserData({
+                                    username: "",
+                                    userId: 0,
+                                    isLoggedIn: false,
+                                });
+                                localStorage.setItem("isLoggedIn", false);
+                                Navigate("/");
+                            }}
+                        >
+                            Log out
+                        </button>
+                    </>
+                ) : (
                     <button
                         className="mainButton h3"
                         onClick={() => {
-                            setUserData({
-                                username: "",
-                                userId: 0,
-                                isLoggedIn: false,
-                            });
-                            localStorage.setItem("isLoggedIn", false);
-                            Navigate("/");
+                            Navigate("/login");
                         }}
                     >
-                        Log out
+                        Login
                     </button>
-                </>
-            ) : (
-                <button
-                    className="mainButton h3"
-                    onClick={() => {
-                        Navigate("/login");
-                    }}
-                >
-                    Login
-                </button>
-            )}
+                )}
+            </div>
         </div>
     );
 };

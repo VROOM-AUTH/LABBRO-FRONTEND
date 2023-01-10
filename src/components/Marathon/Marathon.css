@@ -9,29 +9,48 @@
     box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1),
         -20px -20px 60px rgba(0, 0, 0, 0.1);
 }
+.marathon-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: white;
+    margin: 0 50px 0 50px;
+}
 
 .leaderboard-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    height: 75%;
+    height: 100%;
+    width: 100%;
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    height: fit-content;
     width: 100%;
 }
 
 .first {
-    color: rgb(255, 230, 0);
+    color: #dcaf3c;
     font-size: 65px;
+    margin: 1rem;
 }
 
 .second {
     color: rgb(199, 199, 199);
     font-size: 45px;
+    margin: 1rem;
 }
 
 .third {
     color: #cd7f32;
     font-size: 35px;
+    margin: 1rem;
 }
 
 .marathon-card {
@@ -39,4 +58,18 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    background-color: #23233785;
+    border-radius: 30px;
+    padding: 1rem;
+    height: fit-content;
+    z-index: 1;
+    transition: 0.4s;
+}
+.marathon-card:hover {
+    transform: scale(1.03);
+}
+
+.marathon-card p {
+    color: white;
+    font-size: 20px;
 }

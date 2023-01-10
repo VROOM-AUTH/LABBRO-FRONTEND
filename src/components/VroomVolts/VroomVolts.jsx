@@ -214,7 +214,7 @@ const VroomVolts = ({ userData }) => {
             {showHowTo ? (
                 <div id="myModal" className="modal">
                     <div className="modal-content how">
-                        <div className="modal-header">
+                        <div className="modal-header-how">
                             <h1
                                 className="close"
                                 onClick={() => {

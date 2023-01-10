@@ -148,7 +148,7 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
                     //     : "cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
             >
-                <img src={wheel} width="500vh" alt="Spinning wheel" />
+                <img src={wheel} width="700vw" alt="Spinning wheel" />
             </div>
         </div>
     );

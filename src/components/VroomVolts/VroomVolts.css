@@ -201,6 +201,16 @@ body {
     height: 50px;
 }
 
+.modal-header-how {
+    background-color: #222338;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
 .modal-body {
     padding: 2px 16px;
     color: #fff;
