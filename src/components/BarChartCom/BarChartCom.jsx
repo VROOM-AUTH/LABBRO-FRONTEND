@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import './BarChartCom.css';
+import React, { useEffect, useState } from "react";
+import "./BarChartCom.css";
 import {
     BarChart,
     XAxis,
@@ -9,18 +9,31 @@ import {
     Legend,
     Bar,
     ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="custom-tooltip">
+                <p className="label">{payload[0].payload.name}</p>
+                <p className="label">{`${Math.floor(
+                    payload[0].value
+                )} h and ${Math.floor((payload[0].value * 60) % 60)} min`}</p>
+            </div>
+        );
+    }
 
+    return null;
+};
 const MyBarChart = ({ data }) => {
     return (
-        <ResponsiveContainer width='100%' height='40%'>
+        <ResponsiveContainer width="100%" height="40%">
             <BarChart width={600} data={data}>
                 <defs>
-                    <linearGradient id='color' x1='0' y1='0' x2='0' y2='1'>
-                        <stop offset='5%' stopColor='#C22FF0' stopOpacity={1} />
+                    <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#C22FF0" stopOpacity={1} />
                         <stop
-                            offset='95%'
-                            stopColor='#6C31E5'
+                            offset="95%"
+                            stopColor="#6C31E5"
                             stopOpacity={0}
                         />
                         {/* <stop offset="100%" stopColor="#000000" stopOpacity={0} /> */}
@@ -28,35 +41,36 @@ const MyBarChart = ({ data }) => {
                 </defs>
                 <defs>
                     <linearGradient
-                        id='color-stroke'
-                        x1='0'
-                        y1='0'
-                        x2='0'
-                        y2='1'>
+                        id="color-stroke"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                    >
                         <stop
-                            offset='5%'
-                            stopColor='#E94560'
+                            offset="5%"
+                            stopColor="#E94560"
                             stopOpacity={0.8}
                         />
                         <stop
-                            offset='95%'
-                            stopColor='#E94560'
+                            offset="95%"
+                            stopColor="#E94560"
                             stopOpacity={0.0}
                         />
                     </linearGradient>
                 </defs>
                 <CartesianGrid
-                    strokeDasharray='3 3'
+                    strokeDasharray="3 3"
                     vertical={false}
                     opacity={0.1}
                 />
-                <XAxis dataKey='name' color='#E94560' />
+                <XAxis dataKey="name" color="#E94560" />
                 <YAxis />
-                <Tooltip />
-                <Legend color='#16213E' />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend color="#16213E" />
                 <Bar
-                    dataKey='hours'
-                    fill='url(#color)'
+                    dataKey="hours"
+                    fill="url(#color)"
                     radius={10}
                     // stroke={"url(#color-stroke)"}
                     strokeWidth={2}

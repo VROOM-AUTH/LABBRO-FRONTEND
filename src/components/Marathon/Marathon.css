@@ -36,7 +36,8 @@
 }
 
 .first {
-    color: #dcaf3c;
+    /* color: #dcaf3c; */
+    color: #fdca23;
     font-size: 65px;
     margin: 1rem;
 }

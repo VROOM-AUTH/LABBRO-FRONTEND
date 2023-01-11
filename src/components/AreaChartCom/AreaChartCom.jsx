@@ -25,7 +25,12 @@ const AreaChartCom = () => {
                 let tmp_data = [];
                 for (let entry of data) {
                     tmp_data.push({
-                        name: entry.date,
+                        // name: entry.date,
+                        name: new Date(entry.date).toLocaleDateString("en-US", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                        }),
                         hours: +entry.session_seconds / 3600,
                     });
                 }
@@ -84,7 +89,6 @@ const AreaChartCom = () => {
 
         return null;
     };
-
     return (
         <ResponsiveContainer width="100%" height="90%">
             <AreaChart

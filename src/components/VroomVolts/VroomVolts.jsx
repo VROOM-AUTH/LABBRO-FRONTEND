@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const VroomVolts = ({ userData }) => {
     const [userLevel, setUserLevel] = useState(1);
-    const [totalUserVolts, setTotalUserVolts] = useState(0);
+    const [totalUserVolts, setTotalUserVolts] = useState(1);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
     const [levelMax, setLevelMax] = useState(2000);
