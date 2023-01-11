@@ -10,6 +10,7 @@ const RegisterScreen = ({}) => {
     const [name, setName] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
+    const bcrypt = require("bcryptjs");
 
     // const hashCode = (s) =>
     //     s.split("").reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0);
@@ -51,9 +52,14 @@ const RegisterScreen = ({}) => {
     };
 
     useEffect(() => {
-        setHashedPwd(
-            CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
-        );
+        // setHashedPwd(
+        //     CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
+        // );
+        bcrypt.hash(pwd, 10, function (err, hash) {
+            // Store the hash in your DB
+            setHashedPwd(hash);
+            console.log(hashedPwd);
+        });
         // console.log(hashedPwd.toString());
     }, [pwd]);
 

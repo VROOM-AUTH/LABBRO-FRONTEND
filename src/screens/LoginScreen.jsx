@@ -10,7 +10,7 @@ const LoginScreen = ({ userData, setUserData }) => {
     const [pwd, setPwd] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
-
+    const bcrypt = require("bcryptjs");
     useEffect(() => {
         // setHashedPwd(CryptoJS.AES.encrypt(pwd, "Secret"));
         setHashedPwd(
@@ -29,17 +29,32 @@ const LoginScreen = ({ userData, setUserData }) => {
                     throw response;
                 })
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     ///THIS IS WORKING WHEN ONLY ONE USER WITH EACH NAME EXISTS .IT IS CHECKING THE FIRST USER WITH THIS NAME
-                    if (data[0].password == hashedPwd) {
-                        setUserData({
-                            username: data[0].name,
-                            userId: data[0].id,
-                            isLoggedIn: true,
-                        });
-                        localStorage.setItem("isLoggedIn", true);
-                        Navigate("/");
-                    }
+
+                    // if (data[0].password == hashedPwd) {
+                    //     setUserData({
+                    //         username: data[0].name,
+                    //         userId: data[0].id,
+                    //         isLoggedIn: true,
+                    //     });
+                    //     localStorage.setItem("isLoggedIn", true);
+                    //     Navigate("/");
+                    // }
+                    bcrypt.compare(pwd, data[0].password, function (err, res) {
+                        if (res) {
+                            console.log("Password matches.");
+                            setUserData({
+                                username: data[0].name,
+                                userId: data[0].id,
+                                isLoggedIn: true,
+                            });
+                            // localStorage.setItem("isLoggedIn", true);
+                            Navigate("/");
+                        } else {
+                            console.log("Password does not match.");
+                        }
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
