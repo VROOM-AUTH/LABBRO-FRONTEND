@@ -73,3 +73,28 @@
     color: white;
     font-size: 20px;
 }
+
+.position {
+    color: #fff;
+    width: 80%;
+    margin: 0 0 1rem;
+}
+.login-for-position {
+    color: #fff;
+    width: 80%;
+    margin: 0 0 1rem;
+    font-size: 25px;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.total-time {
+    color: #fff;
+    width: 80%;
+    margin: 0 0 1rem;
+    font-size: 25px;
+}

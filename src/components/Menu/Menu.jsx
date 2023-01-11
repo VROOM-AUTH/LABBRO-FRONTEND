@@ -74,7 +74,7 @@ const Menu = ({ userData, setUserData }) => {
         //         setActiveMenu('Marathon');
         // }
     };
-    console.log(userData);
+    // console.log(userData);
 
     return (
         <div className="menu">

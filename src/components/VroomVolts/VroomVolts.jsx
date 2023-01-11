@@ -20,7 +20,7 @@ const VroomVolts = ({ userData }) => {
     const Navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Fetching initial vroomvolts value...");
+        // console.log("Fetching initial vroomvolts value...");
         fetch(
             `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
         )
@@ -31,7 +31,7 @@ const VroomVolts = ({ userData }) => {
                 throw response;
             })
             .then((data) => {
-                console.log("Initial vroomvolts value:", data);
+                // console.log("Initial vroomvolts value:", data);
                 setTotalUserVolts(data.vroomvolts);
                 setFirstFetch(false);
             });
@@ -77,7 +77,7 @@ const VroomVolts = ({ userData }) => {
             });
     };
     useEffect(() => {
-        console.log(totalUserVolts);
+        // console.log(totalUserVolts);
         if (!firstFetch) {
             putVroomvolts().then(fetchVroomvolts);
         }
@@ -91,7 +91,7 @@ const VroomVolts = ({ userData }) => {
             throw response;
         })
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             if (data[0].vroomvolts > totalUserVolts) {
                 setUserLevel(data[0].id);
                 setLevelMax(data[0].vroomvolts);

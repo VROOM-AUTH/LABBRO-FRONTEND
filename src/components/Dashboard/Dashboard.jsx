@@ -8,9 +8,11 @@ const Dashboard = () => {
     const [totalUsers, setTotalUsers] = useState(0);
     const [usersInLab, setUsersInLab] = useState(0);
     const [userHours, setUserHours] = useState([{}]);
+    const [idToName, setIdToName] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log(process.env.REACT_APP_BASE_URL);
+        // console.log(process.env.REACT_APP_BASE_URL);
         fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`)
             .then((response) => {
                 if (response.ok) {
@@ -70,31 +72,55 @@ const Dashboard = () => {
                 setTotalUsers(data.length);
             });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=name,id`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((data) => {
-                let counter = 0;
-                let temp_arr = [];
-                for (let user of data) {
-                    if (user.in_lab) {
-                        counter++;
-                    }
-                    temp_arr.push({
-                        name: user.user_id,
-                        hours: user.total_seconds / 3600,
-                    });
-                }
-                setUsersInLab(counter);
-                setUserHours(temp_arr);
-            })
-            .catch((error) => {
-                console.log(`Error: ${error}`);
+                setIdToName(data);
+                setLoading(false);
             });
     }, []);
+    useEffect(() => {
+        if (!loading) {
+            fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .then((data) => {
+                    let counter = 0;
+                    let temp_arr = [];
+
+                    for (let user of data) {
+                        if (user.in_lab) {
+                            counter++;
+                        }
+                        const name =
+                            idToName.find(
+                                (o) => o.id === user.user_id // SEARCHES FOR the objects whos id is the id in the time array
+                            ).name || "";
+                        temp_arr.push({
+                            // name:
+                            //     idToName.find(
+                            //         (o) => o.id === user.user_id // SEARCHES FOR the objects whos id is the id in the time array
+                            //     ).name || "",
+                            name: name,
+                            // name: user.user_id,
+                            hours: user.total_seconds / 3600,
+                        });
+                    }
+                    setUsersInLab(counter);
+                    setUserHours(temp_arr);
+                })
+                .catch((error) => {
+                    console.log(`Error: ${error}`);
+                });
+        }
+    }, [loading]);
 
     return (
         <div className="dashboard">

@@ -37,7 +37,7 @@ const ActivityPanel = () => {
             })
             .then((data) => {
                 let temp_arr = [];
-                console.log(data);
+                // console.log(data);
                 for (let entry of data) {
                     if (entry.status === 0) {
                         temp_arr.push(

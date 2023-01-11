@@ -4,7 +4,7 @@ import Confetti from "../Confetti/Confetti";
 import first from "../../assets/first.png";
 import second from "../../assets/second.png";
 import third from "../../assets/third.png";
-export default function Marathon() {
+export default function Marathon({ userData }) {
     const [loading1, setLoading1] = useState(true);
     const [loading2, setLoading2] = useState(true);
     const [marathonData, setMaratonData] = useState([]);
@@ -20,10 +20,10 @@ export default function Marathon() {
                 throw response;
             })
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 data.sort((a, b) => b.total_seconds - a.total_seconds);
-                console.log("Sorted Data is:");
-                console.log(data);
+                // console.log("Sorted Data is:");
+                // console.log(data);
                 setMaratonData(data);
                 setLoading1(false);
             });
@@ -121,6 +121,71 @@ export default function Marathon() {
                                 </p>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        {userData.isLoggedIn ? (
+                            <div className="center">
+                                <h1 className="position">
+                                    {/* TRANSFORMS the array to an array of ids and finds the index of the logged in user id. Plus one because index starts at 0 */}
+                                    You are {""}
+                                    <span
+                                        style={{
+                                            color: "rgba(194, 89, 228, 1)",
+                                        }}
+                                    >
+                                        {marathonData
+                                            .map((e) => e.user_id)
+                                            .indexOf(userData.userId) + 1}
+                                        {/* CHECKS YOUR POSITION SO IT CAN WRITE 1st 2nd 3rd 4th 5th ..... */}
+                                        {marathonData
+                                            .map((e) => e.user_id)
+                                            .indexOf(userData.userId) +
+                                            1 ===
+                                        1
+                                            ? "st "
+                                            : marathonData
+                                                  .map((e) => e.user_id)
+                                                  .indexOf(userData.userId) +
+                                                  1 ===
+                                              2
+                                            ? "nd "
+                                            : marathonData
+                                                  .map((e) => e.user_id)
+                                                  .indexOf(userData.userId) +
+                                                  1 ===
+                                              3
+                                            ? "rd "
+                                            : "th "}{" "}
+                                    </span>
+                                    on the leaderboard.
+                                </h1>
+                                <h1 className="total-time">
+                                    You have spent a total time of{" "}
+                                    <span
+                                        style={{
+                                            color: "rgba(194, 89, 228, 1)",
+                                        }}
+                                    >
+                                        {convertSeconds(
+                                            marathonData[
+                                                marathonData
+                                                    .map((e) => e.user_id)
+                                                    .indexOf(userData.userId)
+                                            ].total_seconds
+                                        )}{" "}
+                                    </span>
+                                    in the lab!
+                                </h1>
+                            </div>
+                        ) : (
+                            <div className="center">
+                                <h1 className="login-for-position">
+                                    Login to view your position on the
+                                    leaderboard and your total time spent in the
+                                    lab!
+                                </h1>
+                            </div>
+                        )}
                     </div>
                 </>
             )}

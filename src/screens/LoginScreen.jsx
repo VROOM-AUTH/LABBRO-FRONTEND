@@ -16,7 +16,7 @@ const LoginScreen = ({ userData, setUserData }) => {
         setHashedPwd(
             CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
         );
-        console.log(hashedPwd.toString());
+        // console.log(hashedPwd.toString());
     }, [pwd]);
     const login = async (event) => {
         event.preventDefault();

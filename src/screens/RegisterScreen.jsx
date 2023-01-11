@@ -17,7 +17,7 @@ const RegisterScreen = ({}) => {
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
-            console.log("try");
+            // console.log("try");
             fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`)
                 .then((response) => {
                     if (response.ok) {
@@ -26,7 +26,7 @@ const RegisterScreen = ({}) => {
                     throw response;
                 })
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     if (data[0].password == "" && data[0].name != null) {
                         fetch(
                             `${process.env.REACT_APP_BASE_URL}users/${data[0].id}`,
@@ -38,7 +38,7 @@ const RegisterScreen = ({}) => {
                                 }),
                             }
                         );
-                        console.log("Register");
+                        // console.log("Register");
                         Navigate("/login");
                     }
                 })
@@ -54,7 +54,7 @@ const RegisterScreen = ({}) => {
         setHashedPwd(
             CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
         );
-        console.log(hashedPwd.toString());
+        // console.log(hashedPwd.toString());
     }, [pwd]);
 
     // const login = () => {
