@@ -52,12 +52,15 @@ const LoginScreen = ({ userData, setUserData }) => {
                             // localStorage.setItem("isLoggedIn", true);
                             Navigate("/");
                         } else {
+                            alert("Incorrect password!");
+
                             console.log("Password does not match.");
                         }
                     });
                 })
                 .catch((error) => {
                     console.log(error);
+                    alert("Username does not exist!");
                 });
         } catch (error) {
             alert(error.message);

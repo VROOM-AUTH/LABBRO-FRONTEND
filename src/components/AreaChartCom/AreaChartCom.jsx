@@ -26,7 +26,7 @@ const AreaChartCom = () => {
                 for (let entry of data) {
                     tmp_data.push({
                         // name: entry.date,
-                        name: new Date(entry.date).toLocaleDateString("en-US", {
+                        name: new Date(entry.date).toLocaleDateString("en-UK", {
                             day: "2-digit",
                             month: "2-digit",
                             year: "numeric",
