@@ -17,11 +17,11 @@ export default function MainScreen({ path, userData, setUserData }) {
             </div>
             <div className="dashboard-container">
                 {path === "/" ? (
-                    <Dashboard />
+                    <Dashboard userData={userData} />
                 ) : path === "/volts" ? (
                     <VroomVolts userData={userData} />
                 ) : path === "/users" ? (
-                    <Users />
+                    <Users userData={userData} />
                 ) : path === "/marathon" ? (
                     <Marathon userData={userData} />
                 ) : (

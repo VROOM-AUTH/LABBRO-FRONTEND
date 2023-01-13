@@ -4,7 +4,7 @@ import UserEntry from "./UserEntry";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Users = () => {
+const Users = ({ userData }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -30,8 +30,13 @@ const Users = () => {
                 <h1>Vroomers Statistics</h1>
             </div>
             <div className="user-entries">
-                {users.map((id) => (
-                    <UserEntry key={id} user_id={id} />
+                {users.map((id, index) => (
+                    <UserEntry
+                        userData={userData}
+                        key={index}
+                        index={index}
+                        user_id={id}
+                    />
                 ))}
             </div>
         </div>

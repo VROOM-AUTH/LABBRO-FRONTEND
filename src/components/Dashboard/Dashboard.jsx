@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import StatisticsCard from "./StatisticsCard";
 import BarChartCom from "../BarChartCom/BarChartCom";
 import "./Dashboard.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({ userData }) => {
     const [labStatus, setLabStatus] = useState({ closed: "failed" });
     const [totalUsers, setTotalUsers] = useState(0);
     const [usersInLab, setUsersInLab] = useState(0);
     const [userHours, setUserHours] = useState([{}]);
     const [idToName, setIdToName] = useState([]);
     const [loading, setLoading] = useState(true);
+    const Navigate = useNavigate();
 
     useEffect(() => {
         // console.log(process.env.REACT_APP_BASE_URL);
@@ -126,12 +128,12 @@ const Dashboard = () => {
         <div className="dashboard">
             <div className="header">
                 <h1>Dashboard</h1>
-                {labStatus.closed == "Open " && (
+                {labStatus.closed == "Open " && userData.isLoggedIn && (
                     <h2 className="lab-status">
                         Lab is {labStatus.closed} &#128275;
                     </h2>
                 )}
-                {labStatus.closed == "Closed " && (
+                {labStatus.closed == "Closed " && userData.isLoggedIn && (
                     <h2 className="lab-status">
                         Lab is {labStatus.closed} U+1F512
                     </h2>
@@ -146,11 +148,27 @@ const Dashboard = () => {
                     )} min`}
                     icon={1}
                 />
-                <StatisticsCard
-                    title="Vroomers at Lab"
-                    info={usersInLab}
-                    icon={2}
-                />
+                {userData.isLoggedIn ? (
+                    <StatisticsCard
+                        title="Vroomers at Lab"
+                        info={usersInLab}
+                        icon={2}
+                    />
+                ) : (
+                    <div
+                        onClick={() => {
+                            Navigate("/login");
+                            console.log("click");
+                        }}
+                    >
+                        <StatisticsCard
+                            title="Vroomers at Lab"
+                            info="Login to view"
+                            icon={2}
+                        />
+                    </div>
+                )}
+
                 <StatisticsCard
                     title="Lab Opened"
                     info={labStatus.opened_time}

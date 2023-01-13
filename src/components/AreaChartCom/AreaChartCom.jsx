@@ -75,9 +75,10 @@ const AreaChartCom = () => {
         if (active && payload && payload.length) {
             return (
                 <div className="custom-tooltip">
-                    <p className="label">{`${new Date(
+                    {/* <p className="label">{`${new Date(
                         label
-                    ).toDateString()}`}</p>
+                    ).toDateString()}`}</p>{" "} */}
+                    <p className="label">{payload[0].payload.name}</p>
                     <p className="">{`${Math.floor(
                         payload[0].value
                     )} h and ${Math.floor(

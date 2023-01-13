@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, PureComponent } from "react";
 import "./BarChartCom.css";
 import {
     BarChart,
@@ -24,6 +24,27 @@ const CustomTooltip = ({ active, payload, label }) => {
 
     return null;
 };
+
+class CustomizedAxisTick extends PureComponent {
+    render() {
+        const { x, y, stroke, payload } = this.props;
+
+        return (
+            <g transform={`translate(${x},${y})`}>
+                <text
+                    x={0}
+                    y={0}
+                    dy={16}
+                    textAnchor="end"
+                    fill="#666"
+                    transform="rotate(-35)"
+                >
+                    {payload.value}
+                </text>
+            </g>
+        );
+    }
+}
 const MyBarChart = ({ data }) => {
     return (
         <ResponsiveContainer width="100%" height="40%">
@@ -64,10 +85,15 @@ const MyBarChart = ({ data }) => {
                     vertical={false}
                     opacity={0.1}
                 />
-                <XAxis dataKey="name" color="#E94560" />
+                <XAxis
+                    tick={<CustomizedAxisTick />}
+                    interval={0}
+                    dataKey="name"
+                    color="#E94560"
+                />
                 <YAxis />
                 <Tooltip content={<CustomTooltip />} />
-                <Legend color="#16213E" />
+                <Legend color="#16213E" align="left" />
                 <Bar
                     dataKey="hours"
                     fill="url(#color)"
