@@ -122,7 +122,7 @@ const Menu = ({ userData, setUserData }) => {
                             </button>
                         </div>
                         <button
-                            className="mainButton h3 no-margin"
+                            className="mainButton h3 no-margin menu-login"
                             onClick={() => {
                                 setUserData({
                                     username: "",
@@ -138,7 +138,7 @@ const Menu = ({ userData, setUserData }) => {
                     </>
                 ) : (
                     <button
-                        className="mainButton h3"
+                        className="mainButton h3 menu-login"
                         onClick={() => {
                             Navigate("/login");
                         }}

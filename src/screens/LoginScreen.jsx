@@ -102,8 +102,18 @@ const LoginScreen = ({ userData, setUserData }) => {
                         </button>
                     </form>
                     <div className="columnB">
-                        <img alt="Bro" height="200px" src={LBL}></img>
-                        <img alt="vroom" height="250px" src={VL}></img>
+                        <img
+                            className="bro"
+                            alt="Bro"
+                            height="200px"
+                            src={LBL}
+                        ></img>
+                        <img
+                            className="vroom"
+                            alt="vroom"
+                            height="250px"
+                            src={VL}
+                        ></img>
                     </div>
                 </div>
             </div>

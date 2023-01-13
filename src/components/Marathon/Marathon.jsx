@@ -54,11 +54,11 @@ export default function Marathon({ userData }) {
                 <Confetti />
             ) : (
                 <>
-                    <Confetti />
                     <div className="marathon-header">
                         <h1>Marathon</h1>
                     </div>
                     <div className="leaderboard-container">
+                        <Confetti />
                         <div className="cards-container">
                             <div className="marathon-card">
                                 <h1 className="second">

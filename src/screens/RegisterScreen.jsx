@@ -69,7 +69,9 @@ const RegisterScreen = ({}) => {
     return (
         <div className="big-container">
             <div className="column box">
-                <h1 className="h1">Welcome to Lab Bro Portal</h1>
+                <h1 className="loginreg-title h1">
+                    Register to Lab Bro Portal
+                </h1>
                 <div className="container">
                     <form onSubmit={handleSignup} className="column">
                         <input
@@ -104,8 +106,18 @@ const RegisterScreen = ({}) => {
                         </button>
                     </form>
                     <div className="columnB">
-                        <img alt="Bro" height="200px" src={LBL}></img>
-                        <img alt="vroom" height="250px" src={VL}></img>
+                        <img
+                            className="bro"
+                            alt="Bro"
+                            height="200px"
+                            src={LBL}
+                        ></img>
+                        <img
+                            className="vroom"
+                            alt="vroom"
+                            height="250px"
+                            src={VL}
+                        ></img>
                     </div>
                 </div>
             </div>

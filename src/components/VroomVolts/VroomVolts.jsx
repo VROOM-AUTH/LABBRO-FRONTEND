@@ -45,6 +45,7 @@ const VroomVolts = ({ userData }) => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         vroomvolts: totalUserVolts,
+                        should_update: 0,
                     }),
                 }
             )
@@ -116,7 +117,7 @@ const VroomVolts = ({ userData }) => {
                 <div className="nonlogin">
                     <h1>Please Login to view your Vroomvolts</h1>
                     <button
-                        className="mainButton h3"
+                        className="mainButton h3 menu-login"
                         onClick={() => Navigate("/login")}
                     >
                         Login

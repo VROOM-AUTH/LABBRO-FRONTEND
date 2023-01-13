@@ -128,3 +128,24 @@ a {
 .no-margin {
     margin: 0;
 }
+
+@media only screen and (max-width: 800px) {
+    .menu-login {
+        width: 250px;
+        height: 50px;
+        font-size: 18px;
+        margin-top: 2rem;
+    }
+    .clicked {
+        font-size: 18px;
+    }
+    .non-clicked {
+        font-size: 18px;
+    }
+    .checkout-container {
+        width: 100%;
+        height: 500px !important;
+        padding: 0 !important;
+        margin-top: 2rem;
+    }
+}

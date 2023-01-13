@@ -3788,3 +3788,10 @@ body {
         left: 115%;
     }
 }
+
+@media only screen and (max-width: 800px) {
+    .wrapper {
+        min-height: 180vh;
+        min-width: 90vw;
+    }
+}

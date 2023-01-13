@@ -155,7 +155,7 @@ const Dashboard = ({ userData }) => {
                         icon={2}
                     />
                 ) : (
-                    <div
+                    <span
                         onClick={() => {
                             Navigate("/login");
                             console.log("click");
@@ -165,8 +165,12 @@ const Dashboard = ({ userData }) => {
                             title="Vroomers at Lab"
                             info="Login to view"
                             icon={2}
+                            // onClick={() => {
+                            //     Navigate("/login");
+                            //     console.log("click");
+                            // }}
                         />
-                    </div>
+                    </span>
                 )}
 
                 <StatisticsCard

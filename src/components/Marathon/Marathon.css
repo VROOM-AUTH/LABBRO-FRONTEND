@@ -99,3 +99,9 @@
     margin: 0 0 1rem;
     font-size: 25px;
 }
+
+@media only screen and (max-width: 800px) {
+    .marathon-card {
+        margin: 2rem 0;
+    }
+}
