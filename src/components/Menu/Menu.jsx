@@ -11,6 +11,8 @@ const Menu = ({ userData, setUserData }) => {
     const [isClicked2, setIsClicked2] = useState(false);
     const [isClicked3, setIsClicked3] = useState(false);
     const [isClicked4, setIsClicked4] = useState(false);
+    const [userInLab, setUserInLab] = useState(false);
+    const [areYouSure, setAreYouSure] = useState(false);
     const Navigate = useNavigate();
 
     useEffect(() => {
@@ -76,6 +78,35 @@ const Menu = ({ userData, setUserData }) => {
     };
     // console.log(userData);
 
+    useEffect(() => {
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then((data) => {
+                // console.log(data);
+                setUserInLab(data.in_lab);
+            });
+    }, [areYouSure]);
+
+    const checkout = () => {
+        fetch(`${process.env.REACT_APP_BASE_URL}attendance/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user_id: userData.userId,
+            }),
+        }).catch((error) => {
+            console.log(error);
+        });
+        console.log("done");
+    };
+
     return (
         <div className="menu">
             <div className="component-parts active-menu-container">
@@ -116,11 +147,25 @@ const Menu = ({ userData, setUserData }) => {
                 </div>
                 {userData.username != "" ? (
                     <>
-                        <div className="component-parts checkout-container">
-                            <button className="checkout-button">
-                                Check-Out!
-                            </button>
-                        </div>
+                        {userInLab ? (
+                            <div className="component-parts checkout-container">
+                                <button
+                                    className="checkout-button"
+                                    onClick={() => {
+                                        setAreYouSure(true);
+                                        window.scrollTo({
+                                            top: 800,
+                                            behavior: "smooth",
+                                        });
+                                    }}
+                                >
+                                    Check-Out!
+                                </button>
+                            </div>
+                        ) : (
+                            <></>
+                        )}
+
                         <button
                             className="mainButton h3 no-margin menu-login"
                             onClick={() => {
@@ -129,7 +174,8 @@ const Menu = ({ userData, setUserData }) => {
                                     userId: 0,
                                     isLoggedIn: false,
                                 });
-                                localStorage.setItem("isLoggedIn", false);
+                                // localStorage.setItem("isLoggedIn", false);
+                                localStorage.clear();
                                 Navigate("/");
                             }}
                         >
@@ -147,6 +193,49 @@ const Menu = ({ userData, setUserData }) => {
                     </button>
                 )}
             </div>
+            {areYouSure ? (
+                <div id="myModal" className="modal">
+                    <div className="modal-content how">
+                        <div className="modal-header-how">
+                            <h1
+                                className="close"
+                                onClick={() => {
+                                    setAreYouSure(false);
+                                }}
+                            >
+                                &times;
+                            </h1>
+                        </div>
+                        <div className="modal-body">
+                            <p className="modal-title">
+                                Are you sure you want to check out?
+                            </p>
+                            <div className="ways-to-win row">
+                                <button
+                                    className="mainButton sure"
+                                    onClick={() => {
+                                        checkout();
+                                        setAreYouSure(false);
+                                        window.location.reload();
+                                    }}
+                                >
+                                    Yes
+                                </button>
+                                <button
+                                    className="secondButton sure"
+                                    onClick={() => {
+                                        setAreYouSure(false);
+                                    }}
+                                >
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 };

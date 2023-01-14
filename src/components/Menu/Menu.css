@@ -128,7 +128,18 @@ a {
 .no-margin {
     margin: 0;
 }
+.row {
+    flex-direction: row !important;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
+.sure {
+    margin: 2rem 1rem !important;
+    color: #fff;
+    font-size: 20px;
+}
 @media only screen and (max-width: 800px) {
     .menu-login {
         width: 250px;

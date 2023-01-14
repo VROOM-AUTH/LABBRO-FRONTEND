@@ -8,9 +8,9 @@ import { useState } from "react";
 
 function App() {
     const [userData, setUserData] = useState({
-        username: "",
-        userId: 0,
-        isLoggedIn: false,
+        username: localStorage.getItem("username") || "",
+        userId: localStorage.getItem("userId") || 0,
+        isLoggedIn: localStorage.getItem("isLoggedIn") || false,
     });
 
     return (

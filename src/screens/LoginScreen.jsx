@@ -49,7 +49,9 @@ const LoginScreen = ({ userData, setUserData }) => {
                                 userId: data[0].id,
                                 isLoggedIn: true,
                             });
-                            // localStorage.setItem("isLoggedIn", true);
+                            localStorage.setItem("username", data[0].name);
+                            localStorage.setItem("userId", data[0].id);
+                            localStorage.setItem("isLoggedIn", true);
                             Navigate("/");
                         } else {
                             alert("Incorrect password!");
