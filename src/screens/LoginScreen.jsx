@@ -10,13 +10,13 @@ const LoginScreen = ({ userData, setUserData }) => {
     const [pwd, setPwd] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
-
+    const bcrypt = require("bcryptjs");
     useEffect(() => {
         // setHashedPwd(CryptoJS.AES.encrypt(pwd, "Secret"));
         setHashedPwd(
             CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
         );
-        console.log(hashedPwd.toString());
+        // console.log(hashedPwd.toString());
     }, [pwd]);
     const login = async (event) => {
         event.preventDefault();
@@ -29,20 +29,38 @@ const LoginScreen = ({ userData, setUserData }) => {
                     throw response;
                 })
                 .then((data) => {
-                    console.log(data);
+                    // console.log(data);
                     ///THIS IS WORKING WHEN ONLY ONE USER WITH EACH NAME EXISTS .IT IS CHECKING THE FIRST USER WITH THIS NAME
-                    if (data[0].password == hashedPwd) {
-                        setUserData({
-                            username: data[0].name,
-                            userId: data[0].id,
-                            isLoggedIn: true,
-                        });
-                        localStorage.setItem("isLoggedIn", true);
-                        Navigate("/");
-                    }
+
+                    // if (data[0].password == hashedPwd) {
+                    //     setUserData({
+                    //         username: data[0].name,
+                    //         userId: data[0].id,
+                    //         isLoggedIn: true,
+                    //     });
+                    //     localStorage.setItem("isLoggedIn", true);
+                    //     Navigate("/");
+                    // }
+                    bcrypt.compare(pwd, data[0].password, function (err, res) {
+                        if (res) {
+                            console.log("Password matches.");
+                            setUserData({
+                                username: data[0].name,
+                                userId: data[0].id,
+                                isLoggedIn: true,
+                            });
+                            // localStorage.setItem("isLoggedIn", true);
+                            Navigate("/");
+                        } else {
+                            alert("Incorrect password!");
+
+                            console.log("Password does not match.");
+                        }
+                    });
                 })
                 .catch((error) => {
                     console.log(error);
+                    alert("Username does not exist!");
                 });
         } catch (error) {
             alert(error.message);
@@ -84,8 +102,18 @@ const LoginScreen = ({ userData, setUserData }) => {
                         </button>
                     </form>
                     <div className="columnB">
-                        <img alt="Bro" height="200px" src={LBL}></img>
-                        <img alt="vroom" height="250px" src={VL}></img>
+                        <img
+                            className="bro"
+                            alt="Bro"
+                            height="200px"
+                            src={LBL}
+                        ></img>
+                        <img
+                            className="vroom"
+                            alt="vroom"
+                            height="250px"
+                            src={VL}
+                        ></img>
                     </div>
                 </div>
             </div>

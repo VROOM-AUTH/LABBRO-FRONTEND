@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
     AreaChart,
     XAxis,
@@ -7,13 +7,13 @@ import {
     Tooltip,
     Area,
     ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 
-import './UserAreaChart.css';
+import "./UserAreaChart.css";
 
 const UserAreaChart = ({ user_id }) => {
     const [data, setData] = useState([]);
-    const [averageTime, setAverageTime] = useState('0 min');
+    const [averageTime, setAverageTime] = useState("0 min");
     const [atLabDuration, setAtLabDuration] = useState(0);
 
     useEffect(() => {
@@ -31,7 +31,11 @@ const UserAreaChart = ({ user_id }) => {
                 let sessionSum = 0;
                 for (let entry of data) {
                     temp_data.push({
-                        name: new Date(entry.date).toLocaleDateString(),
+                        name: new Date(entry.date).toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                        }),
                         hours: +entry.session_seconds / 3600,
                     });
                     sessionSum += +entry.session_seconds / 3600;
@@ -47,7 +51,7 @@ const UserAreaChart = ({ user_id }) => {
                     if (duration > 0) {
                         let minutes = (sessionSum * 60) / duration; // total minutes at Lab
                         let hours = Math.floor(minutes / 60); // total hours at lab
-                        let avgTimeString = '';
+                        let avgTimeString = "";
                         let tmp_min = minutes % 60;
                         if (hours != 0) {
                             avgTimeString = `${hours} h and ${Math.floor(
@@ -98,67 +102,85 @@ const UserAreaChart = ({ user_id }) => {
     //         user: 128,
     //     },
     // ];
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className="custom-tooltip">
+                    <p className="label">{payload[0].payload.name}</p>
+                    <p className="">{`${Math.floor(
+                        payload[0].value
+                    )} h and ${Math.floor(
+                        (payload[0].value * 60) % 60
+                    )} min`}</p>
+                </div>
+            );
+        }
 
+        return null;
+    };
     return (
         <>
-            <div className='statistics-container'>
-                <div className='avg-time'>
+            <div className="statistics-container">
+                <div className="avg-time">
                     <span>Average Time at Lab: </span>
                     {averageTime}
                 </div>
-                <ResponsiveContainer width='100%' height='90%'>
+                <ResponsiveContainer width="100%" height="90%">
                     <AreaChart
                         width={730}
                         height={250}
                         data={data}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                    >
                         <defs>
                             <linearGradient
-                                id='area'
-                                x1='0'
-                                y1='0'
-                                x2='0'
-                                y2='1'>
+                                id="area"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1"
+                            >
                                 <stop
-                                    offset='5%'
-                                    stopColor='#FFDD00'
+                                    offset="5%"
+                                    stopColor="#FFDD00"
                                     stopOpacity={0.8}
                                 />
                                 <stop
-                                    offset='95%'
-                                    stopColor='#FBB034'
+                                    offset="95%"
+                                    stopColor="#FBB034"
                                     stopOpacity={0}
                                 />
                             </linearGradient>
                             <linearGradient
-                                id='line'
-                                x1='0'
-                                y1='0'
-                                x2='0'
-                                y2='1'>
+                                id="line"
+                                x1="0"
+                                y1="0"
+                                x2="0"
+                                y2="1"
+                            >
                                 <stop
-                                    offset='5%'
-                                    stopColor='#BB56E4'
+                                    offset="5%"
+                                    stopColor="#BB56E4"
                                     stopOpacity={1}
                                 />
                                 <stop
-                                    offset='95%'
-                                    stopColor='#7133E5'
+                                    offset="95%"
+                                    stopColor="#7133E5"
                                     stopOpacity={0}
                                 />
                             </linearGradient>
                         </defs>
-                        <XAxis dataKey='name' />
+                        <XAxis dataKey="name" />
                         <YAxis />
-                        <CartesianGrid strokeDasharray='3 3' opacity={0.1} />
-                        <Tooltip />
+                        <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
+                        <Tooltip content={<CustomTooltip />} />
                         <Area
-                            type='monotone'
-                            dataKey='hours'
-                            stroke='url(#area)'
+                            type="monotone"
+                            dataKey="hours"
+                            stroke="url(#area)"
                             strokeWidth={5}
                             fillOpacity={1}
-                            fill='url(#area)'
+                            fill="url(#area)"
                         />
                     </AreaChart>
                 </ResponsiveContainer>

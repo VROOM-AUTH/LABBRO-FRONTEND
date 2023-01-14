@@ -28,6 +28,12 @@ const Menu = ({ userData, setUserData }) => {
             setIsClicked2(false);
             setIsClicked4(false);
             setActiveMenu("Users");
+        } else if (url.includes("marathon")) {
+            setIsClicked3(false);
+            setIsClicked1(false);
+            setIsClicked2(false);
+            setIsClicked4(true);
+            setActiveMenu("Marathon");
         } else {
             setIsClicked1(true);
             setIsClicked2(false);
@@ -68,7 +74,7 @@ const Menu = ({ userData, setUserData }) => {
         //         setActiveMenu('Marathon');
         // }
     };
-    console.log(userData);
+    // console.log(userData);
 
     return (
         <div className="menu">
@@ -104,41 +110,43 @@ const Menu = ({ userData, setUserData }) => {
                     </Link>
                 </div>
                 <div className={isClicked4 ? "clicked" : "non-clicked"}>
-                    <a href="#" onClick={() => menuClicked(4)}>
+                    <Link to="/marathon" onClick={() => menuClicked(4)}>
                         Marathon
-                    </a>
+                    </Link>
                 </div>
-            </div>
-            {userData.username != "" ? (
-                <>
-                    <div className="component-parts checkout-container">
-                        <button className="checkout-button">Check-Out!</button>
-                    </div>
+                {userData.username != "" ? (
+                    <>
+                        <div className="component-parts checkout-container">
+                            <button className="checkout-button">
+                                Check-Out!
+                            </button>
+                        </div>
+                        <button
+                            className="mainButton h3 no-margin menu-login"
+                            onClick={() => {
+                                setUserData({
+                                    username: "",
+                                    userId: 0,
+                                    isLoggedIn: false,
+                                });
+                                localStorage.setItem("isLoggedIn", false);
+                                Navigate("/");
+                            }}
+                        >
+                            Log out
+                        </button>
+                    </>
+                ) : (
                     <button
-                        className="mainButton h3"
+                        className="mainButton h3 menu-login"
                         onClick={() => {
-                            setUserData({
-                                username: "",
-                                userId: 0,
-                                isLoggedIn: false,
-                            });
-                            localStorage.setItem("isLoggedIn", false);
-                            Navigate("/");
+                            Navigate("/login");
                         }}
                     >
-                        Log out
+                        Login
                     </button>
-                </>
-            ) : (
-                <button
-                    className="mainButton h3"
-                    onClick={() => {
-                        Navigate("/login");
-                    }}
-                >
-                    Login
-                </button>
-            )}
+                )}
+            </div>
         </div>
     );
 };

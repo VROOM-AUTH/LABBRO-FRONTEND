@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import StatisticsCard from "./StatisticsCard";
 import BarChartCom from "../BarChartCom/BarChartCom";
 import "./Dashboard.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const Dashboard = () => {
+const Dashboard = ({ userData }) => {
     const [labStatus, setLabStatus] = useState({ closed: "failed" });
     const [totalUsers, setTotalUsers] = useState(0);
     const [usersInLab, setUsersInLab] = useState(0);
     const [userHours, setUserHours] = useState([{}]);
+    const [idToName, setIdToName] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const Navigate = useNavigate();
 
     useEffect(() => {
-        console.log(process.env.REACT_APP_BASE_URL);
+        // console.log(process.env.REACT_APP_BASE_URL);
         fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`)
             .then((response) => {
                 if (response.ok) {
@@ -70,42 +74,66 @@ const Dashboard = () => {
                 setTotalUsers(data.length);
             });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=name,id`)
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((data) => {
-                let counter = 0;
-                let temp_arr = [];
-                for (let user of data) {
-                    if (user.in_lab) {
-                        counter++;
-                    }
-                    temp_arr.push({
-                        name: user.user_id,
-                        hours: user.total_seconds / 3600,
-                    });
-                }
-                setUsersInLab(counter);
-                setUserHours(temp_arr);
-            })
-            .catch((error) => {
-                console.log(`Error: ${error}`);
+                setIdToName(data);
+                setLoading(false);
             });
     }, []);
+    useEffect(() => {
+        if (!loading) {
+            fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .then((data) => {
+                    let counter = 0;
+                    let temp_arr = [];
+
+                    for (let user of data) {
+                        if (user.in_lab) {
+                            counter++;
+                        }
+                        const name =
+                            idToName.find(
+                                (o) => o.id === user.user_id // SEARCHES FOR the objects whos id is the id in the time array
+                            ).name || "";
+                        temp_arr.push({
+                            // name:
+                            //     idToName.find(
+                            //         (o) => o.id === user.user_id // SEARCHES FOR the objects whos id is the id in the time array
+                            //     ).name || "",
+                            name: name,
+                            // name: user.user_id,
+                            hours: user.total_seconds / 3600,
+                        });
+                    }
+                    setUsersInLab(counter);
+                    setUserHours(temp_arr);
+                })
+                .catch((error) => {
+                    console.log(`Error: ${error}`);
+                });
+        }
+    }, [loading]);
 
     return (
         <div className="dashboard">
             <div className="header">
                 <h1>Dashboard</h1>
-                {labStatus.closed == "Open " && (
+                {labStatus.closed == "Open " && userData.isLoggedIn && (
                     <h2 className="lab-status">
                         Lab is {labStatus.closed} &#128275;
                     </h2>
                 )}
-                {labStatus.closed == "Closed " && (
+                {labStatus.closed == "Closed " && userData.isLoggedIn && (
                     <h2 className="lab-status">
                         Lab is {labStatus.closed} U+1F512
                     </h2>
@@ -120,11 +148,31 @@ const Dashboard = () => {
                     )} min`}
                     icon={1}
                 />
-                <StatisticsCard
-                    title="Vroomers at Lab"
-                    info={usersInLab}
-                    icon={2}
-                />
+                {userData.isLoggedIn ? (
+                    <StatisticsCard
+                        title="Vroomers at Lab"
+                        info={usersInLab}
+                        icon={2}
+                    />
+                ) : (
+                    <span
+                        onClick={() => {
+                            Navigate("/login");
+                            console.log("click");
+                        }}
+                    >
+                        <StatisticsCard
+                            title="Vroomers at Lab"
+                            info="Login to view"
+                            icon={2}
+                            // onClick={() => {
+                            //     Navigate("/login");
+                            //     console.log("click");
+                            // }}
+                        />
+                    </span>
+                )}
+
                 <StatisticsCard
                     title="Lab Opened"
                     info={labStatus.opened_time}

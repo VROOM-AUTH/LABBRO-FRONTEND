@@ -3,7 +3,7 @@ import wheel from "../../assets/VroomWheel.png";
 import arrowDown from "../../assets/wheelArrow.png";
 import coin from "../../assets/coin.png";
 import "./SpinningWheel.css";
-const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
+const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
     // State to store the selected prize
     const [prize, setPrize] = useState("");
     // State to store the spinning status of the wheel
@@ -21,7 +21,6 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
         const randomIndex = Math.floor(Math.random() * prizes.length);
         setPrize(prizes[randomIndex]);
         // Update the prize state with the randomly selected prize
-        console.log(totalUserVolts);
         if (prizes[randomIndex] === "1") {
             setTimeout(() => {
                 setSpinning(false);
@@ -36,7 +35,7 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
             setTimeout(() => {
                 setSpinning(false);
 
-                setTotalUserVolts((prev) => Math.floor(prev / 2) + 1); /////////
+                setTotalUserVolts((prev) => Math.floor(prev / 2)); /////////
             }, 5000);
 
             prizes = ["2", "3", "4", "5", "1"];
@@ -56,6 +55,9 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
             setTimeout(() => {
                 setSpinning(false);
                 setTotalUserVolts((prev) => prev - 25);
+                if (totalUserVolts < 0) {
+                    setTotalUserVolts(0);
+                }
             }, 5000);
 
             prizes = ["4", "5", "1", "2", "3"];
@@ -73,15 +75,25 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
             console.log("case 5" + totalUserVolts);
         }
 
-        if (totalUserVolts < 0) {
-            setTotalUserVolts(0);
-        }
         // Set the spinning status to true
         // setSpinning(true);
     };
     const finalAngle =
         Math.floor(Math.floor(Math.random() * (50 - 20 + 1)) + 20) * 360 +
         72 * prizes.indexOf(prize);
+
+    const putVroomvolts = () => {
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
+            {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    vroomvolts: totalUserVolts,
+                }),
+            }
+        );
+    };
     return (
         <div
             style={{
@@ -95,33 +107,30 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
                 style={{
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignItems: "center",
+                    width: "100%",
                 }}
-                id="animated-element"
             >
-                <h1 style={{ margin: "1rem", fontSize: "30px" }}>
-                    Take a spin! It costs 5 VroomVolts.
-                </h1>
-                <h1 className="coins">
-                    {totalUserVolts}
-                    <img alt="coin" className="coin" src={coin}></img>
-                </h1>
+                {totalUserVolts >= 5 ? (
+                    <button
+                        disabled={spinning}
+                        onClick={spin}
+                        className="mainButton"
+                        id="spin-button"
+                        style={{
+                            color: "white",
+                            fontSize: 20,
+                            marginTop: "1rem",
+                            zIndex: 10,
+                        }}
+                    >
+                        Spin!
+                    </button>
+                ) : (
+                    <div>You don't have enough VroomVolts for a spin.</div>
+                )}
             </div>
-
-            {totalUserVolts > 5 ? (
-                <button
-                    disabled={spinning}
-                    onClick={spin}
-                    className="mainButton"
-                    id="spin-button"
-                    style={{ color: "white", fontSize: 20, marginTop: 0 }}
-                >
-                    Spin!
-                </button>
-            ) : (
-                <div>You don't have enough VroomVolts for a spin.</div>
-            )}
 
             <img
                 src={arrowDown}
@@ -140,7 +149,12 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts }) => {
                     //     : "cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
             >
-                <img src={wheel} width="700" alt="Spinning wheel" />
+                <img
+                    src={wheel}
+                    className="spinning-wheel"
+                    // width="70%"
+                    alt="Spinning wheel"
+                />
             </div>
         </div>
     );

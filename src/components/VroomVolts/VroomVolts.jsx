@@ -11,19 +11,113 @@ import SpinningWheel from "../SpinningWheel/SpinningWheel";
 import { useNavigate } from "react-router-dom";
 
 const VroomVolts = ({ userData }) => {
-    const [userLevel, setUserLevel] = useState(16);
-    const [totalUserVolts, setTotalUserVolts] = useState(100);
+    const [userLevel, setUserLevel] = useState(1);
+    const [totalUserVolts, setTotalUserVolts] = useState(1);
     const [showHowTo, setShowHowTo] = useState(false);
     const [lucky, setLucky] = useState(false);
-    const [levelMax, setLevelMax] = useState(120);
+    const [levelMax, setLevelMax] = useState(2000);
+    const [firstFetch, setFirstFetch] = useState(true);
     const Navigate = useNavigate();
+
+    useEffect(() => {
+        // console.log("Fetching initial vroomvolts value...");
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then((data) => {
+                // console.log("Initial vroomvolts value:", data);
+                setTotalUserVolts(data.vroomvolts);
+                setFirstFetch(false);
+            });
+    }, []);
+    const putVroomvolts = () => {
+        return new Promise((resolve, reject) => {
+            fetch(
+                `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        vroomvolts: totalUserVolts,
+                        should_update: 0,
+                    }),
+                }
+            )
+                .then((response) => {
+                    if (response.ok) {
+                        resolve();
+                    } else {
+                        reject(response);
+                    }
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    };
+
+    const fetchVroomvolts = () => {
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw response;
+            })
+            .then((data) => {
+                console.log("Fetched vroomvolts value:", data);
+                setTotalUserVolts(data[0].vroomvolts);
+            });
+    };
+    useEffect(() => {
+        // console.log(totalUserVolts);
+        if (!firstFetch) {
+            putVroomvolts().then(fetchVroomvolts);
+        }
+    }, [totalUserVolts]);
+
+    fetch(`${process.env.REACT_APP_BASE_URL}vroomvolts/`)
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw response;
+        })
+        .then((data) => {
+            // console.log(data);
+            if (data[0].vroomvolts > totalUserVolts) {
+                setUserLevel(data[0].id);
+                setLevelMax(data[0].vroomvolts);
+            } else if (data[1].vroomvolts > totalUserVolts) {
+                setUserLevel(data[1].id);
+                setLevelMax(data[1].vroomvolts);
+            } else if (data[2].vroomvolts > totalUserVolts) {
+                setUserLevel(data[2].id);
+                setLevelMax(data[2].vroomvolts);
+            } else if (data[3].vroomvolts > totalUserVolts) {
+                setUserLevel(data[3].id);
+                setLevelMax(data[3].vroomvolts);
+            } else if (data[4].vroomvolts > totalUserVolts) {
+                setUserLevel(data[4].id);
+                setLevelMax(data[4].vroomvolts);
+            }
+        });
+
     return (
         <div className="vroom-volts">
             {userData.username === "" ? (
                 <div className="nonlogin">
                     <h1>Please Login to view your Vroomvolts</h1>
                     <button
-                        className="mainButton h3"
+                        className="mainButton h3 menu-login"
                         onClick={() => Navigate("/login")}
                     >
                         Login
@@ -121,7 +215,7 @@ const VroomVolts = ({ userData }) => {
             {showHowTo ? (
                 <div id="myModal" className="modal">
                     <div className="modal-content how">
-                        <div className="modal-header">
+                        <div className="modal-header-how">
                             <h1
                                 className="close"
                                 onClick={() => {
@@ -164,19 +258,37 @@ const VroomVolts = ({ userData }) => {
                 <div id="myModal" className="modal">
                     <div className="modal-content lucky">
                         <div className="modal-header">
-                            <h1
-                                className="close"
-                                onClick={() => {
-                                    setLucky(false);
-                                }}
-                            >
-                                &times;
+                            <h1 className="modal-title-lucky">
+                                Take a spin! It costs 5 VroomVolts.
                             </h1>
+                            <div className="row">
+                                <h1 style={{ justifySelf: "flex-end" }}>
+                                    {totalUserVolts}
+                                </h1>
+                                <img
+                                    alt="coin"
+                                    style={{
+                                        width: "30px",
+                                        marginLeft: "3px",
+                                        marginRight: "3rem",
+                                    }}
+                                    src={coin}
+                                ></img>
+                                <h1
+                                    className="close"
+                                    onClick={() => {
+                                        setLucky(false);
+                                    }}
+                                >
+                                    &times;
+                                </h1>
+                            </div>
                         </div>
                         <div className="modal-body">
                             <SpinningWheel
                                 totalUserVolts={totalUserVolts}
                                 setTotalUserVolts={setTotalUserVolts}
+                                userData={userData}
                             />
                         </div>
                     </div>

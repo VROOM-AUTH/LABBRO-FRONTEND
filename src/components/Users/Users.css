@@ -23,5 +23,27 @@
     align-items: center;
     overflow-y: scroll;
     height: 90%;
+
     /* background-color: aliceblue; */
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #181827;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6a308c;
+    border-radius: 0px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #57578e;
+    /* background: #505050; */
 }
