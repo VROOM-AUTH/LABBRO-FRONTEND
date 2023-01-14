@@ -135,7 +135,7 @@ const Dashboard = ({ userData }) => {
                 )}
                 {labStatus.closed == "Closed " && userData.isLoggedIn && (
                     <h2 className="lab-status">
-                        Lab is {labStatus.closed} U+1F512
+                        Lab is {labStatus.closed} &#128274;
                     </h2>
                 )}
             </div>

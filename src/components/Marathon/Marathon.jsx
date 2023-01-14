@@ -72,7 +72,7 @@ export default function Marathon({ userData }) {
                                 <img
                                     src={second}
                                     alt="first"
-                                    width="250px"
+                                    width="150vw"
                                 ></img>
                                 <p>
                                     {convertSeconds(
@@ -92,7 +92,7 @@ export default function Marathon({ userData }) {
                                 <img
                                     src={first}
                                     alt="first"
-                                    width="350px"
+                                    width="300vw"
                                 ></img>
                                 <p>
                                     {convertSeconds(
@@ -112,7 +112,7 @@ export default function Marathon({ userData }) {
                                 <img
                                     src={third}
                                     alt="first"
-                                    width="200px"
+                                    width="100px"
                                 ></img>
                                 <p>
                                     {convertSeconds(
@@ -122,71 +122,69 @@ export default function Marathon({ userData }) {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        {userData.isLoggedIn ? (
-                            <div className="center">
-                                <h1 className="position">
-                                    {/* TRANSFORMS the array to an array of ids and finds the index of the logged in user id. Plus one because index starts at 0 */}
-                                    You are {""}
-                                    <span
-                                        style={{
-                                            color: "rgba(194, 89, 228, 1)",
-                                        }}
-                                    >
-                                        {marathonData
-                                            .map((e) => e.user_id)
-                                            .indexOf(userData.userId) + 1}
-                                        {/* CHECKS YOUR POSITION SO IT CAN WRITE 1st 2nd 3rd 4th 5th ..... */}
-                                        {marathonData
-                                            .map((e) => e.user_id)
-                                            .indexOf(userData.userId) +
-                                            1 ===
-                                        1
-                                            ? "st "
-                                            : marathonData
-                                                  .map((e) => e.user_id)
-                                                  .indexOf(userData.userId) +
-                                                  1 ===
-                                              2
-                                            ? "nd "
-                                            : marathonData
-                                                  .map((e) => e.user_id)
-                                                  .indexOf(userData.userId) +
-                                                  1 ===
-                                              3
-                                            ? "rd "
-                                            : "th "}{" "}
-                                    </span>
-                                    on the leaderboard.
-                                </h1>
-                                <h1 className="total-time">
-                                    You have spent a total time of{" "}
-                                    <span
-                                        style={{
-                                            color: "rgba(194, 89, 228, 1)",
-                                        }}
-                                    >
-                                        {convertSeconds(
-                                            marathonData[
-                                                marathonData
-                                                    .map((e) => e.user_id)
-                                                    .indexOf(userData.userId)
-                                            ].total_seconds
-                                        )}{" "}
-                                    </span>
-                                    in the lab!
-                                </h1>
-                            </div>
-                        ) : (
-                            <div className="center">
-                                <h1 className="login-for-position">
-                                    Login to view your position on the
-                                    leaderboard and your total time spent in the
-                                    lab!
-                                </h1>
-                            </div>
-                        )}
-                    </div>
+                    <div></div>
+                    {userData.isLoggedIn ? (
+                        <div className="center">
+                            <h1 className="position">
+                                {/* TRANSFORMS the array to an array of ids and finds the index of the logged in user id. Plus one because index starts at 0 */}
+                                You are {""}
+                                <span
+                                    style={{
+                                        color: "rgba(194, 89, 228, 1)",
+                                    }}
+                                >
+                                    {marathonData
+                                        .map((e) => e.user_id)
+                                        .indexOf(userData.userId) + 1}
+                                    {/* CHECKS YOUR POSITION SO IT CAN WRITE 1st 2nd 3rd 4th 5th ..... */}
+                                    {marathonData
+                                        .map((e) => e.user_id)
+                                        .indexOf(userData.userId) +
+                                        1 ===
+                                    1
+                                        ? "st "
+                                        : marathonData
+                                              .map((e) => e.user_id)
+                                              .indexOf(userData.userId) +
+                                              1 ===
+                                          2
+                                        ? "nd "
+                                        : marathonData
+                                              .map((e) => e.user_id)
+                                              .indexOf(userData.userId) +
+                                              1 ===
+                                          3
+                                        ? "rd "
+                                        : "th "}{" "}
+                                </span>
+                                on the leaderboard.
+                            </h1>
+                            <h1 className="total-time">
+                                You have spent a total time of{" "}
+                                <span
+                                    style={{
+                                        color: "rgba(194, 89, 228, 1)",
+                                    }}
+                                >
+                                    {convertSeconds(
+                                        marathonData[
+                                            marathonData
+                                                .map((e) => e.user_id)
+                                                .indexOf(userData.userId)
+                                        ].total_seconds
+                                    )}{" "}
+                                </span>
+                                in the lab!
+                            </h1>
+                        </div>
+                    ) : (
+                        <div className="center">
+                            <h1 className="login-for-position">
+                                Login to view your position on the leaderboard
+                                and your total time spent in the lab!
+                            </h1>
+                        </div>
+                    )}
                 </>
             )}
         </div>
