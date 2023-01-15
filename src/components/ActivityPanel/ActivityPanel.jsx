@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './ActivityPanel.css';
-import UserCard from './UserCard';
-import AreaChartCom from '../AreaChartCom/AreaChartCom';
-import { useEffect } from 'react';
+import React, { useState } from "react";
+import "./ActivityPanel.css";
+import UserCard from "./UserCard";
+import AreaChartCom from "../AreaChartCom/AreaChartCom";
+import { useEffect } from "react";
 
 const ActivityPanel = () => {
     const [recentActivity, setRecentActivity] = useState([]);
@@ -10,9 +10,10 @@ const ActivityPanel = () => {
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
         })
@@ -34,9 +35,10 @@ const ActivityPanel = () => {
 
     const getRecentActivity = (user_id) => {
         fetch(`${process.env.REACT_APP_BASE_URL}attendance/?reverse=4`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
         })
@@ -67,15 +69,15 @@ const ActivityPanel = () => {
     };
 
     return (
-        <div className='activity-panel'>
+        <div className="activity-panel">
             {/* <div className="header"></div> */}
-            <div className='activity-panel-container'>
+            <div className="activity-panel-container">
                 <h3>Recent activity</h3>
                 {recentActivity.map((item, index) => (
                     <UserCard user={item} index={index} key={index} />
                 ))}
             </div>
-            <div className='classification'>
+            <div className="classification">
                 <AreaChartCom />
             </div>
         </div>

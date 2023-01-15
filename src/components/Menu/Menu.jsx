@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Menu.css';
-import LOGO from '../../assets/LabBro_Logo.png';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Menu.css";
+import LOGO from "../../assets/LabBro_Logo.png";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Menu = ({ userData, setUserData }) => {
     const [activeMenu, setActiveMenu] = useState(window.location.href);
@@ -18,30 +18,30 @@ const Menu = ({ userData, setUserData }) => {
     useEffect(() => {
         const url = window.location.href;
 
-        if (url.includes('volts')) {
+        if (url.includes("volts")) {
             setIsClicked2(true);
             setIsClicked1(false);
             setIsClicked3(false);
             setIsClicked4(false);
-            setActiveMenu('Vroom Volts');
-        } else if (url.includes('users')) {
+            setActiveMenu("Vroom Volts");
+        } else if (url.includes("users")) {
             setIsClicked3(true);
             setIsClicked1(false);
             setIsClicked2(false);
             setIsClicked4(false);
-            setActiveMenu('Users');
-        } else if (url.includes('marathon')) {
+            setActiveMenu("Users");
+        } else if (url.includes("marathon")) {
             setIsClicked3(false);
             setIsClicked1(false);
             setIsClicked2(false);
             setIsClicked4(true);
-            setActiveMenu('Marathon');
+            setActiveMenu("Marathon");
         } else {
             setIsClicked1(true);
             setIsClicked2(false);
             setIsClicked3(false);
             setIsClicked4(false);
-            setActiveMenu('Dashboard');
+            setActiveMenu("Dashboard");
         }
     }, [window.location.href]);
 
@@ -49,9 +49,10 @@ const Menu = ({ userData, setUserData }) => {
         fetch(
             `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`,
             {
-                method: 'GET',
+                method: "GET",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },
             }
@@ -69,9 +70,10 @@ const Menu = ({ userData, setUserData }) => {
 
     const checkout = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}attendance/`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
             body: JSON.stringify({
@@ -83,51 +85,52 @@ const Menu = ({ userData, setUserData }) => {
     };
 
     return (
-        <div className='menu'>
-            <div className='component-parts active-menu-container'>
-                <div className='logo-box'>
-                    <img src={LOGO} alt='logo' className='logo' />
+        <div className="menu">
+            <div className="component-parts active-menu-container">
+                <div className="logo-box">
+                    <img src={LOGO} alt="logo" className="logo" />
                 </div>
-                <h3 className='active-menu'>
-                    {userData.username != ''
-                        ? 'Welcome back ' + userData.username + '!'
-                        : ''}
+                <h3 className="active-menu">
+                    {userData.username != ""
+                        ? "Welcome back " + userData.username + "!"
+                        : ""}
                 </h3>
             </div>
-            <div className='component-parts list-menu-container'>
-                <div className={isClicked1 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/'>
+            <div className="component-parts list-menu-container">
+                <div className={isClicked1 ? "clicked" : "non-clicked"}>
+                    <Link to="/">
                         {/* <a href="#" onClick={() => menuClicked(1)}> */}
                         Dashboard
                         {/* </a> */}
                     </Link>
                 </div>
-                <div className={isClicked2 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/volts'>
+                <div className={isClicked2 ? "clicked" : "non-clicked"}>
+                    <Link to="/volts">
                         {/* <a href="#" onClick={() => menuClicked(2)}> */}
                         Vroom Volts
                         {/* </a> */}
                     </Link>
                 </div>
-                <div className={isClicked3 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/users'>Users</Link>
+                <div className={isClicked3 ? "clicked" : "non-clicked"}>
+                    <Link to="/users">Users</Link>
                 </div>
-                <div className={isClicked4 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/marathon'>Marathon</Link>
+                <div className={isClicked4 ? "clicked" : "non-clicked"}>
+                    <Link to="/marathon">Marathon</Link>
                 </div>
-                {userData.username != '' ? (
+                {userData.username != "" ? (
                     <>
                         {userInLab ? (
-                            <div className='component-parts checkout-container'>
+                            <div className="component-parts checkout-container">
                                 <button
-                                    className='checkout-button'
+                                    className="checkout-button"
                                     onClick={() => {
                                         setAreYouSure(true);
                                         window.scrollTo({
                                             top: 800,
-                                            behavior: 'smooth',
+                                            behavior: "smooth",
                                         });
-                                    }}>
+                                    }}
+                                >
                                     Check-Out!
                                 </button>
                             </div>
@@ -136,61 +139,66 @@ const Menu = ({ userData, setUserData }) => {
                         )}
 
                         <button
-                            className='mainButton h3 menu-login'
+                            className="mainButton h3 menu-login"
                             onClick={() => {
                                 setUserData({
-                                    username: '',
+                                    username: "",
                                     userId: 0,
                                     isLoggedIn: false,
                                 });
                                 // localStorage.setItem("isLoggedIn", false);
                                 localStorage.clear();
-                                Navigate('/');
-                            }}>
+                                Navigate("/");
+                            }}
+                        >
                             Log out
                         </button>
                     </>
                 ) : (
                     <button
-                        className='mainButton h3 menu-login'
+                        className="mainButton h3 menu-login"
                         onClick={() => {
-                            Navigate('/login');
-                        }}>
+                            Navigate("/login");
+                        }}
+                    >
                         Login
                     </button>
                 )}
             </div>
             {areYouSure ? (
-                <div id='myModal' className='modal'>
-                    <div className='modal-content how'>
-                        <div className='modal-header-how'>
+                <div id="myModal" className="modal">
+                    <div className="modal-content how">
+                        <div className="modal-header-how">
                             <h1
-                                className='close'
+                                className="close"
                                 onClick={() => {
                                     setAreYouSure(false);
-                                }}>
+                                }}
+                            >
                                 &times;
                             </h1>
                         </div>
-                        <div className='modal-body'>
-                            <p className='modal-title'>
+                        <div className="modal-body">
+                            <p className="modal-title">
                                 Are you sure you want to check out?
                             </p>
-                            <div className='ways-to-win row'>
+                            <div className="ways-to-win row">
                                 <button
-                                    className='mainButton sure'
+                                    className="mainButton sure"
                                     onClick={() => {
                                         checkout();
                                         setAreYouSure(false);
                                         window.location.reload();
-                                    }}>
+                                    }}
+                                >
                                     Yes
                                 </button>
                                 <button
-                                    className='secondButton sure'
+                                    className="secondButton sure"
                                     onClick={() => {
                                         setAreYouSure(false);
-                                    }}>
+                                    }}
+                                >
                                     No
                                 </button>
                             </div>

@@ -20,9 +20,10 @@ const LoginScreen = ({ userData, setUserData }) => {
         event.preventDefault();
         try {
             fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${loginName}`, {
-                method: 'GET',
+                method: "GET",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },
             })

@@ -13,9 +13,10 @@ export default function Marathon({ userData }) {
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
         })
@@ -31,9 +32,10 @@ export default function Marathon({ userData }) {
                 setLoading1(false);
             });
         fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id,name`, {
-            method: 'GET',
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
         })
