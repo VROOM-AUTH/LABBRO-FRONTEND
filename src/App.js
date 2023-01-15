@@ -1,10 +1,10 @@
-import './App.css';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import MainScreen from './screens/MainScreen';
+import "./App.css";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import MainScreen from "./screens/MainScreen";
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const loadData = (id) => {
     fetch(`${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${id}`)
@@ -25,8 +25,8 @@ const loadData = (id) => {
                     fetch(
                         `${process.env.REACT_APP_BASE_URL}users-levels/${id}`,
                         {
-                            method: 'PUT',
-                            headers: { 'Content-Type': 'application/json' },
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
                                 vroomvolts:
                                     initial_vroomvolts + data2.vroomvolts,
@@ -45,9 +45,9 @@ const loadData = (id) => {
 
 function App() {
     const [userData, setUserData] = useState({
-        username: localStorage.getItem('username') || '',
-        userId: localStorage.getItem('userId') || 0,
-        isLoggedIn: localStorage.getItem('isLoggedIn') || false,
+        username: localStorage.getItem("username") || "",
+        userId: parseInt(localStorage.getItem("userId")) || 0,
+        isLoggedIn: localStorage.getItem("isLoggedIn") || false,
     });
 
     useEffect(() => {
@@ -69,38 +69,38 @@ function App() {
             <Routes>
                 <Route>
                     <Route
-                        path='/'
+                        path="/"
                         element={
                             <MainScreen
-                                path={'/'}
+                                path={"/"}
                                 userData={userData}
                                 setUserData={setUserData}
                             />
                         }
                     />
                     <Route
-                        path='/volts'
+                        path="/volts"
                         element={
                             <MainScreen
-                                path={'/volts'}
+                                path={"/volts"}
                                 userData={userData}
                                 setUserData={setUserData}
                             />
                         }
                     />
                     <Route
-                        path='/users'
+                        path="/users"
                         element={
                             <MainScreen
-                                path={'/users'}
+                                path={"/users"}
                                 userData={userData}
                                 setUserData={setUserData}
                             />
                         }
                     />
-                    <Route path='/register' element={<RegisterScreen />} />
+                    <Route path="/register" element={<RegisterScreen />} />
                     <Route
-                        path='/login'
+                        path="/login"
                         element={
                             <LoginScreen
                                 userData={userData}
@@ -109,10 +109,10 @@ function App() {
                         }
                     />
                     <Route
-                        path='/marathon'
+                        path="/marathon"
                         element={
                             <MainScreen
-                                path={'/marathon'}
+                                path={"/marathon"}
                                 userData={userData}
                                 setUserData={setUserData}
                             />
