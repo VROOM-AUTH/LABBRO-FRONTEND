@@ -14,7 +14,13 @@ const AreaChartCom = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();

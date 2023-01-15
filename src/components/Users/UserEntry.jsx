@@ -14,7 +14,13 @@ const UserEntry = ({ user_id, userData, index }) => {
     const [totalLabSeconds, setTotalLabSeconds] = useState(null);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -27,7 +33,14 @@ const UserEntry = ({ user_id, userData, index }) => {
             .catch((error) => console.log(error));
 
         fetch(
-            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${user_id}`
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {
@@ -40,7 +53,16 @@ const UserEntry = ({ user_id, userData, index }) => {
             })
             .catch((error) => console.log(error));
 
-        fetch(`${process.env.REACT_APP_BASE_URL}users-time/?user_id=${user_id}`)
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
+        )
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -56,21 +78,28 @@ const UserEntry = ({ user_id, userData, index }) => {
             })
             .catch((error) => console.log(error));
 
-        fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw response;
-            })
-            .then((data) => {
-                let tmp_total = 0;
-                for (let entry of data) {
-                    tmp_total += +entry.session_seconds;
-                }
-                setTotalLabSeconds(tmp_total);
-            })
-            .catch((error) => console.log(error));
+        // SOME BUG HERE, REVIEW AFTER DEPLOY
+        // fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+        //     },
+        // })
+        //     .then((response) => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         }
+        //         throw response;
+        //     })
+        //     .then((data) => {
+        //         let tmp_total = 0;
+        //         for (let entry of data) {
+        //             tmp_total += +entry.session_seconds;
+        //         }
+        //         setTotalLabSeconds(tmp_total);
+        //     })
+        //     .catch((error) => console.log(error));
     }, []);
 
     return (
@@ -138,7 +167,7 @@ const UserEntry = ({ user_id, userData, index }) => {
             <div className={charts ? 'user-charts' : 'user-charts-hidden'}>
                 <UserAreaChart
                     user_id={user_id}
-                    total_lab_seconds={totalLabSeconds}
+                    // total_lab_seconds={totalLabSeconds}
                 />
             </div>
         </div>

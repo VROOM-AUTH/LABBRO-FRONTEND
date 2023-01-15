@@ -21,7 +21,14 @@ const VroomVolts = ({ userData }) => {
 
     useEffect(() => {
         fetch(
-            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {
@@ -40,7 +47,10 @@ const VroomVolts = ({ userData }) => {
                 `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
                 {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                    },
                     body: JSON.stringify({
                         vroomvolts: totalUserVolts,
                         should_update: 0,
@@ -62,7 +72,14 @@ const VroomVolts = ({ userData }) => {
 
     const fetchVroomvolts = () => {
         fetch(
-            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${userData.userId}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {
@@ -81,7 +98,13 @@ const VroomVolts = ({ userData }) => {
         }
     }, [totalUserVolts]);
 
-    fetch(`${process.env.REACT_APP_BASE_URL}vroomvolts/`)
+    fetch(`${process.env.REACT_APP_BASE_URL}vroomvolts/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+        },
+    })
         .then((response) => {
             if (response.ok) {
                 return response.json();

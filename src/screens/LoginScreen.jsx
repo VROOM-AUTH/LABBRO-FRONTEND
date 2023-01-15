@@ -19,7 +19,13 @@ const LoginScreen = ({ userData, setUserData }) => {
     const login = async (event) => {
         event.preventDefault();
         try {
-            fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${loginName}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${loginName}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            })
                 .then((response) => {
                     if (response.ok) {
                         return response.json();

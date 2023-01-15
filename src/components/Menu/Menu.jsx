@@ -47,7 +47,14 @@ const Menu = ({ userData, setUserData }) => {
 
     useEffect(() => {
         fetch(
-            `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`
+            `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {
@@ -63,7 +70,10 @@ const Menu = ({ userData, setUserData }) => {
     const checkout = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}attendance/`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
             body: JSON.stringify({
                 user_id: userData.userId,
             }),

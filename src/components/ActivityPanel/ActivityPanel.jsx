@@ -9,7 +9,13 @@ const ActivityPanel = () => {
     // const [userIdentifier, setUserIdentifier] = useState({});
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -27,7 +33,13 @@ const ActivityPanel = () => {
     }, []);
 
     const getRecentActivity = (user_id) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}attendance/?reverse=4`)
+        fetch(`${process.env.REACT_APP_BASE_URL}attendance/?reverse=4`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();

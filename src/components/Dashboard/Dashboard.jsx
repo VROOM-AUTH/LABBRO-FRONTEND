@@ -14,7 +14,13 @@ const Dashboard = ({ userData }) => {
     const Navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -63,7 +69,13 @@ const Dashboard = ({ userData }) => {
                 console.log(`Error ${error}`);
             });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}users/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -73,7 +85,13 @@ const Dashboard = ({ userData }) => {
                 setTotalUsers(data.length);
             });
 
-        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=name,id`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=name,id`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -86,7 +104,13 @@ const Dashboard = ({ userData }) => {
     }, []);
     useEffect(() => {
         if (!loading) {
-            fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+            fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            })
                 .then((response) => {
                     if (response.ok) {
                         return response.json();

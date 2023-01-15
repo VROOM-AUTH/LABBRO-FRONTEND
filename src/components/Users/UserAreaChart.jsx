@@ -18,7 +18,14 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
 
     useEffect(() => {
         fetch(
-            `${process.env.REACT_APP_BASE_URL}session-duration/?user_id=${user_id}`
+            `${process.env.REACT_APP_BASE_URL}session-duration/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {

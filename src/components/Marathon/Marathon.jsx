@@ -12,7 +12,13 @@ export default function Marathon({ userData }) {
     const [namesAndTime, setNamesAndTime] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users-time/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -24,7 +30,13 @@ export default function Marathon({ userData }) {
                 setMaratonData(data);
                 setLoading1(false);
             });
-        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id,name`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id,name`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();

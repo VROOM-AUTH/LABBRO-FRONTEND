@@ -8,7 +8,13 @@ const Users = ({ userData }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -24,6 +30,7 @@ const Users = ({ userData }) => {
             })
             .catch((error) => console.log(error));
     }, []);
+
     return (
         <div className='users'>
             <div className='users-header'>
