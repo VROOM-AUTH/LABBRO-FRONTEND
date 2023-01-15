@@ -45,39 +45,6 @@ const Menu = ({ userData, setUserData }) => {
         }
     }, [window.location.href]);
 
-    const menuClicked = (menu_id) => {
-        // switch (menu_id) {
-        //     case 1:
-        //         setIsClicked1(true);
-        //         setIsClicked2(false);
-        //         setIsClicked3(false);
-        //         setIsClicked4(false);
-        //         setActiveMenu('Dashboard');
-        //         break;
-        //     case 2:
-        //         setIsClicked2(true);
-        //         setIsClicked1(false);
-        //         setIsClicked3(false);
-        //         setIsClicked4(false);
-        //         setActiveMenu('Lab Charts');
-        //         break;
-        //     case 3:
-        //         setIsClicked3(true);
-        //         setIsClicked1(false);
-        //         setIsClicked2(false);
-        //         setIsClicked4(false);
-        //         setActiveMenu('Users');
-        //         break;
-        //     case 4:
-        //         setIsClicked4(true);
-        //         setIsClicked1(false);
-        //         setIsClicked2(false);
-        //         setIsClicked3(false);
-        //         setActiveMenu('Marathon');
-        // }
-    };
-    // console.log(userData);
-
     useEffect(() => {
         fetch(
             `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`
@@ -89,7 +56,6 @@ const Menu = ({ userData, setUserData }) => {
                 throw response;
             })
             .then((data) => {
-                // console.log(data);
                 setUserInLab(data.in_lab);
             });
     }, [areYouSure]);
@@ -104,7 +70,6 @@ const Menu = ({ userData, setUserData }) => {
         }).catch((error) => {
             console.log(error);
         });
-        console.log('done');
     };
 
     return (
@@ -113,7 +78,6 @@ const Menu = ({ userData, setUserData }) => {
                 <div className='logo-box'>
                     <img src={LOGO} alt='logo' className='logo' />
                 </div>
-                {/* <h3 className="active-menu">{activeMenu}</h3> */}
                 <h3 className='active-menu'>
                     {userData.username != ''
                         ? 'Welcome back ' + userData.username + '!'
@@ -122,28 +86,24 @@ const Menu = ({ userData, setUserData }) => {
             </div>
             <div className='component-parts list-menu-container'>
                 <div className={isClicked1 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/' onClick={() => menuClicked(1)}>
+                    <Link to='/'>
                         {/* <a href="#" onClick={() => menuClicked(1)}> */}
                         Dashboard
                         {/* </a> */}
                     </Link>
                 </div>
                 <div className={isClicked2 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/volts' onClick={() => menuClicked(2)}>
+                    <Link to='/volts'>
                         {/* <a href="#" onClick={() => menuClicked(2)}> */}
                         Vroom Volts
                         {/* </a> */}
                     </Link>
                 </div>
                 <div className={isClicked3 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/users' onClick={() => menuClicked(3)}>
-                        Users
-                    </Link>
+                    <Link to='/users'>Users</Link>
                 </div>
                 <div className={isClicked4 ? 'clicked' : 'non-clicked'}>
-                    <Link to='/marathon' onClick={() => menuClicked(4)}>
-                        Marathon
-                    </Link>
+                    <Link to='/marathon'>Marathon</Link>
                 </div>
                 {userData.username != '' ? (
                     <>

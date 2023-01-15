@@ -45,9 +45,9 @@ const loadData = (id) => {
 
 function App() {
     const [userData, setUserData] = useState({
-        username: localStorage.getItem("username") || "",
-        userId: localStorage.getItem("userId") || 0,
-        isLoggedIn: localStorage.getItem("isLoggedIn") || false,
+        username: localStorage.getItem('username') || '',
+        userId: localStorage.getItem('userId') || 0,
+        isLoggedIn: localStorage.getItem('isLoggedIn') || false,
     });
 
     useEffect(() => {

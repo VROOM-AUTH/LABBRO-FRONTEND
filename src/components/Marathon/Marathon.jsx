@@ -20,10 +20,7 @@ export default function Marathon({ userData }) {
                 throw response;
             })
             .then((data) => {
-                // console.log(data);
                 data.sort((a, b) => b.total_seconds - a.total_seconds);
-                // console.log("Sorted Data is:");
-                // console.log(data);
                 setMaratonData(data);
                 setLoading1(false);
             });
