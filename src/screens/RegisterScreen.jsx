@@ -18,7 +18,6 @@ const RegisterScreen = ({}) => {
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
-            // console.log("try");
             fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`)
                 .then((response) => {
                     if (response.ok) {
@@ -27,7 +26,6 @@ const RegisterScreen = ({}) => {
                     throw response;
                 })
                 .then((data) => {
-                    // console.log(data);
                     if (!data[0].password && data[0].name !== null) {
                         fetch(
                             `${process.env.REACT_APP_BASE_URL}users/${data[0].id}`,
@@ -39,7 +37,6 @@ const RegisterScreen = ({}) => {
                                 }),
                             }
                         );
-                        // console.log("Register");
                         Navigate('/login');
                     }
                 })
@@ -52,20 +49,12 @@ const RegisterScreen = ({}) => {
     };
 
     useEffect(() => {
-        // setHashedPwd(
-        //     CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
-        // );
         bcrypt.hash(pwd, 10, function (err, hash) {
             // Store the hash in your DB
             setHashedPwd(hash);
-            console.log(hashedPwd);
         });
-        // console.log(hashedPwd.toString());
     }, [pwd]);
 
-    // const login = () => {
-    //     Navigate("/login");
-    // };
     return (
         <div className='big-container'>
             <div className='column box'>

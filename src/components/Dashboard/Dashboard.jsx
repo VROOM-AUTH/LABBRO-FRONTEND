@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import StatisticsCard from "./StatisticsCard";
-import BarChartCom from "../BarChartCom/BarChartCom";
-import "./Dashboard.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import StatisticsCard from './StatisticsCard';
+import BarChartCom from '../BarChartCom/BarChartCom';
+import './Dashboard.css';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Dashboard = ({ userData }) => {
-    const [labStatus, setLabStatus] = useState({ closed: "failed" });
+    const [labStatus, setLabStatus] = useState({ closed: 'failed' });
     const [totalUsers, setTotalUsers] = useState(0);
     const [usersInLab, setUsersInLab] = useState(0);
     const [userHours, setUserHours] = useState([{}]);
@@ -14,7 +14,6 @@ const Dashboard = ({ userData }) => {
     const Navigate = useNavigate();
 
     useEffect(() => {
-        // console.log(process.env.REACT_APP_BASE_URL);
         fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`)
             .then((response) => {
                 if (response.ok) {
@@ -22,41 +21,41 @@ const Dashboard = ({ userData }) => {
                 }
             })
             .then((data) => {
-                let openTime = new Date(data["opened_time"]);
+                let openTime = new Date(data['opened_time']);
                 let today = false;
                 if (new Date().toDateString() == openTime.toDateString()) {
                     today = true;
                 }
                 if (today) {
                     openTime =
-                        "Today, " +
+                        'Today, ' +
                         openTime
-                            .toLocaleTimeString("gr", { hour12: false })
+                            .toLocaleTimeString('gr', { hour12: false })
                             .slice(0, 5);
                 } else {
                     openTime =
                         openTime.toDateString().slice(0, 3) +
-                        " at " +
+                        ' at ' +
                         openTime
-                            .toLocaleTimeString("gr", { hour12: false })
+                            .toLocaleTimeString('gr', { hour12: false })
                             .slice(0, 5);
                 }
 
-                if (data["closed"]) {
+                if (data['closed']) {
                     setLabStatus({
                         ...labStatus,
-                        closed: "Closed ",
+                        closed: 'Closed ',
                         opened_time: openTime,
-                        closed_time: data["closed_time"],
-                        total_hours: data["total_seconds"],
+                        closed_time: data['closed_time'],
+                        total_hours: data['total_seconds'],
                     });
                 } else {
                     setLabStatus({
                         ...labStatus,
-                        closed: "Open ",
+                        closed: 'Open ',
                         opened_time: openTime,
-                        closed_time: data["closed_time"],
-                        total_hours: data["total_seconds"],
+                        closed_time: data['closed_time'],
+                        total_hours: data['total_seconds'],
                     });
                 }
             })
@@ -104,7 +103,7 @@ const Dashboard = ({ userData }) => {
                         const name =
                             idToName.find(
                                 (o) => o.id === user.user_id // SEARCHES FOR the objects whos id is the id in the time array
-                            ).name || "";
+                            ).name || '';
                         temp_arr.push({
                             // name:
                             //     idToName.find(
@@ -125,21 +124,21 @@ const Dashboard = ({ userData }) => {
     }, [loading]);
 
     return (
-        <div className="dashboard">
-            <div className="header">
+        <div className='dashboard'>
+            <div className='header'>
                 <h1>Dashboard</h1>
-                {labStatus.closed == "Open " && userData.isLoggedIn && (
-                    <h2 className="lab-status">
+                {labStatus.closed == 'Open ' && userData.isLoggedIn && (
+                    <h2 className='lab-status'>
                         Lab is {labStatus.closed} &#128275;
                     </h2>
                 )}
-                {labStatus.closed == "Closed " && userData.isLoggedIn && (
-                    <h2 className="lab-status">
+                {labStatus.closed == 'Closed ' && userData.isLoggedIn && (
+                    <h2 className='lab-status'>
                         Lab is {labStatus.closed} &#128274;
                     </h2>
                 )}
             </div>
-            <div className="cards-container">
+            <div className='cards-container'>
                 <StatisticsCard
                     info={`${Math.floor(
                         labStatus.total_hours / 3600
@@ -150,41 +149,35 @@ const Dashboard = ({ userData }) => {
                 />
                 {userData.isLoggedIn ? (
                     <StatisticsCard
-                        title="Vroomers at Lab"
+                        title='Vroomers at Lab'
                         info={usersInLab}
                         icon={2}
                     />
                 ) : (
                     <span
                         onClick={() => {
-                            Navigate("/login");
-                            console.log("click");
-                        }}
-                    >
+                            Navigate('/login');
+                        }}>
                         <StatisticsCard
-                            title="Vroomers at Lab"
-                            info="Login to view"
+                            title='Vroomers at Lab'
+                            info='Login to view'
                             icon={2}
-                            // onClick={() => {
-                            //     Navigate("/login");
-                            //     console.log("click");
-                            // }}
                         />
                     </span>
                 )}
 
                 <StatisticsCard
-                    title="Lab Opened"
+                    title='Lab Opened'
                     info={labStatus.opened_time}
                     icon={3}
                 />
                 <StatisticsCard
-                    title="Total Users"
+                    title='Total Users'
                     info={totalUsers}
                     icon={4}
                 />
             </div>
-            <div className="charts">
+            <div className='charts'>
                 <BarChartCom data={userHours} />
                 {/* <BarChartCom data={userHours} /> */}
             </div>

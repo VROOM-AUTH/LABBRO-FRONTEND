@@ -108,4 +108,22 @@
     .marathon-card {
         margin: 2rem 0;
     }
+    .position {
+        font-size: 22px;
+    }
+    .login-for-position {
+        font-size: 22px;
+    }
+    .total-time {
+        font-size: 22px;
+    }
+    .first {
+        font-size: 40px;
+    }
+    .second {
+        font-size: 30px;
+    }
+    .third {
+        font-size: 26px;
+    }
 }

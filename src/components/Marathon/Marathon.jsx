@@ -20,10 +20,7 @@ export default function Marathon({ userData }) {
                 throw response;
             })
             .then((data) => {
-                // console.log(data);
                 data.sort((a, b) => b.total_seconds - a.total_seconds);
-                // console.log("Sorted Data is:");
-                // console.log(data);
                 setMaratonData(data);
                 setLoading1(false);
             });
@@ -47,6 +44,11 @@ export default function Marathon({ userData }) {
 
         return hours + " hours and " + minutes + " minutes ";
     }
+
+    // console.log(userData);
+
+    // console.log(marathonData);
+    // console.log(marathonData.map((e) => e.user_id).indexOf(userData.userId));
 
     return (
         <div className="marathon">
@@ -172,7 +174,7 @@ export default function Marathon({ userData }) {
                                                 .map((e) => e.user_id)
                                                 .indexOf(userData.userId)
                                         ].total_seconds
-                                    )}{" "}
+                                    )}
                                 </span>
                                 in the lab!
                             </h1>

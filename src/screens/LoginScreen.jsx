@@ -12,11 +12,9 @@ const LoginScreen = ({ userData, setUserData }) => {
     const Navigate = useNavigate();
     const bcrypt = require("bcryptjs");
     useEffect(() => {
-        // setHashedPwd(CryptoJS.AES.encrypt(pwd, "Secret"));
         setHashedPwd(
             CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
         );
-        // console.log(hashedPwd.toString());
     }, [pwd]);
     const login = async (event) => {
         event.preventDefault();
@@ -29,18 +27,6 @@ const LoginScreen = ({ userData, setUserData }) => {
                     throw response;
                 })
                 .then((data) => {
-                    // console.log(data);
-                    ///THIS IS WORKING WHEN ONLY ONE USER WITH EACH NAME EXISTS .IT IS CHECKING THE FIRST USER WITH THIS NAME
-
-                    // if (data[0].password == hashedPwd) {
-                    //     setUserData({
-                    //         username: data[0].name,
-                    //         userId: data[0].id,
-                    //         isLoggedIn: true,
-                    //     });
-                    //     localStorage.setItem("isLoggedIn", true);
-                    //     Navigate("/");
-                    // }
                     bcrypt.compare(pwd, data[0].password, function (err, res) {
                         if (res) {
                             console.log("Password matches.");

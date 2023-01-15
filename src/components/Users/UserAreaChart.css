@@ -10,7 +10,7 @@
 .avg-time {
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
