@@ -6,14 +6,21 @@ import { useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import UserAreaChart from './UserAreaChart';
 
-const UserEntry = ({ user_id }) => {
+const UserEntry = ({ user_id, userData, index }) => {
     const [userName, setUserName] = useState('');
     const [userVroomvolts, setUserVroomvolts] = useState(0);
     const [inLab, setInLab] = useState(false);
     const [charts, setCharts] = useState(false);
+    const [totalLabSeconds, setTotalLabSeconds] = useState(null);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -22,12 +29,18 @@ const UserEntry = ({ user_id }) => {
             })
             .then((data) => {
                 setUserName(data[0].name);
-                console.log();
             })
             .catch((error) => console.log(error));
 
         fetch(
-            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${user_id}`
+            `${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {
@@ -40,7 +53,16 @@ const UserEntry = ({ user_id }) => {
             })
             .catch((error) => console.log(error));
 
-        fetch(`${process.env.REACT_APP_BASE_URL}users-time/?user_id=${user_id}`)
+        fetch(
+            `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
+        )
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -55,6 +77,29 @@ const UserEntry = ({ user_id }) => {
                 }
             })
             .catch((error) => console.log(error));
+
+        // SOME BUG HERE, REVIEW AFTER DEPLOY
+        // fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`, {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+        //     },
+        // })
+        //     .then((response) => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         }
+        //         throw response;
+        //     })
+        //     .then((data) => {
+        //         let tmp_total = 0;
+        //         for (let entry of data) {
+        //             tmp_total += +entry.session_seconds;
+        //         }
+        //         setTotalLabSeconds(tmp_total);
+        //     })
+        //     .catch((error) => console.log(error));
     }, []);
 
     return (
@@ -63,46 +108,52 @@ const UserEntry = ({ user_id }) => {
                 className='entry-header'
                 onClick={() => setCharts((prev) => !prev)}>
                 <div className='user-icon-con'>
-                    <div className='user-icon'>
-                        <svg className={inLab ? 'circle-hidden' : 'circle'}>
-                            <circle
-                                fill='#ff0000'
-                                stroke='none'
-                                cx='50%'
-                                cy='50%'
-                                r='12'>
-                                <animate
-                                    attributeName='opacity'
-                                    dur='3s'
-                                    values='0;1;0'
-                                    repeatCount='indefinite'
-                                    begin='0.1'
-                                />
-                            </circle>
-                        </svg>
-                        <svg className={inLab ? 'circle' : 'circle-hidden'}>
-                            <circle
-                                fill='#00ff00'
-                                stroke='none'
-                                cx='50%'
-                                cy='50%'
-                                r='12'>
-                                <animate
-                                    attributeName='opacity'
-                                    dur='3s'
-                                    values='0;1;0'
-                                    repeatCount='indefinite'
-                                    begin='0.1'
-                                />
-                            </circle>
-                        </svg>
-                        <span className={inLab ? 'status' : 'status-hidden'}>
-                            In Lab
-                        </span>
-                        <span className={inLab ? 'status-hidden' : 'status'}>
-                            Out of Lab
-                        </span>
-                    </div>
+                    {userData.isLoggedIn ? (
+                        <div className='user-icon'>
+                            <svg className={inLab ? 'circle-hidden' : 'circle'}>
+                                <circle
+                                    fill='#ff0000'
+                                    stroke='none'
+                                    cx='50%'
+                                    cy='50%'
+                                    r='12'>
+                                    <animate
+                                        attributeName='opacity'
+                                        dur='3s'
+                                        values='0;1;0'
+                                        repeatCount='indefinite'
+                                        begin='0.1'
+                                    />
+                                </circle>
+                            </svg>
+                            <svg className={inLab ? 'circle' : 'circle-hidden'}>
+                                <circle
+                                    fill='#00ff00'
+                                    stroke='none'
+                                    cx='50%'
+                                    cy='50%'
+                                    r='12'>
+                                    <animate
+                                        attributeName='opacity'
+                                        dur='3s'
+                                        values='0;1;0'
+                                        repeatCount='indefinite'
+                                        begin='0.1'
+                                    />
+                                </circle>
+                            </svg>
+                            <span
+                                className={inLab ? 'status' : 'status-hidden'}>
+                                In Lab
+                            </span>
+                            <span
+                                className={inLab ? 'status-hidden' : 'status'}>
+                                Out of Lab
+                            </span>
+                        </div>
+                    ) : (
+                        <div>{+index + 1}</div>
+                    )}
                 </div>
                 <div className='user-name-con'>
                     <div className='user-name'>{userName}</div>
@@ -114,7 +165,10 @@ const UserEntry = ({ user_id }) => {
                 </div>
             </div>
             <div className={charts ? 'user-charts' : 'user-charts-hidden'}>
-                <UserAreaChart user_id={user_id} />
+                <UserAreaChart
+                    user_id={user_id}
+                    // total_lab_seconds={totalLabSeconds}
+                />
             </div>
         </div>
     );

@@ -7,16 +7,16 @@ const UserCard = ({ user = 'User 404', index }) => {
 
     useEffect(() => {
         switch (index) {
-            case 3:
+            case 0:
                 setOpacity(1.0);
                 break;
-            case 2:
+            case 1:
                 setOpacity(0.9);
                 break;
-            case 1:
+            case 2:
                 setOpacity(0.7);
                 break;
-            case 0:
+            case 3:
                 setOpacity(0.6);
                 break;
         }

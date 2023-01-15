@@ -11,14 +11,21 @@ import {
 
 import './UserAreaChart.css';
 
-const UserAreaChart = ({ user_id }) => {
+const UserAreaChart = ({ user_id, total_lab_seconds }) => {
     const [data, setData] = useState([]);
     const [averageTime, setAverageTime] = useState('0 min');
-    const [atLabDuration, setAtLabDuration] = useState(0);
+    const [probability, setProbability] = useState(0);
 
     useEffect(() => {
         fetch(
-            `${process.env.REACT_APP_BASE_URL}session-duration/?user_id=${user_id}`
+            `${process.env.REACT_APP_BASE_URL}session-duration/?user_id=${user_id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
         )
             .then((response) => {
                 if (response.ok) {
@@ -31,11 +38,18 @@ const UserAreaChart = ({ user_id }) => {
                 let sessionSum = 0;
                 for (let entry of data) {
                     temp_data.push({
-                        name: new Date(entry.date).toLocaleDateString(),
+                        name: new Date(entry.date).toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                        }),
                         hours: +entry.session_seconds / 3600,
                     });
                     sessionSum += +entry.session_seconds / 3600;
                 }
+                setProbability(
+                    Math.floor(((sessionSum * 3600) / total_lab_seconds) * 100)
+                );
                 if (data.length > 0) {
                     let startD = new Date(data[0].date); // start date of measurements
                     // let endD = new Date(data[data.length - 1].date);
@@ -53,10 +67,8 @@ const UserAreaChart = ({ user_id }) => {
                             avgTimeString = `${hours} h and ${Math.floor(
                                 tmp_min
                             )} min`;
-                            console.log(avgTimeString);
                         } else {
                             avgTimeString = `${Math.floor(tmp_min)} min`;
-                            console.log(avgTimeString);
                         }
                         setAverageTime(avgTimeString);
                     }
@@ -66,45 +78,29 @@ const UserAreaChart = ({ user_id }) => {
             .catch((error) => console.log(error));
     }, []);
 
-    // const data = [
-    //     {
-    //         name: 'January',
-    //         hours: 140,
-    //         user: 125,
-    //     },
-    //     {
-    //         name: 'Feb',
-    //         hours: 150,
-    //         user: 171,
-    //     },
-    //     {
-    //         name: 'March',
-    //         hours: 130,
-    //         user: 112,
-    //     },
-    //     {
-    //         name: 'June',
-    //         hours: 160,
-    //         user: 110,
-    //     },
-    //     {
-    //         name: 'July',
-    //         hours: 120,
-    //         user: 210,
-    //     },
-    //     {
-    //         name: 'August',
-    //         hours: 170,
-    //         user: 128,
-    //     },
-    // ];
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className='custom-tooltip'>
+                    <p className='label'>{payload[0].payload.name}</p>
+                    <p className=''>{`${Math.floor(
+                        payload[0].value
+                    )} h and ${Math.floor(
+                        (payload[0].value * 60) % 60
+                    )} min`}</p>
+                </div>
+            );
+        }
+
+        return null;
+    };
 
     return (
         <>
             <div className='statistics-container'>
                 <div className='avg-time'>
-                    <span>Average Time at Lab: </span>
-                    {averageTime}
+                    <span>Average Time at Lab: {averageTime}</span>
+                    {/* <span>Probability to find him at Lab: {probability} %</span> */}
                 </div>
                 <ResponsiveContainer width='100%' height='90%'>
                     <AreaChart
@@ -151,7 +147,7 @@ const UserAreaChart = ({ user_id }) => {
                         <XAxis dataKey='name' />
                         <YAxis />
                         <CartesianGrid strokeDasharray='3 3' opacity={0.1} />
-                        <Tooltip />
+                        <Tooltip content={<CustomTooltip />} />
                         <Area
                             type='monotone'
                             dataKey='hours'

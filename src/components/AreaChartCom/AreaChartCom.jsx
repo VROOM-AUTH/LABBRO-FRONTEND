@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './AreaChartCom.css';
 import {
     AreaChart,
     XAxis,
@@ -13,7 +14,13 @@ const AreaChartCom = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -24,7 +31,12 @@ const AreaChartCom = () => {
                 let tmp_data = [];
                 for (let entry of data) {
                     tmp_data.push({
-                        name: entry.date,
+                        // name: entry.date,
+                        name: new Date(entry.date).toLocaleDateString('en-UK', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                        }),
                         hours: +entry.session_seconds / 3600,
                     });
                 }
@@ -32,46 +44,14 @@ const AreaChartCom = () => {
             });
     }, []);
 
-    // const data = [
-    //     {
-    //         name: "January",
-    //         hours: 140,
-    //         user: 125,
-    //     },
-    //     {
-    //         name: "Feb",
-    //         hours: 150,
-    //         user: 171,
-    //     },
-    //     {
-    //         name: "March",
-    //         hours: 130,
-    //         user: 112,
-    //     },
-    //     {
-    //         name: "June",
-    //         hours: 160,
-    //         user: 110,
-    //     },
-    //     {
-    //         name: "July",
-    //         hours: 120,
-    //         user: 210,
-    //     },
-    //     {
-    //         name: "August",
-    //         hours: 170,
-    //         user: 128,
-    //     },
-    // ];
-
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
                 <div className='custom-tooltip'>
-                    <p className='label'>{`${new Date(
+                    {/* <p className="label">{`${new Date(
                         label
-                    ).toDateString()}`}</p>
+                    ).toDateString()}`}</p>{" "} */}
+                    <p className='label'>{payload[0].payload.name}</p>
                     <p className=''>{`${Math.floor(
                         payload[0].value
                     )} h and ${Math.floor(
@@ -83,7 +63,6 @@ const AreaChartCom = () => {
 
         return null;
     };
-
     return (
         <ResponsiveContainer width='100%' height='90%'>
             <AreaChart

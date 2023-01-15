@@ -45,6 +45,8 @@
     margin-top: 30px;
 }
 
-
-
-
+@media screen and (max-width: 800px) {
+    .activity-panel {
+        height: 100vh;
+    }
+}

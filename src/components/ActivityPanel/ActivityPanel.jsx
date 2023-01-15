@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import "./ActivityPanel.css";
-import UserCard from "./UserCard";
-import AreaChartCom from "../AreaChartCom/AreaChartCom";
-import { useEffect } from "react";
+import React, { useState } from 'react';
+import './ActivityPanel.css';
+import UserCard from './UserCard';
+import AreaChartCom from '../AreaChartCom/AreaChartCom';
+import { useEffect } from 'react';
 
 const ActivityPanel = () => {
     const [recentActivity, setRecentActivity] = useState([]);
     // const [userIdentifier, setUserIdentifier] = useState({});
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users/`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -22,13 +28,18 @@ const ActivityPanel = () => {
                     user_id[user.id] = user.name;
                 }
                 // setUserIdentifier(temp_obj);
-                // console.log(userIdentifier);
                 getRecentActivity(user_id);
             });
     }, []);
 
     const getRecentActivity = (user_id) => {
-        fetch(`${process.env.REACT_APP_BASE_URL}attendance/?reverse=4`)
+        fetch(`${process.env.REACT_APP_BASE_URL}attendance/?reverse=4`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -37,7 +48,6 @@ const ActivityPanel = () => {
             })
             .then((data) => {
                 let temp_arr = [];
-                console.log(data);
                 for (let entry of data) {
                     if (entry.status === 0) {
                         temp_arr.push(
@@ -57,15 +67,15 @@ const ActivityPanel = () => {
     };
 
     return (
-        <div className="activity-panel">
+        <div className='activity-panel'>
             {/* <div className="header"></div> */}
-            <div className="activity-panel-container">
+            <div className='activity-panel-container'>
                 <h3>Recent activity</h3>
                 {recentActivity.map((item, index) => (
                     <UserCard user={item} index={index} key={index} />
                 ))}
             </div>
-            <div className="classification">
+            <div className='classification'>
                 <AreaChartCom />
             </div>
         </div>

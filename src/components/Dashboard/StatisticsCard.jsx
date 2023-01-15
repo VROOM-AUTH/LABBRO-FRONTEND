@@ -11,7 +11,6 @@ const StatisticsCard = ({
         icon: 'linear-gradient(94deg, rgba(108,49,229,1) 0%, rgba(194,89,228,1) 100%)',
     });
 
-    // const [txtColor, setTxtColor] = useState({black:})
     const swapColors = () => {
         setBgColor((oldColors) => {
             return { card: oldColors['icon'], icon: oldColors['card'] };

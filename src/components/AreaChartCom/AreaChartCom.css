@@ -1,4 +1,15 @@
 .custom-tooltip {
-    background-color: aliceblue;
-    color: aliceblue;
+    background-color: rgb(29, 29, 29);
+    color: #fff;
+    height: fit-content;
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.custom-tooltip :hover {
+    border: none;
+}
+
+.custom-tooltip :active {
+    border: none;
 }
