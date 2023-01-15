@@ -18,7 +18,13 @@ const RegisterScreen = ({}) => {
     const handleSignup = async (event) => {
         event.preventDefault();
         try {
-            fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`)
+            fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            })
                 .then((response) => {
                     if (response.ok) {
                         return response.json();
@@ -31,7 +37,10 @@ const RegisterScreen = ({}) => {
                             `${process.env.REACT_APP_BASE_URL}users/${data[0].id}`,
                             {
                                 method: 'PUT',
-                                headers: { 'Content-Type': 'application/json' },
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                                },
                                 body: JSON.stringify({
                                     password: hashedPwd,
                                 }),
