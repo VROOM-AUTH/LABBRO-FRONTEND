@@ -25,7 +25,7 @@ const VroomVolts = ({ userData }) => {
             {
                 method: "GET",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },
@@ -49,7 +49,7 @@ const VroomVolts = ({ userData }) => {
                 {
                     method: "PUT",
                     headers: {
-                        "Access-Control-Allow-Origin": "*",
+                        // "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
                         Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                     },
@@ -78,7 +78,7 @@ const VroomVolts = ({ userData }) => {
             {
                 method: "GET",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },
@@ -104,7 +104,7 @@ const VroomVolts = ({ userData }) => {
     fetch(`${process.env.REACT_APP_BASE_URL}vroomvolts/`, {
         method: "GET",
         headers: {
-            "Access-Control-Allow-Origin": "*",
+            // "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
         },

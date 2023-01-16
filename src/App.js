@@ -10,7 +10,7 @@ const loadData = (id) => {
     fetch(`${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${id}`, {
         method: "GET",
         headers: {
-            "Access-Control-Allow-Origin": "*",
+            // "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
             Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
         },
@@ -27,7 +27,7 @@ const loadData = (id) => {
                 {
                     method: "GET",
                     headers: {
-                        "Access-Control-Allow-Origin": "*",
+                        // "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
                         Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                     },
@@ -44,7 +44,7 @@ const loadData = (id) => {
                         {
                             method: "PUT",
                             headers: {
-                                "Access-Control-Allow-Origin": "*",
+                                // "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
                                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                             },

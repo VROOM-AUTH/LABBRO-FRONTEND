@@ -22,7 +22,7 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
             {
                 method: "GET",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },

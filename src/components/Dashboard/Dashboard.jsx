@@ -17,7 +17,7 @@ const Dashboard = ({ userData }) => {
         fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`, {
             method: "GET",
             headers: {
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
@@ -73,7 +73,7 @@ const Dashboard = ({ userData }) => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/`, {
             method: "GET",
             headers: {
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
@@ -90,7 +90,7 @@ const Dashboard = ({ userData }) => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=name,id`, {
             method: "GET",
             headers: {
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
@@ -110,7 +110,7 @@ const Dashboard = ({ userData }) => {
             fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
                 method: "GET",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },

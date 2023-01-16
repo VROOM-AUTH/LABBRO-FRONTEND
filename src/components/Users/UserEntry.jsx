@@ -17,7 +17,7 @@ const UserEntry = ({ user_id, userData, index }) => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`, {
             method: "GET",
             headers: {
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",
                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
             },
@@ -38,7 +38,7 @@ const UserEntry = ({ user_id, userData, index }) => {
             {
                 method: "GET",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },
@@ -60,7 +60,7 @@ const UserEntry = ({ user_id, userData, index }) => {
             {
                 method: "GET",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },

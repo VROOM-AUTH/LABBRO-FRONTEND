@@ -88,7 +88,7 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
             {
                 method: "PUT",
                 headers: {
-                    "Access-Control-Allow-Origin": "*",
+                    // "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
                     Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
                 },
