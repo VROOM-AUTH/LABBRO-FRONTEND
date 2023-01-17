@@ -54,9 +54,10 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
         } else if (prizes[randomIndex] === "4") {
             setTimeout(() => {
                 setSpinning(false);
-                setTotalUserVolts((prev) => prev - 25);
-                if (totalUserVolts < 0) {
+                if (totalUserVolts - 25 < 0) {
                     setTotalUserVolts(0);
+                } else {
+                    setTotalUserVolts((prev) => prev - 25);
                 }
             }, 5000);
 
