@@ -79,9 +79,13 @@ const Menu = ({ userData, setUserData }) => {
             body: JSON.stringify({
                 user_id: userData.userId,
             }),
-        }).catch((error) => {
-            console.log(error);
-        });
+        })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -188,7 +192,6 @@ const Menu = ({ userData, setUserData }) => {
                                     onClick={() => {
                                         checkout();
                                         setAreYouSure(false);
-                                        window.location.reload();
                                     }}
                                 >
                                     Yes
