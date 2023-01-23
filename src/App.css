@@ -5,6 +5,8 @@
     width: 100vw;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu-container {
@@ -14,7 +16,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    flex: 1 1 0;
+    flex: 1;
 }
 
 .bar-chart {
@@ -25,13 +27,13 @@
 .dashboard-container {
     margin: 20px;
     height: 90vh;
-    flex: 3 1 0;
+    flex: 3;
 }
 
 .activity-container {
     margin: 20px;
     height: 90vh;
-    flex: 1 1 0;
+    flex: 1;
 }
 
 @media only screen and (max-width: 800px) {
@@ -55,5 +57,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    .dashboard-container {
+        height: fit-content !important;
     }
 }

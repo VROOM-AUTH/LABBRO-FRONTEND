@@ -77,6 +77,8 @@ const ActivityPanel = () => {
                     <UserCard user={item} index={index} key={index} />
                 ))}
             </div>
+            <h3 className="total-hours-title">Total Lab Hours</h3>
+
             <div className="classification">
                 <AreaChartCom />
             </div>

@@ -81,16 +81,25 @@ a {
         rgba(108, 49, 229, 1) 0%,
         rgba(194, 89, 228, 1) 100%
     );
-    width: 90%;
+    width: 100%;
     border-radius: 2rem;
-    padding: 10px 0 10px 20px;
+    /* padding: 10px 0 10px 20px; */
+    padding: 0 0 0 1rem;
     color: white;
     box-shadow: 20px 20px 90px rgba(0, 0, 0, 0.3),
         -20px -20px 90px rgba(0, 0, 0, 0.3);
     transition: 0.5s;
+    margin: 0.4rem 0;
 }
 .non-clicked {
-    border-radius: 1rem;
+    border-radius: 2rem;
+    text-align: left;
+    padding: 0 0 0 1rem;
+    width: 97%;
+    margin: 0.4rem 0;
+    /* background-color: #2b2b4767; */
+    background: linear-gradient(94deg, #2b2b4767 0%, #1a1a2b67 100%);
+    /* border: 2px solid #151522; */
 }
 .checkout-container {
     background-image: url(../../assets/LabBro_Logo.png);
@@ -149,6 +158,7 @@ a {
     }
     .clicked {
         font-size: 18px;
+        width: 97%;
     }
     .non-clicked {
         font-size: 18px;
@@ -158,5 +168,8 @@ a {
         height: 500px !important;
         padding: 0 !important;
         margin-top: 2rem;
+    }
+    .menu-container {
+        width: 90%;
     }
 }

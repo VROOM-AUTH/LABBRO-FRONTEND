@@ -166,45 +166,51 @@ const Dashboard = ({ userData }) => {
                     </h2>
                 )}
             </div>
-            <div className="cards-container">
-                <StatisticsCard
-                    info={`${Math.floor(
-                        labStatus.total_hours / 3600
-                    )} h and ${Math.floor(
-                        (labStatus.total_hours % 3600) / 60
-                    )} min`}
-                    icon={1}
-                />
-                {userData.isLoggedIn ? (
+            <div className="cards-container-dash">
+                <div className="row-dash">
                     <StatisticsCard
-                        title="Vroomers at Lab"
-                        info={usersInLab}
-                        icon={2}
+                        info={`${Math.floor(
+                            labStatus.total_hours / 3600
+                        )} h and ${Math.floor(
+                            (labStatus.total_hours % 3600) / 60
+                        )} min`}
+                        icon={1}
                     />
-                ) : (
-                    <span
-                        onClick={() => {
-                            Navigate("/login");
-                        }}
-                    >
+                    {userData.isLoggedIn ? (
                         <StatisticsCard
                             title="Vroomers at Lab"
-                            info="Login to view"
+                            info={usersInLab}
                             icon={2}
                         />
-                    </span>
-                )}
-
-                <StatisticsCard
-                    title="Lab Opened"
-                    info={labStatus.opened_time}
-                    icon={3}
-                />
-                <StatisticsCard
-                    title="Total Users"
-                    info={totalUsers}
-                    icon={4}
-                />
+                    ) : (
+                        <span
+                            onClick={() => {
+                                Navigate("/login");
+                            }}
+                        >
+                            <div className="pointer">
+                                <StatisticsCard
+                                    title="Vroomers at Lab"
+                                    info="Login to view"
+                                    icon={2}
+                                    style={{ cursor: "pointer" }}
+                                />
+                            </div>
+                        </span>
+                    )}
+                </div>
+                <div className="row-dash">
+                    <StatisticsCard
+                        title="Lab Opened"
+                        info={labStatus.opened_time}
+                        icon={3}
+                    />
+                    <StatisticsCard
+                        title="Total Users"
+                        info={totalUsers}
+                        icon={4}
+                    />
+                </div>
             </div>
             <div className="charts">
                 <BarChartCom data={userHours} />
