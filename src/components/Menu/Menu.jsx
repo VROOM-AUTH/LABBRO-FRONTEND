@@ -101,26 +101,35 @@ const Menu = ({ userData, setUserData }) => {
                 </h3>
             </div>
             <div className="component-parts list-menu-container">
-                <div className={isClicked1 ? "clicked" : "non-clicked"}>
-                    <Link to="/">
+                <Link to="/" className={isClicked1 ? "clicked" : "non-clicked"}>
+                    <div>
                         {/* <a href="#" onClick={() => menuClicked(1)}> */}
                         Dashboard
                         {/* </a> */}
-                    </Link>
-                </div>
-                <div className={isClicked2 ? "clicked" : "non-clicked"}>
-                    <Link to="/volts">
+                    </div>
+                </Link>
+                <Link
+                    to="/volts"
+                    className={isClicked2 ? "clicked" : "non-clicked"}
+                >
+                    <div>
                         {/* <a href="#" onClick={() => menuClicked(2)}> */}
                         Vroom Volts
                         {/* </a> */}
-                    </Link>
-                </div>
-                <div className={isClicked3 ? "clicked" : "non-clicked"}>
-                    <Link to="/users">Users</Link>
-                </div>
-                <div className={isClicked4 ? "clicked" : "non-clicked"}>
-                    <Link to="/marathon">Marathon</Link>
-                </div>
+                    </div>
+                </Link>
+                <Link
+                    to="/users"
+                    className={isClicked3 ? "clicked" : "non-clicked"}
+                >
+                    <div>Users</div>
+                </Link>
+                <Link
+                    to="/marathon"
+                    className={isClicked4 ? "clicked" : "non-clicked"}
+                >
+                    <div>Marathon</div>
+                </Link>
                 {userData.username != "" ? (
                     <>
                         {userInLab ? (
@@ -130,7 +139,7 @@ const Menu = ({ userData, setUserData }) => {
                                     onClick={() => {
                                         setAreYouSure(true);
                                         window.scrollTo({
-                                            top: 800,
+                                            top: 1000,
                                             behavior: "smooth",
                                         });
                                     }}
@@ -186,7 +195,7 @@ const Menu = ({ userData, setUserData }) => {
                             <p className="modal-title">
                                 Are you sure you want to check out?
                             </p>
-                            <div className="ways-to-win row">
+                            <div className="ways-to-win row-menu">
                                 <button
                                     className="mainButton sure"
                                     onClick={() => {

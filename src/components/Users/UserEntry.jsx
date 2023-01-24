@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import UserAreaChart from "./UserAreaChart";
+import arrowUser from "../../assets/arrow_user.png";
 
 const UserEntry = ({ user_id, userData, index }) => {
     const [userName, setUserName] = useState("");
@@ -109,8 +110,19 @@ const UserEntry = ({ user_id, userData, index }) => {
         <div className="entry-container">
             <div
                 className="entry-header"
-                onClick={() => setCharts((prev) => !prev)}
+                onClick={() => {
+                    setCharts((prev) => !prev);
+                    document
+                        .getElementById(index)
+                        .classList.toggle("user-arrow-rotated");
+                }}
             >
+                <img
+                    src={arrowUser}
+                    className="user-arrow"
+                    alt="arrow"
+                    id={index}
+                />
                 <div className="user-icon-con">
                     {userData.isLoggedIn ? (
                         <div className="user-icon">

@@ -75,7 +75,7 @@ export default function Marathon({ userData }) {
                     </div>
                     <div className="leaderboard-container">
                         <Confetti />
-                        <div className="cards-container">
+                        <div className="cards-container-marathon ">
                             <div className="marathon-card">
                                 <h1 className="second">
                                     {
