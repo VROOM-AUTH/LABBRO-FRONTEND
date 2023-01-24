@@ -108,5 +108,14 @@
 @media only screen and (max-width: 800px) {
     .entry-container {
         padding: 0;
+        width: 90%;
+    }
+    .entry-container:hover {
+        width: 90%;
+    }
+    .user-arrow {
+        width: 10px;
+        margin: 0 1rem 0 1rem;
+        transition: all 0.1s;
     }
 }

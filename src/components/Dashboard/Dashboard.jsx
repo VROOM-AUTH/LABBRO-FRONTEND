@@ -154,7 +154,7 @@ const Dashboard = ({ userData }) => {
 
     return (
         <div className="dashboard">
-            <div className="header">
+            <div className="header-dash">
                 <h1>Dashboard</h1>
                 {labStatus.closed == "Open " && userData.isLoggedIn && (
                     <h2 className="lab-status">

@@ -36,9 +36,9 @@ class CustomizedAxisTick extends PureComponent {
                     y={0}
                     dy={16}
                     textAnchor="end"
-                    fill="#666"
+                    fill="#aaa"
                     transform="rotate(-35)"
-                    fontSize={14}
+                    fontSize={12}
                 >
                     {payload.value}
                 </text>
@@ -49,7 +49,7 @@ class CustomizedAxisTick extends PureComponent {
 
 const customLegend = () => {
     return (
-        <div className="legend">
+        <div className="legend" style={{ marginLeft: "1rem" }}>
             <div className="legend-box"></div>
             <div>Total Hours</div>
         </div>
@@ -61,7 +61,7 @@ const MyBarChart = ({ data }) => {
         return b.hours - a.hours;
     });
     return (
-        <ResponsiveContainer width="100%" height="50%">
+        <ResponsiveContainer width="100%" height="90%">
             <BarChart width={600} data={data}>
                 <defs>
                     <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">

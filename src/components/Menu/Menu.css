@@ -137,7 +137,7 @@ a {
 .no-margin {
     margin: 0;
 }
-.row {
+.row-menu {
     flex-direction: row !important;
     width: 100%;
     align-items: center;

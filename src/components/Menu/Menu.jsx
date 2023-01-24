@@ -139,7 +139,7 @@ const Menu = ({ userData, setUserData }) => {
                                     onClick={() => {
                                         setAreYouSure(true);
                                         window.scrollTo({
-                                            top: 800,
+                                            top: 1000,
                                             behavior: "smooth",
                                         });
                                     }}
@@ -195,7 +195,7 @@ const Menu = ({ userData, setUserData }) => {
                             <p className="modal-title">
                                 Are you sure you want to check out?
                             </p>
-                            <div className="ways-to-win row">
+                            <div className="ways-to-win row-menu">
                                 <button
                                     className="mainButton sure"
                                     onClick={() => {
