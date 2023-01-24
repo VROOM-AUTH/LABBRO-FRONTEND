@@ -9,7 +9,12 @@ import Marathon from "../components/Marathon/Marathon";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-export default function MainScreen({ path, userData, isLoggedIn }) {
+export default function MainScreen({
+    path,
+    userData,
+    setUserData,
+    isLoggedIn,
+}) {
     return (
         <div className="App">
             <div className="menu-container">
