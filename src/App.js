@@ -7,7 +7,14 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const loadData = (id) => {
-    fetch(`${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${id}`)
+    fetch(`${process.env.REACT_APP_BASE_URL}users-levels/?user_id=${id}`, {
+        method: "GET",
+        headers: {
+            // "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+        },
+    })
         .then((response) => {
             if (response.ok) return response.json();
 
@@ -15,7 +22,17 @@ const loadData = (id) => {
         })
         .then((data1) => {
             const initial_vroomvolts = data1[0].vroomvolts;
-            fetch(`${process.env.REACT_APP_BASE_URL}calculate-vroomvolts/${id}`)
+            fetch(
+                `${process.env.REACT_APP_BASE_URL}calculate-vroomvolts/${id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        // "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                        Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                    },
+                }
+            )
                 .then((response) => {
                     if (response.ok) return response.json();
 
@@ -26,7 +43,11 @@ const loadData = (id) => {
                         `${process.env.REACT_APP_BASE_URL}users-levels/${id}`,
                         {
                             method: "PUT",
-                            headers: { "Content-Type": "application/json" },
+                            headers: {
+                                // "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                            },
                             body: JSON.stringify({
                                 vroomvolts:
                                     initial_vroomvolts + data2.vroomvolts,
@@ -51,7 +72,14 @@ function App() {
     });
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id`)
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=id`, {
+            method: "GET",
+            headers: {
+                // "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) return response.json();
 

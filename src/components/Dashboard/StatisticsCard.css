@@ -41,3 +41,8 @@
 .title {
     color: #c4c6cb;
 }
+@media only screen and (max-width: 800px) {
+    .statistics-card {
+        margin: 0.5rem 0;
+    }
+}

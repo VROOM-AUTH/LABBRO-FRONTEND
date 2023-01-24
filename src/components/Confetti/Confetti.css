@@ -1,12 +1,14 @@
-body {
+/* body {
     margin: 0;
     overflow: hidden;
-}
+} */
 
 .wrapper {
     position: fixed;
     min-height: 80vh;
     min-width: 45vw;
+    margin: 0;
+    overflow: hidden;
 }
 
 [class|="confetti"] {
