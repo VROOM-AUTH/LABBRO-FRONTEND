@@ -13,6 +13,7 @@ import "./UserAreaChart.css";
 
 const UserAreaChart = ({ user_id, total_lab_seconds }) => {
     const [data, setData] = useState([]);
+    const [finalData, setFinalData] = useState([]);
     const [averageTime, setAverageTime] = useState("0 min");
     const [probability, setProbability] = useState(0);
 
@@ -74,10 +75,27 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
                         setAverageTime(avgTimeString);
                     }
                 }
+
                 setData(temp_data);
             })
             .catch((error) => console.log(error));
     }, []);
+
+    useEffect(() => {
+        let result = {};
+        data.forEach((item) => {
+            if (!result[item.name]) {
+                result[item.name] = {
+                    name: item.name,
+                    hours: 0,
+                };
+            }
+            result[item.name].hours += item.hours;
+        });
+
+        let finalResult = Object.values(result);
+        setFinalData(finalResult);
+    }, [data]);
 
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
@@ -107,7 +125,7 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
                     <AreaChart
                         width={730}
                         height={250}
-                        data={data}
+                        data={finalData}
                         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                     >
                         <defs>

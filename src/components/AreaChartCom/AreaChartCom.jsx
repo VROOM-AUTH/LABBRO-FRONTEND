@@ -12,6 +12,7 @@ import {
 
 const AreaChartCom = () => {
     const [data, setData] = useState([]);
+    const [finalData, setFinalData] = useState([]);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}session-duration/`, {
@@ -45,6 +46,22 @@ const AreaChartCom = () => {
             });
     }, []);
 
+    useEffect(() => {
+        let result = {};
+        data.forEach((item) => {
+            if (!result[item.name]) {
+                result[item.name] = {
+                    name: item.name,
+                    hours: 0,
+                };
+            }
+            result[item.name].hours += item.hours;
+        });
+
+        let finalResult = Object.values(result);
+        setFinalData(finalResult);
+    }, [data]);
+
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
@@ -69,7 +86,7 @@ const AreaChartCom = () => {
             <AreaChart
                 width={730}
                 height={250}
-                data={data}
+                data={finalData}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
             >
                 <defs>
