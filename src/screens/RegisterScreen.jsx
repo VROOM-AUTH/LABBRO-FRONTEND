@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import LBL from "../assets/LabBro_Logo.png";
 import VL from "../assets/Vroom Logo.png";
-var CryptoJS = require("crypto-js");
+// var CryptoJS = require("crypto-js");
 
-const RegisterScreen = ({}) => {
+const RegisterScreen = () => {
     const [pwd, setPwd] = useState("");
     const [name, setName] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
@@ -64,6 +64,7 @@ const RegisterScreen = ({}) => {
             // Store the hash in your DB
             setHashedPwd(hash);
         });
+        // eslint-disable-next-line
     }, [pwd]);
 
     return (

@@ -15,7 +15,7 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
     const [data, setData] = useState([]);
     const [finalData, setFinalData] = useState([]);
     const [averageTime, setAverageTime] = useState("0 min");
-    const [probability, setProbability] = useState(0);
+    // const [probability, setProbability] = useState(0);
 
     useEffect(() => {
         fetch(
@@ -49,9 +49,9 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
                     });
                     sessionSum += +entry.session_seconds / 3600;
                 }
-                setProbability(
-                    Math.floor(((sessionSum * 3600) / total_lab_seconds) * 100)
-                );
+                // setProbability(
+                //     Math.floor(((sessionSum * 3600) / total_lab_seconds) * 100)
+                // );
                 if (data.length > 0) {
                     let startD = new Date(data[0].date); // start date of measurements
                     // let endD = new Date(data[data.length - 1].date);
@@ -65,7 +65,7 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
                         let hours = Math.floor(minutes / 60); // total hours at lab
                         let avgTimeString = "";
                         let tmp_min = minutes % 60;
-                        if (hours != 0) {
+                        if (hours !== 0) {
                             avgTimeString = `${hours} h and ${Math.floor(
                                 tmp_min
                             )} min`;
@@ -79,6 +79,7 @@ const UserAreaChart = ({ user_id, total_lab_seconds }) => {
                 setData(temp_data);
             })
             .catch((error) => console.log(error));
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {

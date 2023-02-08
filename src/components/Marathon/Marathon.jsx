@@ -9,7 +9,7 @@ export default function Marathon({ userData }) {
     const [loading2, setLoading2] = useState(true);
     const [marathonData, setMaratonData] = useState([]);
     const [idToName, setIdToName] = useState([]);
-    const [namesAndTime, setNamesAndTime] = useState([]);
+    // const [namesAndTime, setNamesAndTime] = useState([]);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
@@ -49,12 +49,13 @@ export default function Marathon({ userData }) {
                 setIdToName(data);
                 setLoading2(false);
             });
+        // eslint-disable-next-line
     }, []);
 
     function convertSeconds(seconds) {
         const hours = Math.floor(seconds / 3600);
         const minutes = Math.floor((seconds % 3600) / 60);
-        const remainingSeconds = seconds % 60;
+        // const remainingSeconds = seconds % 60;
 
         return hours + " hours and " + minutes + " minutes ";
     }

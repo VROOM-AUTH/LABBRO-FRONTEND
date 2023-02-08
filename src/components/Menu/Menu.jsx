@@ -6,7 +6,7 @@ import LOGO from "../../assets/LabBro_Logo.png";
 import { Link } from "react-router-dom";
 
 const Menu = ({ userData, setUserData }) => {
-    const [activeMenu, setActiveMenu] = useState(window.location.href);
+    // const [activeMenu, setActiveMenu] = useState(window.location.href);
     const [isClicked1, setIsClicked1] = useState(false);
     const [isClicked2, setIsClicked2] = useState(false);
     const [isClicked3, setIsClicked3] = useState(false);
@@ -23,26 +23,27 @@ const Menu = ({ userData, setUserData }) => {
             setIsClicked1(false);
             setIsClicked3(false);
             setIsClicked4(false);
-            setActiveMenu("Vroom Volts");
+            // setActiveMenu("Vroom Volts");
         } else if (url.includes("users")) {
             setIsClicked3(true);
             setIsClicked1(false);
             setIsClicked2(false);
             setIsClicked4(false);
-            setActiveMenu("Users");
+            // setActiveMenu("Users");
         } else if (url.includes("marathon")) {
             setIsClicked3(false);
             setIsClicked1(false);
             setIsClicked2(false);
             setIsClicked4(true);
-            setActiveMenu("Marathon");
+            // setActiveMenu("Marathon");
         } else {
             setIsClicked1(true);
             setIsClicked2(false);
             setIsClicked3(false);
             setIsClicked4(false);
-            setActiveMenu("Dashboard");
+            // setActiveMenu("Dashboard");
         }
+        // eslint-disable-next-line
     }, [window.location.href]);
 
     useEffect(() => {
@@ -66,6 +67,7 @@ const Menu = ({ userData, setUserData }) => {
             .then((data) => {
                 setUserInLab(data.in_lab);
             });
+        // eslint-disable-next-line
     }, [areYouSure]);
 
     const checkout = () => {
@@ -95,7 +97,7 @@ const Menu = ({ userData, setUserData }) => {
                     <img src={LOGO} alt="logo" className="logo" />
                 </div>
                 <h3 className="active-menu">
-                    {userData.username != ""
+                    {userData.username !== ""
                         ? "Welcome back " + userData.username + "!"
                         : ""}
                 </h3>
@@ -130,7 +132,7 @@ const Menu = ({ userData, setUserData }) => {
                 >
                     <div>Marathon</div>
                 </Link>
-                {userData.username != "" ? (
+                {userData.username !== "" ? (
                     <>
                         {userInLab ? (
                             <div className="component-parts checkout-container">

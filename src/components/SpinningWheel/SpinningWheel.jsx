@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import wheel from "../../assets/VroomWheel.png";
 import arrowDown from "../../assets/wheelArrow.png";
-import coin from "../../assets/coin.png";
 import "./SpinningWheel.css";
 const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
     // State to store the selected prize
@@ -9,7 +8,7 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
     // State to store the spinning status of the wheel
     const [spinning, setSpinning] = useState(false);
     // State to store the angle of the wheel
-    const [angle, setAngle] = useState(0);
+    // const [angle, setAngle] = useState(0);
     // Array of possible prizes
     let prizes = ["1", "2", "3", "4", "5"];
 
@@ -83,22 +82,22 @@ const SpinningWheel = ({ totalUserVolts, setTotalUserVolts, userData }) => {
         Math.floor(Math.floor(Math.random() * (50 - 20 + 1)) + 20) * 360 +
         72 * prizes.indexOf(prize);
 
-    const putVroomvolts = () => {
-        fetch(
-            `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
-            {
-                method: "PUT",
-                headers: {
-                    // "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
-                },
-                body: JSON.stringify({
-                    vroomvolts: totalUserVolts,
-                }),
-            }
-        );
-    };
+    // const putVroomvolts = () => {
+    //     fetch(
+    //         `${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`,
+    //         {
+    //             method: "PUT",
+    //             headers: {
+    //                 // "Access-Control-Allow-Origin": "*",
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+    //             },
+    //             body: JSON.stringify({
+    //                 vroomvolts: totalUserVolts,
+    //             }),
+    //         }
+    //     );
+    // };
     return (
         <div
             style={{

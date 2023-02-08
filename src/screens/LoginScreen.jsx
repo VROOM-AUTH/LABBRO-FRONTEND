@@ -1,21 +1,21 @@
 import "./LoginReg.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LBL from "../assets/LabBro_Logo.png";
 import VL from "../assets/Vroom Logo.png";
-var CryptoJS = require("crypto-js");
+// var CryptoJS = require("crypto-js");
 
 const LoginScreen = ({ userData, setUserData }) => {
     const [loginName, setLoginName] = useState("");
     const [pwd, setPwd] = useState("");
-    const [hashedPwd, setHashedPwd] = useState("");
+    // const [hashedPwd, setHashedPwd] = useState("");
     const Navigate = useNavigate();
     const bcrypt = require("bcryptjs");
-    useEffect(() => {
-        setHashedPwd(
-            CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
-        );
-    }, [pwd]);
+    // useEffect(() => {
+    //     setHashedPwd(
+    //         CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(pwd))
+    //     );
+    // }, [pwd]);
     const login = async (event) => {
         event.preventDefault();
         try {

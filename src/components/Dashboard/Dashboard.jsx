@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StatisticsCard from "./StatisticsCard";
 import BarChartCom from "../BarChartCom/BarChartCom";
 import "./Dashboard.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = ({ userData }) => {
     const [labStatus, setLabStatus] = useState({ closed: "failed" });
@@ -30,7 +30,7 @@ const Dashboard = ({ userData }) => {
             .then((data) => {
                 let openTime = new Date(data["opened_time"]);
                 let today = false;
-                if (new Date().toDateString() == openTime.toDateString()) {
+                if (new Date().toDateString() === openTime.toDateString()) {
                     today = true;
                 }
                 openTime.setHours(openTime.getHours() - 2);
@@ -105,7 +105,9 @@ const Dashboard = ({ userData }) => {
                 setIdToName(data);
                 setLoading(false);
             });
+        // eslint-disable-next-line
     }, []);
+
     useEffect(() => {
         if (!loading) {
             fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
@@ -150,18 +152,19 @@ const Dashboard = ({ userData }) => {
                     console.log(`Error: ${error}`);
                 });
         }
+        // eslint-disable-next-line
     }, [loading]);
 
     return (
         <div className="dashboard">
             <div className="header-dash">
                 <h1>Dashboard</h1>
-                {labStatus.closed == "Open " && userData.isLoggedIn && (
+                {labStatus.closed === "Open " && userData.isLoggedIn && (
                     <h2 className="lab-status">
                         Lab is {labStatus.closed} &#128275;
                     </h2>
                 )}
-                {labStatus.closed == "Closed " && userData.isLoggedIn && (
+                {labStatus.closed === "Closed " && userData.isLoggedIn && (
                     <h2 className="lab-status">
                         Lab is {labStatus.closed} &#128274;
                     </h2>

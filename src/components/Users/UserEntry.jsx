@@ -3,7 +3,6 @@ import "./UserEntry.css";
 import coin from "../../assets/coin.png";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
 import UserAreaChart from "./UserAreaChart";
 import arrowUser from "../../assets/arrow_user.png";
 
@@ -12,7 +11,7 @@ const UserEntry = ({ user_id, userData, index }) => {
     const [userVroomvolts, setUserVroomvolts] = useState(0);
     const [inLab, setInLab] = useState(false);
     const [charts, setCharts] = useState(false);
-    const [totalLabSeconds, setTotalLabSeconds] = useState(null);
+    // const [totalLabSeconds, setTotalLabSeconds] = useState(null);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}users/?user_id=${user_id}`, {
@@ -104,6 +103,7 @@ const UserEntry = ({ user_id, userData, index }) => {
         //         setTotalLabSeconds(tmp_total);
         //     })
         //     .catch((error) => console.log(error));
+        // eslint-disable-next-line
     }, []);
 
     return (

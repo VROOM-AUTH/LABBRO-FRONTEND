@@ -19,13 +19,16 @@ const UserCard = ({ user = "User 404", index, timestamp, isLoggedIn }) => {
             case 3:
                 setOpacity(0.8);
                 break;
+            default:
+                break;
         }
+        // eslint-disable-next-line
     }, []);
 
     return (
         <div className="user-card" style={{ opacity: opacity }}>
             <div className="profile-pic-container">
-                <img src={PROFILE} alt="profile picture" />
+                <img src={PROFILE} alt="profile" />
             </div>
             <div className="name">{user}</div>
             {isLoggedIn ? <div className="timestamp">{timestamp}</div> : <></>}

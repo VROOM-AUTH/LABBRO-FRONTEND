@@ -41,6 +41,7 @@ const VroomVolts = ({ userData }) => {
                 setTotalUserVolts(data.vroomvolts);
                 setFirstFetch(false);
             });
+        // eslint-disable-next-line
     }, []);
     const putVroomvolts = () => {
         return new Promise((resolve, reject) => {
@@ -99,6 +100,7 @@ const VroomVolts = ({ userData }) => {
         if (!firstFetch) {
             putVroomvolts().then(fetchVroomvolts);
         }
+        // eslint-disable-next-line
     }, [totalUserVolts]);
 
     fetch(`${process.env.REACT_APP_BASE_URL}vroomvolts/`, {

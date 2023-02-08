@@ -7,13 +7,13 @@ import VroomVolts from "../components/VroomVolts/VroomVolts";
 import Users from "../components/Users/Users";
 import Marathon from "../components/Marathon/Marathon";
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function MainScreen({
     path,
     userData,
     setUserData,
-    isLoggedIn,
+    // isLoggedIn,
 }) {
     return (
         <div className="App">
