@@ -52,7 +52,7 @@ const ActivityPanel = ({ userData }) => {
                 let temp_arr = [];
                 for (let entry of data) {
                     let date = new Date(entry.timestamp);
-                    date.setHours(date.getHours() - 2);
+                    date.setHours(date.getHours() - 3);
                     if (entry.status === 0) {
                         temp_arr.push({
                             text: `${user_id[entry.user_id]} just left the Lab`,
