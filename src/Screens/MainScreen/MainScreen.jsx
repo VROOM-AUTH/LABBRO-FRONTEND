@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MainScreen.css";
+import { useNavigate } from "react-router-dom";
 
 export default function MainScreen({ setUserData, userData }) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (userData.isLoggedIn === false) {
+            navigate("/login");
+            return;
+        }
+    }, [navigate, userData.isLoggedIn, setUserData]);
+
     const handleLogout = (event) => {
         event.preventDefault();
         setTimeout(() => {
@@ -16,6 +26,10 @@ export default function MainScreen({ setUserData, userData }) {
             localStorage.removeItem("isLoggedIn");
         }, 200);
     };
+
+    if (!userData.isLoggedIn) {
+        return null;
+    }
 
     return (
         <div>

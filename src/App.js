@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./App.css";
 import LoginScreen from "./Screens/LoginScreen/LoginScreen";
@@ -11,7 +12,14 @@ function App() {
         isLoggedIn: localStorage.getItem("isLoggedIn") || false,
     });
 
-    return userData.isLoggedIn ? <MainScreen setUserData={setUserData} userData={userData} /> : <LoginScreen setUserData={setUserData} />;
+    return (
+        <Router>
+            <Routes>
+                <Route path="/login" element={<LoginScreen setUserData={setUserData} userData={userData} />} />
+                <Route path="/" element={<MainScreen setUserData={setUserData} userData={userData} />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

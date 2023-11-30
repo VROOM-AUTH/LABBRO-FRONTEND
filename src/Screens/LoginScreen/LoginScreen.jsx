@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bcrypt from "bcryptjs-react";
+import { useNavigate } from "react-router-dom";
 
 import { FaUser, FaLock } from "react-icons/fa";
 import "./LoginScreen.css";
 
-export default function LoginScreen({ setUserData }) {
+export default function LoginScreen({ setUserData, userData }) {
     const [rememberMe, setRememberMe] = useState(false);
     const [name, setName] = useState("");
     const [pwd, setPwd] = useState("");
+    const navigate = useNavigate();
 
     const handleRememberMeChange = () => {
         setRememberMe(!rememberMe);
     };
+
+    useEffect(() => {
+        if (userData.isLoggedIn) {
+            navigate("/");
+            return;
+        }
+    }, [navigate, userData.isLoggedIn]);
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -38,6 +47,7 @@ export default function LoginScreen({ setUserData }) {
                                 userId: data[0].id,
                                 isLoggedIn: true,
                             });
+                            navigate("/");
                             if (rememberMe) {
                                 localStorage.setItem("username", data[0].name);
                                 localStorage.setItem("userId", data[0].id);
