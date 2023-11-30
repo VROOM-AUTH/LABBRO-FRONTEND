@@ -10,6 +10,8 @@ export default function RegisterScreen({ userData }) {
     const [pwd, setPwd] = useState("");
     const [pwd2, setPwd2] = useState("");
     const [hashedPwd, setHashedPwd] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +32,8 @@ export default function RegisterScreen({ userData }) {
     const handleRegister = (event) => {
         event.preventDefault();
         if (pwd !== pwd2) {
-            alert("Passwords do not match!");
+            setErrorMessage("Passwords do not match!");
+
             return;
         }
         try {
@@ -63,14 +66,14 @@ export default function RegisterScreen({ userData }) {
                         });
                         navigate("/login");
                     } else {
-                        alert("Username already exists!");
+                        setErrorMessage("Username already exists!");
                     }
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         } catch (error) {
-            alert(error.message);
+            setErrorMessage(error.message);
         }
     };
 
@@ -78,7 +81,10 @@ export default function RegisterScreen({ userData }) {
         <div className="register-container">
             {/* <img className="register-logo" src={labbroLogo} alt="logo" /> */}
             <form className="register-form">
-                <h1 className="register-form-title">NEW ACCOUNT</h1>
+                <div className="login-block">
+                    <h1 className="register-form-title">NEW ACCOUNT</h1>
+                    <div className="login-form-error-message">{errorMessage}</div>
+                </div>
                 <div className="register-form-group">
                     <FaUser className="register-form-icon1" />
                     <input

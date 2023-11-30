@@ -9,6 +9,8 @@ export default function LoginScreen({ setUserData, userData }) {
     const [rememberMe, setRememberMe] = useState(false);
     const [name, setName] = useState("");
     const [pwd, setPwd] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
     const navigate = useNavigate();
 
     const handleRememberMeChange = () => {
@@ -54,15 +56,13 @@ export default function LoginScreen({ setUserData, userData }) {
                                 localStorage.setItem("isLoggedIn", true);
                             }
                         } else {
-                            alert("Incorrect password!");
-
-                            console.log("Password does not match.");
+                            setErrorMessage("Incorrect password!");
                         }
                     });
                 })
                 .catch((error) => {
                     console.log(error);
-                    alert("Username does not exist!");
+                    setErrorMessage("Username does not exist!");
                 });
         } catch (error) {
             alert(error.message);
@@ -75,7 +75,10 @@ export default function LoginScreen({ setUserData, userData }) {
         <div className="login-container">
             {/* <img className="login-logo" src={labbroLogo} alt="logo" /> */}
             <form className="login-form">
-                <h1 className="login-form-title">LOGIN</h1>
+                <div className="login-block">
+                    <h1 className="login-form-title">LOGIN</h1>
+                    <div className="login-form-error-message">{errorMessage}</div>
+                </div>
                 <div className="login-form-group">
                     <FaUser className="login-form-icon1" />
                     <input
