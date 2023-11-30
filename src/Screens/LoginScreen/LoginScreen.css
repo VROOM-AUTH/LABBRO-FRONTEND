@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 27rem;
-    height: 75vh;
+    height: 70vh;
     background: #ffffff;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
@@ -102,6 +102,7 @@
     background: #a4a9ff;
     background: #d84b76;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .login-form-btn:hover {

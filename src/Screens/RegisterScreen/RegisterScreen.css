@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: space-evenly;
     width: 27rem;
-    height: 75vh;
+    height: 70vh;
     background: #ffffff;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
@@ -85,6 +85,7 @@
     background: #a4a9ff;
     background: #d84b76;
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .register-form-btn:hover {
