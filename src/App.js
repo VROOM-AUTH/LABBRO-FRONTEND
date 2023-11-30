@@ -5,9 +5,13 @@ import LoginScreen from "./Screens/LoginScreen/LoginScreen";
 import MainScreen from "./Screens/MainScreen/MainScreen";
 
 function App() {
-    const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin") === "true");
+    const [userData, setUserData] = useState({
+        username: localStorage.getItem("username") || "",
+        userId: parseInt(localStorage.getItem("userId")) || 0,
+        isLoggedIn: localStorage.getItem("isLoggedIn") || false,
+    });
 
-    return isLogin ? <MainScreen setIsLogin={setIsLogin} /> : <LoginScreen setIsLogin={setIsLogin} />;
+    return userData.isLoggedIn ? <MainScreen setUserData={setUserData} userData={userData} /> : <LoginScreen setUserData={setUserData} />;
 }
 
 export default App;

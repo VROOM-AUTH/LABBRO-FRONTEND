@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs-react";
 import { FaUser, FaLock } from "react-icons/fa";
 import "./LoginScreen.css";
 
-export default function LoginScreen({ setIsLogin }) {
+export default function LoginScreen({ setUserData }) {
     const [rememberMe, setRememberMe] = useState(false);
     const [name, setName] = useState("");
     const [pwd, setPwd] = useState("");
@@ -33,10 +33,15 @@ export default function LoginScreen({ setIsLogin }) {
                 .then((data) => {
                     bcrypt.compare(pwd, data[0].password, function (err, res) {
                         if (res) {
-                            console.log("Password matches.");
-                            setIsLogin(true);
+                            setUserData({
+                                username: data[0].name,
+                                userId: data[0].id,
+                                isLoggedIn: true,
+                            });
                             if (rememberMe) {
-                                localStorage.setItem("isLogin", true);
+                                localStorage.setItem("username", data[0].name);
+                                localStorage.setItem("userId", data[0].id);
+                                localStorage.setItem("isLoggedIn", true);
                             }
                         } else {
                             alert("Incorrect password!");
@@ -66,7 +71,7 @@ export default function LoginScreen({ setIsLogin }) {
                     <input
                         type="name"
                         id="name"
-                        placeholder="      Username"
+                        placeholder="Username"
                         onChange={(event) => {
                             setName(event.target.value);
                         }}
@@ -76,7 +81,7 @@ export default function LoginScreen({ setIsLogin }) {
                     <input
                         type="password"
                         id="password"
-                        placeholder="      Password"
+                        placeholder="Password"
                         onChange={(event) => {
                             setPwd(event.target.value);
                         }}
