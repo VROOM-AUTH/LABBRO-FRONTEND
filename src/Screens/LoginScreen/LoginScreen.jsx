@@ -2,11 +2,21 @@ import React, { useState } from "react";
 import "./LoginScreen.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import labbroLogo from "../../Assets/labbro-logo.png";
-export default function LoginScreen() {
+export default function LoginScreen({ setIsLogin }) {
     const [rememberMe, setRememberMe] = useState(false);
 
     const handleRememberMeChange = () => {
         setRememberMe(!rememberMe);
+    };
+
+    const handleLogin = (event) => {
+        event.preventDefault();
+        setTimeout(() => {
+            setIsLogin(true);
+            if (rememberMe) {
+                localStorage.setItem("isLogin", true);
+            }
+        }, 200);
     };
 
     return (
@@ -21,7 +31,7 @@ export default function LoginScreen() {
                     <input type="password" id="password" placeholder="      Password" />
                 </div>
                 <div>
-                    <button type="submit" className="login-form-btn">
+                    <button className="login-form-btn" onClick={(e) => handleLogin(e)}>
                         Login
                     </button>
                     <div className="remember-me-container">
