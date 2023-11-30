@@ -32,7 +32,7 @@ export default function MainScreen({ setUserData, userData }) {
     }
 
     return (
-        <div>
+        <div className="mainscreen-container">
             <h1>Welcome {userData.username}</h1>
             <div onClick={(e) => handleLogout(e)}>LOGOUT</div>
         </div>

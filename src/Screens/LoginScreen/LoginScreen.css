@@ -65,7 +65,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 18rem;
+
     margin: 0;
     padding: 0;
 }
@@ -81,6 +83,7 @@
     width: 1rem !important;
     height: 1rem !important;
     margin: 0 0.5rem 0 0 !important;
+    cursor: pointer;
 }
 
 .login-form-group input:focus {

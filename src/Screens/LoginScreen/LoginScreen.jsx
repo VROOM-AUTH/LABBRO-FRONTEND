@@ -26,6 +26,10 @@ export default function LoginScreen({ setUserData, userData }) {
 
     const handleLogin = (event) => {
         event.preventDefault();
+        if (!name || !pwd) {
+            setErrorMessage("Please fill in all the fields!");
+            return;
+        }
         try {
             fetch(`${process.env.REACT_APP_BASE_URL}users/?name=${name}`, {
                 method: "GET",
@@ -100,15 +104,17 @@ export default function LoginScreen({ setUserData, userData }) {
                         }}
                         required
                     />
+                    <div className="remember-me-container">
+                        <input type="checkbox" className="remember-me" id="rememberMe" checked={rememberMe} onChange={handleRememberMeChange} />
+                        <p style={{ cursor: "pointer" }} onClick={handleRememberMeChange}>
+                            Remember me
+                        </p>
+                    </div>
                 </div>
                 <div>
                     <button className="login-form-btn" onClick={(e) => handleLogin(e)}>
                         Login
                     </button>
-                    <div className="remember-me-container">
-                        <input type="checkbox" className="remember-me" id="rememberMe" checked={rememberMe} onChange={handleRememberMeChange} />
-                        <p>Remember me</p>
-                    </div>
                 </div>
                 <div className="login-form-subtext">
                     <p>

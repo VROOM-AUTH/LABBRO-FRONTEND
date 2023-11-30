@@ -69,28 +69,6 @@
     background-color: #f0f0f0;
 }
 
-.remember-me-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-.remember-me-container p {
-    font-size: 1rem;
-    color: rgb(65, 65, 65);
-    margin: 0;
-}
-
-.remember-me {
-    font-size: medium !important;
-    width: 1rem !important;
-    height: 1rem !important;
-    margin: 0 0.5rem 0 0 !important;
-}
-
 .register-form-group input:focus {
     outline: 1px solid #6359cc;
 }

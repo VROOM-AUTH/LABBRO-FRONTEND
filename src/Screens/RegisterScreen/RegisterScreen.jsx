@@ -33,7 +33,10 @@ export default function RegisterScreen({ userData }) {
         event.preventDefault();
         if (pwd !== pwd2) {
             setErrorMessage("Passwords do not match!");
-
+            return;
+        }
+        if (!name || !pwd || !pwd2) {
+            setErrorMessage("Please fill in all the fields!");
             return;
         }
         try {
