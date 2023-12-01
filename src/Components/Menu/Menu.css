@@ -1,0 +1,48 @@
+.menu-container {
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 20rem;
+    /* background-color: aliceblue; */
+}
+
+.menu-inside-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    height: 30%;
+    width: 70%;
+    /* background-color: #1f3044; */
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 3rem;
+    width: 80%;
+    font-size: 1.3rem;
+    color: #9b9b9b;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+}
+
+.clicked {
+    font-weight: bolder;
+    font-size: 1.4rem;
+    color: #fff;
+    background-color: #1f3044;
+    border-radius: 15px;
+}

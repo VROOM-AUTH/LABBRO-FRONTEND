@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import "./MainScreen.css";
+import Menu from "../../Components/Menu/Menu";
 import { useNavigate } from "react-router-dom";
+import Dashboard from "../../Components/Dashboard/Dashboard";
+import VroomVolts from "../../Components/Vroomvolts/Vroomvolts";
+import Users from "../../Components/Users/Users";
+import Marathon from "../../Components/Marathon/Marathon";
 
-export default function MainScreen({ setUserData, userData }) {
+export default function MainScreen({ setUserData, userData, path }) {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,8 +38,20 @@ export default function MainScreen({ setUserData, userData }) {
 
     return (
         <div className="mainscreen-container">
-            <h1>Welcome {userData.username}</h1>
-            <div onClick={(e) => handleLogout(e)}>LOGOUT</div>
+            <Menu setUserData={setUserData} userData={userData} />
+            <>
+                {path === "/" ? (
+                    <Dashboard userData={userData} />
+                ) : path === "/vroomvolts" ? (
+                    <VroomVolts userData={userData} />
+                ) : path === "/users" ? (
+                    <Users userData={userData} />
+                ) : path === "/marathon" ? (
+                    <Marathon userData={userData} />
+                ) : (
+                    <></>
+                )}
+            </>
         </div>
     );
 }
