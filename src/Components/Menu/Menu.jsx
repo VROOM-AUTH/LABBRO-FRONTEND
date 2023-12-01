@@ -7,9 +7,16 @@ import { IoMdHome } from "react-icons/io";
 import { FaCoins } from "react-icons/fa6";
 import { GoPersonFill } from "react-icons/go";
 import { GiPodium } from "react-icons/gi";
+import { MdOutlineAccessTimeFilled } from "react-icons/md";
+import { TbBulbOff } from "react-icons/tb";
+import { TbBulb } from "react-icons/tb";
+
+import labbroLogo from "../../Assets/labbro-logo.png";
+import coin from "../../Assets/coin.png";
 
 export default function Menu({ setUserData, userData }) {
     const [isClicked, setIsClicked] = useState(0);
+    const [isLabOpen, setIsLabOpen] = useState(false);
 
     useEffect(() => {
         const url = window.location.href;
@@ -48,8 +55,27 @@ export default function Menu({ setUserData, userData }) {
 
     return (
         <div className="menu-container">
-            {userData.username}
-            <div className="menu-inside-container">
+            <div className="user-info-container">
+                <img src={labbroLogo} className="labbro-logo"></img>
+                <div className="user-info">
+                    <div className="user-info-text">
+                        Welcome <span style={{ color: "#e971e3" }}>{userData.username}</span> !
+                    </div>
+                    <div className="user-info-text-secondary">
+                        <img className="coin-menu" src={coin}></img>
+                        <p>300</p>
+                    </div>
+                    <div className="user-info-text-secondary">
+                        <MdOutlineAccessTimeFilled className="menu-icon" />
+                        <p>500h 37m</p>
+                    </div>
+                    <div className="user-info-text-secondary">
+                        {isLabOpen ? <TbBulb className="menu-icon" /> : <TbBulbOff className="menu-icon" />}
+                        {isLabOpen ? <p>Lab is open!</p> : <p>Lab is closed!</p>}
+                    </div>
+                </div>
+            </div>
+            <div className="menu-buttons-container">
                 <Link className={isClicked === 1 ? "clicked menu-item" : "menu-item"} to="/">
                     <IoMdHome className="menu-icon" />
                     Dashboard
@@ -67,8 +93,10 @@ export default function Menu({ setUserData, userData }) {
                     Marathon
                 </Link>
             </div>
-            <div className="logout-container" onClick={(e) => handleLogout(e)}>
-                LOGOUT
+            <div className="logout-container">
+                <div className="logout-button" onClick={(e) => handleLogout(e)}>
+                    Logout
+                </div>
             </div>
         </div>
     );
