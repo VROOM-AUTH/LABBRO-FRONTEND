@@ -93,19 +93,19 @@ async function loadData(id) {
         );
         const data2 = await response2.json();
 
-        await fetch(`${process.env.REACT_APP_BASE_URL}users-levels/${id}`, {
-            method: "PUT",
-            headers: {
-                // "Access-Control-Allow-Origin": "*",
-                "Content-Type": "application/json",
-                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
-            },
-            body: JSON.stringify({
-                vroomvolts: initial_vroomvolts + data2.vroomvolts,
-                streak: data2.streak,
-                should_update: 1,
-            }),
-        });
+        // await fetch(`${process.env.REACT_APP_BASE_URL}users-levels/${id}`, {
+        //     method: "PUT",
+        //     headers: {
+        //         // "Access-Control-Allow-Origin": "*",
+        //         "Content-Type": "application/json",
+        //         Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+        //     },
+        //     body: JSON.stringify({
+        //         vroomvolts: initial_vroomvolts + data2.vroomvolts,
+        //         streak: data2.streak,
+        //         should_update: 1,
+        //     }),
+        // });
     } catch (error) {
         console.error(error);
     }
