@@ -5,6 +5,7 @@ import "./Menu.css";
 
 import { IoMdHome } from "react-icons/io";
 import { FaCoins } from "react-icons/fa6";
+import { FaSignOutAlt } from "react-icons/fa";
 import { GoPersonFill } from "react-icons/go";
 import { GiPodium } from "react-icons/gi";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
@@ -14,14 +15,13 @@ import { TbBulb } from "react-icons/tb";
 import labbroLogo from "../../Assets/labbro-logo.png";
 import coin from "../../Assets/coin.png";
 
-export default function Menu({ setUserData, userData }) {
+import secondsToHoursMins from "../../Utils/secondsToHoursMins";
+
+export default function Menu({ setUserData, userData, labStatus, userTime, userVroomVolts }) {
     const [isClicked, setIsClicked] = useState(0);
-    const [isLabOpen, setIsLabOpen] = useState(false);
 
     useEffect(() => {
         const url = window.location.href;
-        console.log(url);
-        console.log(isClicked);
         if (url.includes("vroomvolts")) {
             setIsClicked(2);
             // setActiveMenu("Vroom Volts");
@@ -53,25 +53,44 @@ export default function Menu({ setUserData, userData }) {
         }, 200);
     };
 
+    const handleCheckout = (event) => {
+        event.preventDefault();
+        fetch(`${process.env.REACT_APP_BASE_URL}attendance/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+            body: JSON.stringify({
+                user_id: userData.userId,
+            }),
+        })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     return (
         <div className="menu-container">
             <div className="user-info-container">
-                <img src={labbroLogo} className="labbro-logo"></img>
+                <img src={labbroLogo} className="labbro-logo" alt="labbro-logo"></img>
                 <div className="user-info">
                     <div className="user-info-text">
                         Welcome <span style={{ color: "#e971e3" }}>{userData.username}</span> !
                     </div>
                     <div className="user-info-text-secondary">
-                        <img className="coin-menu" src={coin}></img>
-                        <p>300</p>
+                        <img className="coin-menu" src={coin} alt="coin"></img>
+                        <p>{userVroomVolts}</p>
                     </div>
                     <div className="user-info-text-secondary">
                         <MdOutlineAccessTimeFilled className="menu-icon" />
-                        <p>500h 37m</p>
+                        <p>{secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
                     <div className="user-info-text-secondary">
-                        {isLabOpen ? <TbBulb className="menu-icon" /> : <TbBulbOff className="menu-icon" />}
-                        {isLabOpen ? <p>Lab is open!</p> : <p>Lab is closed!</p>}
+                        {labStatus.closed ? <TbBulbOff className="menu-icon" /> : <TbBulb className="menu-icon" />}
+                        {labStatus.closed ? <p>Lab is closed!</p> : <p>Lab is open!</p>}
                     </div>
                 </div>
             </div>
@@ -92,11 +111,22 @@ export default function Menu({ setUserData, userData }) {
                     <GiPodium className="menu-icon" />
                     Marathon
                 </Link>
-            </div>
-            <div className="logout-container">
-                <div className="logout-button" onClick={(e) => handleLogout(e)}>
+                <div className="menu-item" onClick={(e) => handleLogout(e)}>
+                    <FaSignOutAlt className="menu-icon" />
                     Logout
                 </div>
+            </div>
+            <div className="logout-container">
+                {userTime.in_lab ? (
+                    <div className="check-out-container">
+                        <div className="check-out-title">You are checked in!</div>
+                        <div className="check-out-button" onClick={(e) => handleCheckout(e)}>
+                            Check Out
+                        </div>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </div>
     );
