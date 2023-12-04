@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./Menu.css";
 
-import { IoMdHome } from "react-icons/io";
+import { IoMdHome, IoMdClose } from "react-icons/io";
 import { FaCoins } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { GoPersonFill } from "react-icons/go";
@@ -11,6 +11,8 @@ import { GiPodium } from "react-icons/gi";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TbBulbOff } from "react-icons/tb";
 import { TbBulb } from "react-icons/tb";
+import { ImExit } from "react-icons/im";
+import { MdOutlineMenu } from "react-icons/md";
 
 import labbroLogo from "../../Assets/labbro-logo.png";
 import coin from "../../Assets/coin.png";
@@ -19,6 +21,7 @@ import secondsToHoursMins from "../../Utils/secondsToHoursMins";
 
 export default function Menu({ setUserData, userData, labStatus, userTime, userVroomVolts }) {
     const [isClicked, setIsClicked] = useState(0);
+    const [hideMenu, setHideMenu] = useState(true);
 
     useEffect(() => {
         const url = window.location.href;
@@ -72,8 +75,16 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                 console.log(error);
             });
     };
+
+    const handleHideMenu = (event) => {
+        event.preventDefault();
+        setHideMenu((prev) => !prev);
+    };
     return (
         <div className="menu-container">
+            <div className="hide-menu" onClick={(e) => handleHideMenu(e)}>
+                {hideMenu ? <MdOutlineMenu /> : <IoMdClose />}
+            </div>
             <div className="user-info-container">
                 <img src={labbroLogo} className="labbro-logo" alt="labbro-logo"></img>
                 <div className="user-info">
@@ -94,7 +105,9 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                     </div>
                 </div>
             </div>
-            <div className="menu-buttons-container">
+
+            {/* NEED TO DELETE HIDDEN MENU WHEN NOT NECESSARY */}
+            <div className={hideMenu ? "hidden-menu" : "menu-buttons-container"}>
                 <Link className={isClicked === 1 ? "clicked menu-item" : "menu-item"} to="/">
                     <IoMdHome className="menu-icon" />
                     Dashboard
@@ -114,6 +127,10 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                 <div className="menu-item" onClick={(e) => handleLogout(e)}>
                     <FaSignOutAlt className="menu-icon" />
                     Logout
+                </div>
+                <div className="menu-item check-out-mobile" onClick={(e) => handleCheckout(e)}>
+                    <ImExit className="menu-icon" />
+                    Check Out
                 </div>
             </div>
             <div className="logout-container">

@@ -100,7 +100,7 @@ export default function MainScreen({ setUserData, userData, path }) {
     return (
         <div className="mainscreen-container">
             <Menu setUserData={setUserData} userData={userData} labStatus={labStatus} userTime={userTime} userVroomVolts={userVroomVolts} />
-            <>
+            <div className="screen-panel">
                 {path === "/" ? (
                     <Dashboard userData={userData} labStatus={labStatus} />
                 ) : path === "/vroomvolts" ? (
@@ -112,7 +112,7 @@ export default function MainScreen({ setUserData, userData, path }) {
                 ) : (
                     <></>
                 )}
-            </>
+            </div>
         </div>
     );
 }

@@ -2,10 +2,35 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh;
     width: 100vw;
     background: #141e30; /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #243b55, #141e30); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #243b55, #141e30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.screen-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 65%;
+    /* background-color: antiquewhite; */
+}
+
+@media screen and (max-width: 768px) {
+    .mainscreen-container {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 200vh;
+        overflow: scroll;
+    }
+
+    .screen-panel {
+        width: 100%;
+        height: 100vh;
+    }
 }
