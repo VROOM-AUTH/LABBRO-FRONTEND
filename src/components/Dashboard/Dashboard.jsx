@@ -33,7 +33,7 @@ const Dashboard = ({ userData }) => {
                 if (new Date().toDateString() === openTime.toDateString()) {
                     today = true;
                 }
-                openTime.setHours(openTime.getHours() - 3);
+                openTime.setHours(openTime.getHours() - 2);
                 if (today) {
                     openTime =
                         "Today, " +
