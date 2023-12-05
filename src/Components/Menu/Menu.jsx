@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./Menu.css";
 
-import { IoMdHome, IoMdClose } from "react-icons/io";
+import { IoMdHome } from "react-icons/io";
 import { FaCoins } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { GoPersonFill } from "react-icons/go";
@@ -12,22 +12,14 @@ import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TbBulbOff } from "react-icons/tb";
 import { TbBulb } from "react-icons/tb";
 import { ImExit } from "react-icons/im";
-import { MdOutlineMenu } from "react-icons/md";
 
 import labbroLogo from "../../Assets/labbro-logo.png";
 import coin from "../../Assets/coin.png";
 
 import secondsToHoursMins from "../../Utils/secondsToHoursMins";
 
-export default function Menu({
-    setUserData,
-    userData,
-    labStatus,
-    userTime,
-    userVroomVolts,
-}) {
+export default function Menu({ setUserData, userData, labStatus, userTime, userVroomVolts }) {
     const [isClicked, setIsClicked] = useState(0);
-    const [hideMenu, setHideMenu] = useState(true);
 
     useEffect(() => {
         const url = window.location.href;
@@ -44,7 +36,6 @@ export default function Menu({
             setIsClicked(1);
             // setActiveMenu("Dashboard");
         }
-        setHideMenu((prev) => !prev);
         // eslint-disable-next-line
     }, [window.location.href]);
 
@@ -83,25 +74,13 @@ export default function Menu({
             });
     };
 
-    const handleHideMenu = (event) => {
-        event.preventDefault();
-        setHideMenu((prev) => !prev);
-    };
     return (
         <div className="menu-container">
             <div className="user-info-container">
-                <img
-                    src={labbroLogo}
-                    className="labbro-logo"
-                    alt="labbro-logo"
-                ></img>
+                <img src={labbroLogo} className="labbro-logo" alt="labbro-logo"></img>
                 <div className="user-info">
                     <div className="user-info-text">
-                        Welcome{" "}
-                        <span style={{ color: "#e971e3" }}>
-                            {userData.username}
-                        </span>{" "}
-                        !
+                        Welcome <span style={{ color: "#e971e3" }}>{userData.username}</span> !
                     </div>
                     <div className="user-info-text-secondary">
                         <img className="coin-menu" src={coin} alt="coin"></img>
@@ -112,89 +91,47 @@ export default function Menu({
                         <p>{secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
                     <div className="user-info-text-secondary">
-                        {labStatus.closed ? (
-                            <TbBulbOff className="menu-icon" />
-                        ) : (
-                            <TbBulb className="menu-icon" />
-                        )}
-                        {labStatus.closed ? (
-                            <p>Lab is closed!</p>
-                        ) : (
-                            <p>Lab is open!</p>
-                        )}
+                        {labStatus.closed ? <TbBulbOff className="menu-icon" /> : <TbBulb className="menu-icon" />}
+                        {labStatus.closed ? <p>Lab is closed!</p> : <p>Lab is open!</p>}
                     </div>
                 </div>
             </div>
 
-            {/* NEED TO DELETE HIDDEN MENU WHEN NOT NECESSARY */}
-            <div
-                className={hideMenu ? "hidden-menu" : "menu-buttons-container"}
-            >
-                <Link
-                    className={
-                        isClicked === 1 ? "clicked menu-item" : "menu-item"
-                    }
-                    to="/"
-                >
+            <div className="menu-buttons-container">
+                <Link className={isClicked === 1 ? "clicked menu-item" : "menu-item"} to="/">
                     <IoMdHome className="menu-icon" />
-                    Dashboard
+                    <div className="menu-text">Dashboard</div>
                 </Link>
-                <Link
-                    className={
-                        isClicked === 2 ? "clicked menu-item" : "menu-item"
-                    }
-                    to="/vroomvolts"
-                >
+                <Link className={isClicked === 2 ? "clicked menu-item" : "menu-item"} to="/vroomvolts">
                     <FaCoins className="menu-icon" />
-                    Vroomvolts
+                    <div className="menu-text">Vroomvolts</div>
                 </Link>
-                <Link
-                    className={
-                        isClicked === 3 ? "clicked menu-item" : "menu-item"
-                    }
-                    to="/users"
-                >
+                <Link className={isClicked === 3 ? "clicked menu-item" : "menu-item"} to="/users">
                     <GoPersonFill className="menu-icon" />
-                    Users
+                    <div className="menu-text">Users</div>
                 </Link>
-                <Link
-                    className={
-                        isClicked === 4 ? "clicked menu-item" : "menu-item"
-                    }
-                    to="/marathon"
-                >
+                <Link className={isClicked === 4 ? "clicked menu-item" : "menu-item"} to="/marathon">
                     <GiPodium className="menu-icon" />
-                    Marathon
+                    <div className="menu-text">Marathon</div>
                 </Link>
                 <div className="menu-item" onClick={(e) => handleLogout(e)}>
                     <FaSignOutAlt className="menu-icon" />
-                    Logout
+                    <div className="menu-text">Logout</div>
                 </div>
                 {userTime.in_lab ? (
-                    <div
-                        className="menu-item check-out-mobile"
-                        onClick={(e) => handleCheckout(e)}
-                    >
+                    <div className="menu-item check-out-mobile" onClick={(e) => handleCheckout(e)}>
                         <ImExit className="menu-icon" />
-                        Check Out
+                        <div className="menu-text">Check Out</div>
                     </div>
                 ) : (
                     <></>
                 )}
             </div>
-            <div className="hide-menu" onClick={(e) => handleHideMenu(e)}>
-                {hideMenu ? <MdOutlineMenu /> : <IoMdClose />}
-            </div>
             <div className="logout-container">
                 {userTime.in_lab ? (
                     <div className="check-out-container">
-                        <div className="check-out-title">
-                            You are checked in!
-                        </div>
-                        <div
-                            className="check-out-button"
-                            onClick={(e) => handleCheckout(e)}
-                        >
+                        <div className="check-out-title">You are checked in!</div>
+                        <div className="check-out-button" onClick={(e) => handleCheckout(e)}>
                             Check Out
                         </div>
                     </div>
