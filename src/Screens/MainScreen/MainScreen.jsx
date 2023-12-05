@@ -12,8 +12,8 @@ export default function MainScreen({ setUserData, userData, path }) {
     const [labStatus, setLabStatus] = useState({
         // Lab Status
         closed: true,
-        opened_time: "",
-        closed_time: "",
+        opened_time: "2000-01-01T00:00:00Z",
+        closed_time: "2000-01-01T00:00:00Z",
         total_seconds: "",
     });
     const [userTime, setUserTime] = useState({
@@ -23,6 +23,9 @@ export default function MainScreen({ setUserData, userData, path }) {
         in_lab: false,
     });
     const [userVroomVolts, setUserVroomVolts] = useState(0);
+    const [users, setUsers] = useState({});
+    const [usersTime, setUsersTime] = useState({});
+    const [mergedUsers, setMergedUsers] = useState([]);
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`, {
@@ -84,6 +87,46 @@ export default function MainScreen({ setUserData, userData, path }) {
             .catch((error) => {
                 console.log(`Error ${error}`);
             });
+
+        fetch(`${process.env.REACT_APP_BASE_URL}users/?fields=name,id`, {
+            //Fetch for users data
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                setUsers(data);
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+            });
+
+        fetch(`${process.env.REACT_APP_BASE_URL}users-time/`, {
+            //Fetch for users time data
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                setUsersTime(data);
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+            });
     }, [userData.userId]);
 
     useEffect(() => {
@@ -92,6 +135,18 @@ export default function MainScreen({ setUserData, userData, path }) {
             return;
         }
     }, [navigate, userData.isLoggedIn, setUserData]);
+
+    useEffect(() => {
+        // Merge data based on user ids
+        const merged = Object.keys(users).map((id) => ({
+            id: users[id]?.id || "",
+            name: users[id]?.name || "",
+            total_seconds: usersTime[id]?.total_seconds || "0",
+            in_lab: usersTime[id]?.in_lab || false,
+        }));
+
+        setMergedUsers(merged);
+    }, [users, usersTime]);
 
     if (!userData.isLoggedIn) {
         return null;
@@ -102,7 +157,7 @@ export default function MainScreen({ setUserData, userData, path }) {
             <Menu setUserData={setUserData} userData={userData} labStatus={labStatus} userTime={userTime} userVroomVolts={userVroomVolts} />
             <div className="screen-panel">
                 {path === "/" ? (
-                    <Dashboard userData={userData} labStatus={labStatus} />
+                    <Dashboard labStatus={labStatus} mergedUsers={mergedUsers} />
                 ) : path === "/vroomvolts" ? (
                     <VroomVolts userData={userData} />
                 ) : path === "/users" ? (
