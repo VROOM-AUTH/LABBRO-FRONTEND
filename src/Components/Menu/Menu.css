@@ -8,7 +8,8 @@
     height: 100%;
     width: 20rem;
     /* background-color: aliceblue; */
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .menu-buttons-container {
@@ -158,8 +159,10 @@
 @media screen and (max-width: 768px) {
     /* Make responsive menu for mobile phone */
     .menu-container {
+        position: fixed;
+        top: 0;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 18rem;
@@ -167,6 +170,7 @@
         width: 100vw;
         background-color: #1f3044;
         z-index: 100;
+        transition: all 0.3s ease-in-out;
     }
     .menu-buttons-container {
         height: 100%;
@@ -178,7 +182,7 @@
     .menu-item {
         width: 10rem;
         display: flex;
-
+        font-size: 1.5rem;
         justify-content: flex-start;
         align-items: center;
     }

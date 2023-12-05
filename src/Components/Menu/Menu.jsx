@@ -19,7 +19,13 @@ import coin from "../../Assets/coin.png";
 
 import secondsToHoursMins from "../../Utils/secondsToHoursMins";
 
-export default function Menu({ setUserData, userData, labStatus, userTime, userVroomVolts }) {
+export default function Menu({
+    setUserData,
+    userData,
+    labStatus,
+    userTime,
+    userVroomVolts,
+}) {
     const [isClicked, setIsClicked] = useState(0);
     const [hideMenu, setHideMenu] = useState(true);
 
@@ -38,6 +44,7 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
             setIsClicked(1);
             // setActiveMenu("Dashboard");
         }
+        setHideMenu((prev) => !prev);
         // eslint-disable-next-line
     }, [window.location.href]);
 
@@ -82,14 +89,19 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
     };
     return (
         <div className="menu-container">
-            <div className="hide-menu" onClick={(e) => handleHideMenu(e)}>
-                {hideMenu ? <MdOutlineMenu /> : <IoMdClose />}
-            </div>
             <div className="user-info-container">
-                <img src={labbroLogo} className="labbro-logo" alt="labbro-logo"></img>
+                <img
+                    src={labbroLogo}
+                    className="labbro-logo"
+                    alt="labbro-logo"
+                ></img>
                 <div className="user-info">
                     <div className="user-info-text">
-                        Welcome <span style={{ color: "#e971e3" }}>{userData.username}</span> !
+                        Welcome{" "}
+                        <span style={{ color: "#e971e3" }}>
+                            {userData.username}
+                        </span>{" "}
+                        !
                     </div>
                     <div className="user-info-text-secondary">
                         <img className="coin-menu" src={coin} alt="coin"></img>
@@ -100,27 +112,57 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                         <p>{secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
                     <div className="user-info-text-secondary">
-                        {labStatus.closed ? <TbBulbOff className="menu-icon" /> : <TbBulb className="menu-icon" />}
-                        {labStatus.closed ? <p>Lab is closed!</p> : <p>Lab is open!</p>}
+                        {labStatus.closed ? (
+                            <TbBulbOff className="menu-icon" />
+                        ) : (
+                            <TbBulb className="menu-icon" />
+                        )}
+                        {labStatus.closed ? (
+                            <p>Lab is closed!</p>
+                        ) : (
+                            <p>Lab is open!</p>
+                        )}
                     </div>
                 </div>
             </div>
 
             {/* NEED TO DELETE HIDDEN MENU WHEN NOT NECESSARY */}
-            <div className={hideMenu ? "hidden-menu" : "menu-buttons-container"}>
-                <Link className={isClicked === 1 ? "clicked menu-item" : "menu-item"} to="/">
+            <div
+                className={hideMenu ? "hidden-menu" : "menu-buttons-container"}
+            >
+                <Link
+                    className={
+                        isClicked === 1 ? "clicked menu-item" : "menu-item"
+                    }
+                    to="/"
+                >
                     <IoMdHome className="menu-icon" />
                     Dashboard
                 </Link>
-                <Link className={isClicked === 2 ? "clicked menu-item" : "menu-item"} to="/vroomvolts">
+                <Link
+                    className={
+                        isClicked === 2 ? "clicked menu-item" : "menu-item"
+                    }
+                    to="/vroomvolts"
+                >
                     <FaCoins className="menu-icon" />
                     Vroomvolts
                 </Link>
-                <Link className={isClicked === 3 ? "clicked menu-item" : "menu-item"} to="/users">
+                <Link
+                    className={
+                        isClicked === 3 ? "clicked menu-item" : "menu-item"
+                    }
+                    to="/users"
+                >
                     <GoPersonFill className="menu-icon" />
                     Users
                 </Link>
-                <Link className={isClicked === 4 ? "clicked menu-item" : "menu-item"} to="/marathon">
+                <Link
+                    className={
+                        isClicked === 4 ? "clicked menu-item" : "menu-item"
+                    }
+                    to="/marathon"
+                >
                     <GiPodium className="menu-icon" />
                     Marathon
                 </Link>
@@ -128,16 +170,31 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                     <FaSignOutAlt className="menu-icon" />
                     Logout
                 </div>
-                <div className="menu-item check-out-mobile" onClick={(e) => handleCheckout(e)}>
-                    <ImExit className="menu-icon" />
-                    Check Out
-                </div>
+                {userTime.in_lab ? (
+                    <div
+                        className="menu-item check-out-mobile"
+                        onClick={(e) => handleCheckout(e)}
+                    >
+                        <ImExit className="menu-icon" />
+                        Check Out
+                    </div>
+                ) : (
+                    <></>
+                )}
+            </div>
+            <div className="hide-menu" onClick={(e) => handleHideMenu(e)}>
+                {hideMenu ? <MdOutlineMenu /> : <IoMdClose />}
             </div>
             <div className="logout-container">
                 {userTime.in_lab ? (
                     <div className="check-out-container">
-                        <div className="check-out-title">You are checked in!</div>
-                        <div className="check-out-button" onClick={(e) => handleCheckout(e)}>
+                        <div className="check-out-title">
+                            You are checked in!
+                        </div>
+                        <div
+                            className="check-out-button"
+                            onClick={(e) => handleCheckout(e)}
+                        >
                             Check Out
                         </div>
                     </div>
