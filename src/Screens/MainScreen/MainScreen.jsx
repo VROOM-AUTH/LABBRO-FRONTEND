@@ -160,6 +160,7 @@ export default function MainScreen({ setUserData, userData, path }) {
     useEffect(() => {
         //Function to find user by id from users and match it with user_id in usersTime
         const findUserById = (user_id, data) => Array.from(data).find((user) => user.user_id === user_id);
+        //Function to find user by id from users and match it with id in usersLevels
         const findUserByIdLevels = (user_id, data) => Array.from(data).find((user) => user.id === user_id);
         // Merge data based on user ids
         const merged = Object.keys(users).map((id) => ({
@@ -169,8 +170,10 @@ export default function MainScreen({ setUserData, userData, path }) {
             in_lab: findUserById(users[id].id, usersTime)?.in_lab || false,
             vroomvolts: findUserByIdLevels(users[id].id, usersLevels)?.vroomvolts || 0,
         }));
-
-        setMergedUsers(merged);
+        // Filter out the canceler from users
+        const filteredUsers = merged.filter((user) => user.name !== "Canceler");
+        // Set the merged users
+        setMergedUsers(filteredUsers);
     }, [users, usersTime, usersLevels]);
 
     if (!userData.isLoggedIn) {
