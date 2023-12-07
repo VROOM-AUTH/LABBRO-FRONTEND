@@ -25,6 +25,7 @@ export default function MainScreen({ setUserData, userData, path }) {
     const [userVroomVolts, setUserVroomVolts] = useState(0);
     const [users, setUsers] = useState({});
     const [usersTime, setUsersTime] = useState({});
+    const [usersLevels, setUsersLevels] = useState({}); // [user_id, vroomvolts
     const [mergedUsers, setMergedUsers] = useState([]);
 
     useEffect(() => {
@@ -48,17 +49,14 @@ export default function MainScreen({ setUserData, userData, path }) {
                 console.log(`Error ${error}`);
             });
 
-        fetch(
-            `${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`,
-            {
-                //Fetch for logged in user data
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
-                },
-            }
-        )
+        fetch(`${process.env.REACT_APP_BASE_URL}users-time/?user_id=${userData.userId}`, {
+            //Fetch for logged in user data
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -71,17 +69,14 @@ export default function MainScreen({ setUserData, userData, path }) {
                 console.log(`Error ${error}`);
             });
 
-        fetch(
-            `${process.env.REACT_APP_BASE_URL}users-levels?user_id=${userData.userId}`,
-            {
-                //Fetch for logged in user vroomvolts data
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
-                },
-            }
-        )
+        fetch(`${process.env.REACT_APP_BASE_URL}users-levels?user_id=${userData.userId}`, {
+            //Fetch for logged in user vroomvolts data
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -133,6 +128,26 @@ export default function MainScreen({ setUserData, userData, path }) {
             .catch((error) => {
                 console.log(`Error ${error}`);
             });
+
+        fetch(`${process.env.REACT_APP_BASE_URL}users-levels/`, {
+            //Fetch for users levels
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                setUsersLevels(data);
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+            });
     }, [userData.userId]);
 
     useEffect(() => {
@@ -144,18 +159,19 @@ export default function MainScreen({ setUserData, userData, path }) {
 
     useEffect(() => {
         //Function to find user by id from users and match it with user_id in usersTime
-        const findUserById = (user_id, data) =>
-            Array.from(data).find((user) => user.user_id === user_id);
+        const findUserById = (user_id, data) => Array.from(data).find((user) => user.user_id === user_id);
+        const findUserByIdLevels = (user_id, data) => Array.from(data).find((user) => user.id === user_id);
         // Merge data based on user ids
         const merged = Object.keys(users).map((id) => ({
             id: users[id]?.id || "",
             name: users[id]?.name || "",
-            total_seconds:
-                findUserById(users[id].id, usersTime)?.total_seconds || "0",
+            total_seconds: findUserById(users[id].id, usersTime)?.total_seconds || "0",
             in_lab: findUserById(users[id].id, usersTime)?.in_lab || false,
+            vroomvolts: findUserByIdLevels(users[id].id, usersLevels)?.vroomvolts || 0,
         }));
+
         setMergedUsers(merged);
-    }, [users, usersTime]);
+    }, [users, usersTime, usersLevels]);
 
     if (!userData.isLoggedIn) {
         return null;
@@ -163,23 +179,14 @@ export default function MainScreen({ setUserData, userData, path }) {
 
     return (
         <div className="mainscreen-container">
-            <Menu
-                setUserData={setUserData}
-                userData={userData}
-                labStatus={labStatus}
-                userTime={userTime}
-                userVroomVolts={userVroomVolts}
-            />
+            <Menu setUserData={setUserData} userData={userData} labStatus={labStatus} userTime={userTime} userVroomVolts={userVroomVolts} />
             <div className="screen-panel">
                 {path === "/" ? (
-                    <Dashboard
-                        labStatus={labStatus}
-                        mergedUsers={mergedUsers}
-                    />
+                    <Dashboard labStatus={labStatus} mergedUsers={mergedUsers} />
                 ) : path === "/vroomvolts" ? (
                     <VroomVolts userData={userData} />
                 ) : path === "/users" ? (
-                    <Users userData={userData} />
+                    <Users userData={userData} mergedUsers={mergedUsers} />
                 ) : path === "/marathon" ? (
                     <Marathon userData={userData} />
                 ) : (
