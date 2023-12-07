@@ -1,0 +1,32 @@
+.custom-tooltip {
+    background-color: #e3f4f2;
+    width: 6rem;
+    height: 3rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.legend {
+    margin: 1rem 0 0 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+}
+
+.legend-box {
+    background: #e971e3;
+    background: -webkit-linear-gradient(#e971e3, #9480fa);
+    background: linear-gradient(#e971e3, #9480fa);
+    width: 1rem;
+    height: 1rem;
+}
+
+.legend-text {
+    color: #e3f4f2;
+    font-weight: 300;
+    margin-left: 0.5rem;
+}

@@ -49,6 +49,7 @@
     align-items: center;
     width: 100%;
     height: fit-content;
+    margin-bottom: 2rem;
 }
 
 .dashboard-card {
@@ -93,6 +94,9 @@
     }
     .dashboard-title-container {
         width: 90%;
+    }
+    .dashboard-cards-container {
+        margin-bottom: 0.5rem;
     }
     .dashboard-card {
         width: 10rem;
