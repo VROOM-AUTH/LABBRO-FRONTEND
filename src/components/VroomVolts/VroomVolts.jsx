@@ -257,7 +257,7 @@ const VroomVolts = ({ userData }) => {
                             <div className="ways-to-win">
                                 <p>
                                     1) Every time you check in at the lab you
-                                    gain 5 VroomVolts!
+                                    gain 20 VroomVolts!
                                 </p>
                                 <p>
                                     2) If you check in 3 days in a row you gain
