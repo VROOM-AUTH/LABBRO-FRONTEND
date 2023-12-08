@@ -51,7 +51,7 @@ const UsersBarChart = ({ data }) => {
     };
 
     return (
-        <ResponsiveContainer width="90%" height="50%">
+        <ResponsiveContainer width="90%" height="50%" className="barchart-container">
             <BarChart data={filteredData}>
                 <defs>
                     <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">

@@ -50,7 +50,7 @@ export default function Activity({ mergedUsers }) {
         <div className="activity-container">
             <div className="activity-header">Recent Activity</div>
             {activity.map((entry, index) => (
-                <ActivityCard key={entry.user_id} entry={entry} index={index} />
+                <ActivityCard key={index} entry={entry} index={index} />
             ))}
         </div>
     );
