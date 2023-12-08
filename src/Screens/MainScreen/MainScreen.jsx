@@ -6,6 +6,7 @@ import Dashboard from "../../Components/Dashboard/Dashboard";
 import VroomVolts from "../../Components/Vroomvolts/Vroomvolts";
 import Users from "../../Components/Users/Users";
 import Marathon from "../../Components/Marathon/Marathon";
+import RightMenu from "../../Components/RightMenu/RightMenu";
 
 export default function MainScreen({ setUserData, userData, path }) {
     const navigate = useNavigate();
@@ -196,6 +197,7 @@ export default function MainScreen({ setUserData, userData, path }) {
                     <></>
                 )}
             </div>
+            <RightMenu mergedUsers={mergedUsers} />
         </div>
     );
 }
