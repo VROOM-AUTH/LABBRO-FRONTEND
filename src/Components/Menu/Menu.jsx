@@ -8,10 +8,10 @@ import { FaCoins } from "react-icons/fa6";
 import { FaSignOutAlt } from "react-icons/fa";
 import { GoPersonFill } from "react-icons/go";
 import { GiPodium } from "react-icons/gi";
-import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { TbBulbOff } from "react-icons/tb";
-import { TbBulb } from "react-icons/tb";
 import { ImExit } from "react-icons/im";
+import { FcIdea } from "react-icons/fc";
+import { FcClock } from "react-icons/fc";
 
 import labbroLogo from "../../Assets/labbro-logo.png";
 import coin from "../../Assets/coin.png";
@@ -87,11 +87,11 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                         <p>{userVroomVolts}</p>
                     </div>
                     <div className="user-info-text-secondary">
-                        <MdOutlineAccessTimeFilled className="menu-icon" />
+                        <FcClock className="menu-icon" />
                         <p>{secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
                     <div className="user-info-text-secondary">
-                        {labStatus.closed ? <TbBulbOff className="menu-icon" /> : <TbBulb className="menu-icon" />}
+                        {labStatus.closed ? <TbBulbOff className="menu-icon" /> : <FcIdea className="menu-icon" />}
                         {labStatus.closed ? <p>Lab is closed!</p> : <p>Lab is open!</p>}
                     </div>
                 </div>

@@ -137,6 +137,7 @@
     transition: all 0.1s ease-in-out;
     background-color: #7497e1;
     color: #fff;
+    border-radius: 15px;
 }
 
 .check-out-button:hover {

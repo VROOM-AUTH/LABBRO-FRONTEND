@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./UsersGraph.css";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import secondsToHoursMins from "../../Utils/secondsToHoursMins";
-export default function UsersGraph({ selectedUser }) {
+export default function UsersGraph({ selectedUser, totalLabHours }) {
     const [selectedUserGraphData, setSelectedUserGraphData] = useState([{ date: "", duration: "" }]);
     const [loading, setLoading] = useState(true);
     const [averageTime, setAverageTime] = useState("0 min");
     const [mostTime, setMostTime] = useState("0 min");
+    const [percentTime, setPercentTime] = useState("0%");
 
     useEffect(() => {
         setLoading(true);
@@ -45,6 +46,7 @@ export default function UsersGraph({ selectedUser }) {
                     totalDuration += item.duration;
                 });
 
+                setPercentTime(((totalDuration / totalLabHours) * 100).toFixed(2) + "%");
                 // Convert the object back to an array of objects
                 const dailyData = Object.entries(dailyTotalsMap).map(([date, duration]) => ({ date, duration }));
 
@@ -66,7 +68,7 @@ export default function UsersGraph({ selectedUser }) {
             .catch((error) => {
                 console.log(`Error ${error}`);
             });
-    }, [selectedUser]);
+    }, [selectedUser, totalLabHours]);
 
     const CustomYAxisTick = ({ x, y, payload }) => {
         return (
@@ -118,6 +120,13 @@ export default function UsersGraph({ selectedUser }) {
                         </AreaChart>
                     </ResponsiveContainer>
                     <div className="users-graph-info-container">
+                        <div className="users-graph-info">
+                            <div>
+                                <span style={{ color: "#E971E3" }}>{selectedUser.name}</span> was there
+                            </div>
+                            <span style={{ color: "#cc84d8", margin: "0 0.5rem" }}>{percentTime}</span>
+                            <div>of the time</div>
+                        </div>
                         <div className="users-graph-info">
                             <div>Average time:</div>
                             <span style={{ color: "#FD7CBF", marginLeft: "0.5rem" }}>{averageTime}</span>
