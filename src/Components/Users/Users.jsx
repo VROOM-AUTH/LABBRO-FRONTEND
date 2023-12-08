@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./Users.css";
+import UsersGraph from "./UsersGraph";
 import coin from "../../Assets/coin.png";
 export default function Users({ mergedUsers }) {
     const usersInLab = mergedUsers.filter((user) => user.in_lab === true);
     const [showOnlyInLab, setShowOnlyInLab] = useState(localStorage.getItem("showOnlyInLab") === "true");
     const [selectedUser, setSelectedUser] = useState({ name: "none", id: "0" });
-
     const toggleShowOnlyInLab = () => {
         const updatedShowOnlyInLab = !showOnlyInLab;
         setShowOnlyInLab(updatedShowOnlyInLab);
@@ -14,8 +14,8 @@ export default function Users({ mergedUsers }) {
 
     const User = ({ user, index }) => {
         return (
-            <div className="user-container">
-                <div className="user-card" onClick={() => setSelectedUser({ name: user.name, id: user.id })}>
+            <div className="user-container" onClick={() => setSelectedUser({ name: user.name, id: user.id })}>
+                <div className="user-card">
                     <div className="user-card-info" style={{ justifyContent: "flex-start" }}>
                         {user.in_lab ? <div className="green-dot"></div> : <div className="gray-dot"></div>}
                         {user.name}
@@ -56,9 +56,7 @@ export default function Users({ mergedUsers }) {
                                 ))}
                             </div>
                         )}
-                        <div className="users-graph-container">
-                            Selected user is {selectedUser.name} with id {selectedUser.id}
-                        </div>
+                        <UsersGraph selectedUser={selectedUser} />
                     </div>
                 </div>
             </div>

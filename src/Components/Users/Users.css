@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background-color: aliceblue; */
 }
 
 .users-content-container {
@@ -15,7 +14,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* background-color: aqua; */
 }
 
 .users-title {
@@ -72,8 +70,8 @@
     justify-content: flex-start;
     align-items: center;
     overflow-y: scroll;
-    background-color: #172637;
-    box-shadow: #101925 0px 20px 30px;
+    /* background-color: #172637; */
+    /* box-shadow: #101925 0px 20px 30px; */
 }
 
 .user-container {
@@ -89,6 +87,12 @@
     align-items: center;
     margin: 1rem 0 0 0;
     border-radius: 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.user-container:hover {
+    width: 92%;
 }
 
 .user-card {
@@ -98,6 +102,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .user-card-info {
     width: 10rem;
     display: flex;
@@ -120,18 +125,6 @@
     border-radius: 50%;
     background-color: rgb(124, 124, 124);
     margin: 0 0.5rem;
-}
-
-.users-graph-container {
-    width: 48%;
-    border-radius: 15px;
-    height: 67%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #172637;
-    box-shadow: #101925 0px 20px 30px;
 }
 
 .user-list-container::-webkit-scrollbar {
@@ -162,9 +155,6 @@
 
 @media screen and (max-width: 768px) {
     .users-content-container {
-        width: 100%;
-        height: 100%;
-        display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -181,10 +171,15 @@
         align-items: center;
     }
     .user-list-container {
-        width: 95%;
+        width: 100%;
         height: 90%;
     }
-    .users-graph-container {
-        display: none;
+    .users-row-centering {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
     }
 }

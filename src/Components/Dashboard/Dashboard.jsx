@@ -52,7 +52,8 @@ export default function Dashboard({ labStatus, mergedUsers }) {
                     <div className="dashboard-card">
                         <IoPerson className="card-icon" />
                         <p className="card-text">
-                            {labCount} out of {totalUsers}
+                            {labCount} <span style={{ color: "#fff" }}>out of </span>
+                            {totalUsers}
                         </p>
                         <p className="card-text-secondary">Users in lab</p>
                     </div>
