@@ -103,7 +103,7 @@ export default function UsersGraph({ selectedUser, totalLabHours }) {
             ) : (
                 <>
                     <div className="users-graph-title">
-                        Session Duration of <span style={{ color: "#E971E3", marginLeft: "0.5rem" }}>{selectedUser.name}</span>
+                        Session Duration of<span style={{ color: "#E971E3", marginLeft: "0.5rem" }}>{selectedUser.name}</span>
                     </div>
                     <ResponsiveContainer width="90%" height="50%" className={loading ? "loading" : ""}>
                         <AreaChart data={selectedUserGraphData}>
