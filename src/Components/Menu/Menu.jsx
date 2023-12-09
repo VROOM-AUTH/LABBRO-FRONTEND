@@ -11,10 +11,10 @@ import { GiPodium } from "react-icons/gi";
 import { TbBulbOff } from "react-icons/tb";
 import { ImExit } from "react-icons/im";
 import { FcIdea } from "react-icons/fc";
-import { FcClock } from "react-icons/fc";
 
 import labbroLogo from "../../Assets/labbro-logo.png";
 import coin from "../../Assets/coin.png";
+import clock from "../../Assets/clock.webp";
 
 import secondsToHoursMins from "../../Utils/secondsToHoursMins";
 
@@ -87,7 +87,7 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                         <p>{userVroomVolts}</p>
                     </div>
                     <div className="user-info-text-secondary">
-                        <FcClock className="menu-icon" />
+                        <img className="coin-menu" src={clock} alt="clock"></img>
                         <p>{secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
                     <div className="user-info-text-secondary">

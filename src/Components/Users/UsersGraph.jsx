@@ -93,7 +93,7 @@ export default function UsersGraph({ selectedUser, totalLabHours }) {
     };
 
     return (
-        <div className="users-graph-container ">
+        <div className={selectedUser.id === "0" ? "users-graph-container-inactive" : "users-graph-container"}>
             {selectedUser.id === "0" ? (
                 <div className="users-graph-title">Select a user for details</div>
             ) : selectedUserGraphData.length < 2 ? (

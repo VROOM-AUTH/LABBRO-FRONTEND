@@ -27,10 +27,12 @@
         align-items: center;
         /* height: 200vh; */
         overflow: scroll;
+        height: fit-content;
     }
 
     .screen-panel {
         width: 100%;
         height: 100%;
+        height: fit-content;
     }
 }
