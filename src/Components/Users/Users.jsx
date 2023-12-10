@@ -12,7 +12,6 @@ export default function Users({ mergedUsers, labStatus, selectedUser, setSelecte
         localStorage.setItem("showOnlyInLab", updatedShowOnlyInLab);
     };
 
-    console.log(selectedUser);
     const User = ({ user, index }) => {
         return (
             <div className={selectedUser.name === user.name ? "user-container user-container-active" : "user-container"} onClick={() => setSelectedUser({ name: user.name, id: user.id })}>
