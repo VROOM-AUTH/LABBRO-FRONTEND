@@ -63,6 +63,12 @@
     border-radius: 15px;
     background-color: #243a54;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.03);
 }
 
 .card-icon {

@@ -28,6 +28,7 @@ export default function MainScreen({ setUserData, userData, path }) {
     const [usersTime, setUsersTime] = useState({});
     const [usersLevels, setUsersLevels] = useState({}); // [user_id, vroomvolts
     const [mergedUsers, setMergedUsers] = useState([]);
+    const [selectedUser, setSelectedUser] = useState({ name: "none", id: "0" });
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_BASE_URL}lab-status/`, {
@@ -182,22 +183,22 @@ export default function MainScreen({ setUserData, userData, path }) {
     }
 
     return (
-        <div className="mainscreen-container">
+        <div className='mainscreen-container'>
             <Menu setUserData={setUserData} userData={userData} labStatus={labStatus} userTime={userTime} userVroomVolts={userVroomVolts} />
-            <div className="screen-panel">
+            <div className='screen-panel'>
                 {path === "/" ? (
                     <Dashboard labStatus={labStatus} mergedUsers={mergedUsers} />
                 ) : path === "/vroomvolts" ? (
                     <VroomVolts userData={userData} mergedUsers={mergedUsers} />
                 ) : path === "/users" ? (
-                    <Users userData={userData} mergedUsers={mergedUsers} labStatus={labStatus} />
+                    <Users userData={userData} mergedUsers={mergedUsers} labStatus={labStatus} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 ) : path === "/marathon" ? (
                     <Marathon userData={userData} mergedUsers={mergedUsers} />
                 ) : (
                     <></>
                 )}
             </div>
-            <RightMenu mergedUsers={mergedUsers} />
+            <RightMenu mergedUsers={mergedUsers} setSelectedUser={setSelectedUser} />
         </div>
     );
 }
