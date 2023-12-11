@@ -25,9 +25,9 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        /* height: 200vh; */
         overflow: scroll;
         height: fit-content;
+        /* height: 200vh; */
     }
 
     .screen-panel {

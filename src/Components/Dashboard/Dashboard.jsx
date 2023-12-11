@@ -70,7 +70,9 @@ export default function Dashboard({ labStatus, mergedUsers }) {
                         <p className='card-text-secondary'>Lab last closed</p>
                     </div>
                 </div>
-                <UsersBarChart data={mergedUsers} />
+                <div className='bar-chart-min-height'>
+                    <UsersBarChart data={mergedUsers} />
+                </div>
             </div>
         </div>
     );

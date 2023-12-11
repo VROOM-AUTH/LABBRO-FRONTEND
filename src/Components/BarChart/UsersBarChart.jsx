@@ -19,7 +19,7 @@ const UsersBarChart = ({ data }) => {
     const CustomYAxisTick = ({ x, y, payload }) => {
         return (
             <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} fill="#e3f4f2" fontSize="13px" textAnchor="end">
+                <text x={0} y={0} dy={16} fill='#e3f4f2' fontSize='13px' textAnchor='end'>
                     {secondsToHoursMins(payload.value)}
                 </text>
             </g>
@@ -30,9 +30,9 @@ const UsersBarChart = ({ data }) => {
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
-                <div className="custom-tooltip">
-                    <div className="label">{payload[0].payload.name}</div>
-                    <div className="label">{secondsToHoursMins(payload[0].value)}</div>
+                <div className='custom-tooltip'>
+                    <div className='label'>{payload[0].payload.name}</div>
+                    <div className='label'>{secondsToHoursMins(payload[0].value)}</div>
                 </div>
             );
         }
@@ -43,26 +43,26 @@ const UsersBarChart = ({ data }) => {
     //custom legend to show total hours
     const customLegend = () => {
         return (
-            <div className="legend">
-                <div className="legend-box"></div>
-                <div className="legend-text">Total Hours</div>
+            <div className='legend'>
+                <div className='legend-box'></div>
+                <div className='legend-text'>Total Hours</div>
             </div>
         );
     };
 
     return (
-        <ResponsiveContainer width="90%" height="50%" className="barchart-container">
+        <ResponsiveContainer width='90%' height='80%' className='barchart-container'>
             <BarChart data={filteredData}>
                 <defs>
-                    <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#9480FA" stopOpacity={1} />
-                        <stop offset="95%" stopColor="#E971E3" stopOpacity={0} />
+                    <linearGradient id='color' x1='0' y1='0' x2='0' y2='1'>
+                        <stop offset='5%' stopColor='#9480FA' stopOpacity={1} />
+                        <stop offset='95%' stopColor='#E971E3' stopOpacity={0} />
                     </linearGradient>
                 </defs>
 
-                <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.4} />
+                <CartesianGrid strokeDasharray='3 3' vertical={false} opacity={0.4} />
                 <XAxis
-                    dataKey="name"
+                    dataKey='name'
                     interval={0}
                     tick={{
                         fill: "#e3f4f2",
@@ -75,7 +75,7 @@ const UsersBarChart = ({ data }) => {
                 <YAxis tick={<CustomYAxisTick />} />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend content={customLegend} />
-                <Bar dataKey="total_seconds" fill={"url(#color)"} radius={5} />
+                <Bar dataKey='total_seconds' fill={"url(#color)"} radius={5} />
             </BarChart>
         </ResponsiveContainer>
     );

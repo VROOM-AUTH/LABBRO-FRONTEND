@@ -26,7 +26,7 @@ export default function Activity({ mergedUsers, setSelectedUser }) {
             .then((data) => {
                 const formattedData = data.map((item) => ({
                     user_id: item.user_id,
-                    name: mergedUsers.find((user) => user.id === item.user_id).name,
+                    name: mergedUsers.find((user) => user.id === item.user_id)?.name || "",
                     timestamp: item.timestamp,
                     status: item.status,
                 }));
