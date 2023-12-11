@@ -194,8 +194,12 @@
 
     .menu-icon {
         font-size: 1.7rem;
+        color: #676767;
     }
     .menu-text {
         display: none;
+    }
+    .clicked > .menu-icon {
+        color: #fff;
     }
 }

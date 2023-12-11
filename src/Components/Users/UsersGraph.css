@@ -26,6 +26,10 @@
     font-weight: 400;
     color: #e3f4f2;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .users-graph-info {
@@ -57,8 +61,6 @@
         justify-content: space-evenly;
         align-items: center;
         box-shadow: #101925 0px 20px 30px;
-    }
-    .users-graph-container {
         height: 100%;
         margin-top: 2rem;
     }

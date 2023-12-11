@@ -85,7 +85,7 @@ export default function MainScreen({ setUserData, userData, path }) {
                 }
             })
             .then((data) => {
-                setUserVroomVolts(data[0].vroomvolts);
+                setUserVroomVolts(data[0]?.vroomvolts || 0);
             })
             .catch((error) => {
                 console.log(`Error ${error}`);
