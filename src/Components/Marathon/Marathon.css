@@ -1,0 +1,182 @@
+.marathon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.marathon-content-container {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.marathon-title-container {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.marathon-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #e3f4f2;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.marathon-switch-container {
+    width: 100%;
+    height: 3.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.marathon-switch,
+.marathon-switch-active {
+    width: 40%;
+    height: 100%;
+    align-items: center;
+    background-color: #1f3044;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: #101925 0px 20px 20px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all 0.1s ease-in-out;
+}
+
+.marathon-switch:hover {
+    background-color: #29415c;
+    scale: 1.01;
+}
+
+.marathon-switch-active {
+    background-color: #3f659b;
+}
+
+.marathon-option {
+    font-size: 1.4rem;
+    color: #fff;
+    text-align: center;
+}
+
+.marathon-data-container {
+    width: 100%;
+    height: 40rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.marathon-circles-container {
+    width: 80%;
+    height: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.marathon-circle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    background-color: #404563;
+    border-radius: 50%;
+    position: relative;
+    aspect-ratio: 1/1;
+}
+
+.gold-medal,
+.silver-medal,
+.bronze-medal {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 4rem;
+    height: 4rem;
+}
+.gold-medal {
+    color: #ffd700;
+}
+.silver-medal {
+    color: #c0c0c0;
+}
+.bronze-medal {
+    color: #cd7f32;
+}
+.circle-info {
+    font-size: 3rem;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.circle-info-data {
+    font-size: 1.6rem;
+    color: #e971e3;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-info-data img {
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .marathon-switch,
+    .marathon-switch-active {
+        width: 48%;
+        border-radius: 0;
+    }
+    .marathon-option {
+        font-size: 1.1rem;
+    }
+    .marathon-content-container {
+        height: 100%;
+    }
+    .marathon-circles-container {
+        width: 100%;
+        flex-direction: column;
+        height: 100%;
+    }
+    .marathon-data-container {
+        justify-content: flex-start;
+        height: 100%;
+    }
+    .marathon-circle {
+        width: 60%;
+    }
+    .circle-info {
+        font-size: 2.2rem;
+    }
+    .circle-info-data {
+        font-size: 1.5rem;
+    }
+    .gold-medal,
+    .silver-medal,
+    .bronze-medal {
+        width: 3rem;
+        height: 3rem;
+    }
+}
