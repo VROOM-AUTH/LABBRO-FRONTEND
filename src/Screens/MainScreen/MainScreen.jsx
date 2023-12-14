@@ -183,18 +183,6 @@ export default function MainScreen({ setUserData, userData, path }) {
         setMergedUsers(filteredUsers);
     }, [users, usersTime, usersLevels]);
 
-    //updating vroomvolts
-    // Each time the total amount of vroomvolts changes, update the database and fethc the new value
-    useEffect(() => {
-        if (!firstVroomvoltFetch) {
-            putVroomvolts().then(fetchVroomvolts);
-        }
-    }, [userVroomVolts]);
-
-    if (!userData.isLoggedIn) {
-        return null;
-    }
-
     const fetchVroomvolts = () => {
         fetch(`${process.env.REACT_APP_BASE_URL}users-levels?user_id=${userData.userId}`, {
             //Fetch for logged in user vroomvolts data
@@ -232,6 +220,19 @@ export default function MainScreen({ setUserData, userData, path }) {
             }),
         });
     };
+    //updating vroomvolts
+    // Each time the total amount of vroomvolts changes, update the database and fethc the new value
+    useEffect(() => {
+        if (!firstVroomvoltFetch) {
+            putVroomvolts().then(fetchVroomvolts);
+        }
+        // eslint-disable-next-line
+    }, [userVroomVolts]);
+
+    if (!userData.isLoggedIn) {
+        return null;
+    }
+
     return (
         <div className='mainscreen-container'>
             <Menu setUserData={setUserData} userData={userData} labStatus={labStatus} userTime={userTime} userVroomVolts={userVroomVolts} />
@@ -243,7 +244,7 @@ export default function MainScreen({ setUserData, userData, path }) {
                 ) : path === "/users" ? (
                     <Users userData={userData} mergedUsers={mergedUsers} labStatus={labStatus} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 ) : path === "/marathon" ? (
-                    <Marathon userData={userData} mergedUsers={mergedUsers} setSelectedUser={setSelectedUser} />
+                    <Marathon userData={userData} mergedUsers={mergedUsers} setSelectedUser={setSelectedUser} userVroomVolts={userVroomVolts} />
                 ) : path === "/vroomvolts/wheel" ? (
                     <SpinningWheel userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
                 ) : path === "/vroomvolts/blackjack" ? (

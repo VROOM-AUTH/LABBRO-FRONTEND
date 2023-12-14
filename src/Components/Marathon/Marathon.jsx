@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import secondsToHoursMins from "../../Utils/secondsToHoursMins";
 import "./Marathon.css";
 import { RiMedalFill } from "react-icons/ri";
 import coin from "../../Assets/coin.png";
 import { useNavigate } from "react-router-dom";
-export default function Marathon({ userData, mergedUsers, setSelectedUser }) {
+export default function Marathon({ userData, mergedUsers, setSelectedUser, userVroomVolts }) {
     const Navigate = useNavigate();
 
     const [activeSwitch, setActiveSwitch] = useState(1);
@@ -26,9 +26,12 @@ export default function Marathon({ userData, mergedUsers, setSelectedUser }) {
     const loggedUserTime = secondsToHoursMins(parseFloat(Array.from(sortedUsersTime).find((user) => user.id === userData.userId)?.total_seconds)) || "";
     const loggedUserPositionTime = Array.from(sortedUsersTime).findIndex((user) => user.id === userData.userId);
 
-    const loggedUserVroomvolts = Array.from(sortedUsersVroomvolts).find((user) => user.id === userData.userId)?.vroomvolts || "";
+    const [loggedUserVroomvolts, setLoggedUserVroomvolts] = useState(userVroomVolts);
     const loggedUserPositionVroomvolts = Array.from(sortedUsersVroomvolts).findIndex((user) => user.id === userData.userId);
 
+    useEffect(() => {
+        setLoggedUserVroomvolts(userVroomVolts);
+    }, [userVroomVolts]);
     return (
         <div className='marathon-container'>
             <div className='marathon-content-container'>
@@ -185,10 +188,7 @@ export default function Marathon({ userData, mergedUsers, setSelectedUser }) {
                             </p>
                             <p>
                                 You are leading by{" "}
-                                <span style={{ color: "#3bff0f" }}>
-                                    +{parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts + 1]?.vroomvolts)}
-                                </span>{" "}
-                                Vroomvolts
+                                <span style={{ color: "#3bff0f" }}>+{parseInt(loggedUserVroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts + 1]?.vroomvolts)}</span> Vroomvolts
                             </p>
                             {loggedUserPositionVroomvolts === 0 ? (
                                 <></>
@@ -196,17 +196,12 @@ export default function Marathon({ userData, mergedUsers, setSelectedUser }) {
                                 <>
                                     <p>
                                         You are losing by{" "}
-                                        <span style={{ color: "#ff0f0f" }}>
-                                            -{parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts - 1]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts)}
-                                        </span>{" "}
+                                        <span style={{ color: "#ff0f0f" }}>-{parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts - 1]?.vroomvolts) - parseInt(loggedUserVroomvolts)}</span>{" "}
                                         Vroomvolts
                                     </p>
                                     <p>
-                                        You are{" "}
-                                        <span style={{ color: "#ff0f0f" }}>
-                                            {parseInt(sortedUsersVroomvolts[0]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts)}
-                                        </span>{" "}
-                                        Vroomvolts behind {sortedUsersVroomvolts[0]?.name}
+                                        You are <span style={{ color: "#ff0f0f" }}>{parseInt(sortedUsersVroomvolts[0]?.vroomvolts) - parseInt(loggedUserVroomvolts)}</span> Vroomvolts behind{" "}
+                                        {sortedUsersVroomvolts[0]?.name}
                                     </p>
                                 </>
                             )}
