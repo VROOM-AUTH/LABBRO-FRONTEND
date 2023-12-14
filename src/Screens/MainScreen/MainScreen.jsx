@@ -248,9 +248,9 @@ export default function MainScreen({ setUserData, userData, path }) {
                 ) : path === "/vroomvolts/wheel" ? (
                     <SpinningWheel userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
                 ) : path === "/vroomvolts/blackjack" ? (
-                    <Blackjack userData={userData} mergedUsers={mergedUsers} />
+                    <Blackjack userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
                 ) : path === "/vroomvolts/roulette" ? (
-                    <Roulette userData={userData} mergedUsers={mergedUsers} />
+                    <Roulette userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
                 ) : (
                     <></>
                 )}
