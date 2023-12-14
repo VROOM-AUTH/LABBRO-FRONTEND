@@ -1,6 +1,7 @@
 import React from "react";
 import "./Vroomvolts.css";
 import coin from "../../Assets/coin.png";
+import SpinningWheel from "./SpinningWheel";
 
 export default function Vroomvolts({ userData, mergedUsers }) {
     const myVroomvolts = mergedUsers.find((user) => user.id === userData.userId).vroomvolts || 0;
@@ -14,7 +15,9 @@ export default function Vroomvolts({ userData, mergedUsers }) {
                         <img src={coin} className='vroomvolt-img' alt='coin'></img>
                     </h1>
                 </div>
-                <div className='roadmap-container'></div>
+                <div className='roadmap-container'>
+                    <SpinningWheel />
+                </div>
             </div>
         </div>
     );
