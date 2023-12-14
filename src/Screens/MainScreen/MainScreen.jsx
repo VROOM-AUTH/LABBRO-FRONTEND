@@ -7,9 +7,13 @@ import VroomVolts from "../../Components/Vroomvolts/Vroomvolts";
 import Users from "../../Components/Users/Users";
 import Marathon from "../../Components/Marathon/Marathon";
 import RightMenu from "../../Components/RightMenu/RightMenu";
+import SpinningWheel from "../../Components/Games/SpinningWheel";
+import Blackjack from "../../Components/Games/Blackjack";
+import Roulette from "../../Components/Games/Roulette";
 
 export default function MainScreen({ setUserData, userData, path }) {
     const navigate = useNavigate();
+    const [firstVroomvoltFetch, setFirstVroomvoltFetch] = useState(true);
     const [labStatus, setLabStatus] = useState({
         // Lab Status
         closed: true,
@@ -86,6 +90,7 @@ export default function MainScreen({ setUserData, userData, path }) {
             })
             .then((data) => {
                 setUserVroomVolts(data[0]?.vroomvolts || 0);
+                setFirstVroomvoltFetch(false);
             })
             .catch((error) => {
                 console.log(`Error ${error}`);
@@ -178,10 +183,55 @@ export default function MainScreen({ setUserData, userData, path }) {
         setMergedUsers(filteredUsers);
     }, [users, usersTime, usersLevels]);
 
+    //updating vroomvolts
+    // Each time the total amount of vroomvolts changes, update the database and fethc the new value
+    useEffect(() => {
+        if (!firstVroomvoltFetch) {
+            putVroomvolts().then(fetchVroomvolts);
+        }
+    }, [userVroomVolts]);
+
     if (!userData.isLoggedIn) {
         return null;
     }
 
+    const fetchVroomvolts = () => {
+        fetch(`${process.env.REACT_APP_BASE_URL}users-levels?user_id=${userData.userId}`, {
+            //Fetch for logged in user vroomvolts data
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                setUserVroomVolts(data[0]?.vroomvolts || 0);
+                // setFirstVroomvoltFetch(false);
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+            });
+    };
+
+    const putVroomvolts = () => {
+        return fetch(`${process.env.REACT_APP_BASE_URL}users-levels/${userData.userId}`, {
+            method: "PUT",
+            headers: {
+                // "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+                Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+            },
+            body: JSON.stringify({
+                vroomvolts: userVroomVolts,
+                should_update: 0,
+            }),
+        });
+    };
     return (
         <div className='mainscreen-container'>
             <Menu setUserData={setUserData} userData={userData} labStatus={labStatus} userTime={userTime} userVroomVolts={userVroomVolts} />
@@ -189,11 +239,17 @@ export default function MainScreen({ setUserData, userData, path }) {
                 {path === "/" ? (
                     <Dashboard labStatus={labStatus} mergedUsers={mergedUsers} />
                 ) : path === "/vroomvolts" ? (
-                    <VroomVolts userData={userData} mergedUsers={mergedUsers} />
+                    <VroomVolts userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} />
                 ) : path === "/users" ? (
                     <Users userData={userData} mergedUsers={mergedUsers} labStatus={labStatus} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 ) : path === "/marathon" ? (
                     <Marathon userData={userData} mergedUsers={mergedUsers} setSelectedUser={setSelectedUser} />
+                ) : path === "/vroomvolts/wheel" ? (
+                    <SpinningWheel userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
+                ) : path === "/vroomvolts/blackjack" ? (
+                    <Blackjack userData={userData} mergedUsers={mergedUsers} />
+                ) : path === "/vroomvolts/roulette" ? (
+                    <Roulette userData={userData} mergedUsers={mergedUsers} />
                 ) : (
                     <></>
                 )}

@@ -16,12 +16,15 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/login" element={<LoginScreen setUserData={setUserData} userData={userData} />} />
-                <Route path="/register" element={<RegisterScreen userData={userData} />} />
-                <Route path="/" element={<MainScreen path={"/"} userData={userData} setUserData={setUserData} />} />
-                <Route path="/vroomvolts" element={<MainScreen path={"/vroomvolts"} userData={userData} setUserData={setUserData} />} />
-                <Route path="/users" element={<MainScreen path={"/users"} userData={userData} setUserData={setUserData} />} />
-                <Route path="/marathon" element={<MainScreen path={"/marathon"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/login' element={<LoginScreen setUserData={setUserData} userData={userData} />} />
+                <Route path='/register' element={<RegisterScreen userData={userData} />} />
+                <Route path='/' element={<MainScreen path={"/"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/vroomvolts' element={<MainScreen path={"/vroomvolts"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/users' element={<MainScreen path={"/users"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/marathon' element={<MainScreen path={"/marathon"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/vroomvolts/wheel' element={<MainScreen path={"/vroomvolts/wheel"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/vroomvolts/blackjack' element={<MainScreen path={"/vroomvolts/blackjack"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/vroomvolts/roulette' element={<MainScreen path={"/vroomvolts/roulette"} userData={userData} setUserData={setUserData} />} />
             </Routes>
         </Router>
     );
