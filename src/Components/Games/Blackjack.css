@@ -50,3 +50,10 @@
     font-size: 2rem;
     color: #fff;
 }
+
+.playing-card {
+    height: 10rem;
+    width: 7rem;
+    margin: 0 0.5rem 0 0;
+    padding: 0;
+}
