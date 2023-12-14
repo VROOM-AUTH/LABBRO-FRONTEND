@@ -193,7 +193,7 @@ export default function MainScreen({ setUserData, userData, path }) {
                 ) : path === "/users" ? (
                     <Users userData={userData} mergedUsers={mergedUsers} labStatus={labStatus} selectedUser={selectedUser} setSelectedUser={setSelectedUser} />
                 ) : path === "/marathon" ? (
-                    <Marathon userData={userData} mergedUsers={mergedUsers} />
+                    <Marathon userData={userData} mergedUsers={mergedUsers} setSelectedUser={setSelectedUser} />
                 ) : (
                     <></>
                 )}

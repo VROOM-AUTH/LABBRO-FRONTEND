@@ -86,7 +86,7 @@
 
 .marathon-circles-container {
     width: 80%;
-    height: 40%;
+    height: 65%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -98,10 +98,34 @@
     justify-content: center;
     align-items: center;
     width: 30%;
-    background-color: #404563;
+    background-color: #685f83;
     border-radius: 50%;
     position: relative;
     aspect-ratio: 1/1;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+.marathon-circle:hover {
+    box-shadow: rgba(0, 0, 0, 0.9) 0px 25px 50px -12px;
+}
+.marathon-more-info-container {
+    width: 80%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #1d2e43;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
+
+.marathon-more-info-container p {
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
+    margin: 0;
 }
 
 .gold-medal,
@@ -130,6 +154,7 @@
 
 .circle-info-data {
     font-size: 1.6rem;
+    color: #ff0f0f;
     color: #e971e3;
     font-weight: bolder;
     display: flex;
@@ -163,6 +188,13 @@
     .marathon-data-container {
         justify-content: flex-start;
         height: 100%;
+    }
+    .marathon-more-info-container {
+        width: 100%;
+        height: 15rem;
+    }
+    .marathon-more-info-container p {
+        scale: 0.9;
     }
     .marathon-circle {
         width: 60%;

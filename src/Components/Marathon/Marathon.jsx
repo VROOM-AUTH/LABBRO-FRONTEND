@@ -3,7 +3,10 @@ import secondsToHoursMins from "../../Utils/secondsToHoursMins";
 import "./Marathon.css";
 import { RiMedalFill } from "react-icons/ri";
 import coin from "../../Assets/coin.png";
-export default function Marathon({ userData, mergedUsers }) {
+import { useNavigate } from "react-router-dom";
+export default function Marathon({ userData, mergedUsers, setSelectedUser }) {
+    const Navigate = useNavigate();
+
     const [activeSwitch, setActiveSwitch] = useState(1);
 
     const sortedUsersTime = mergedUsers
@@ -53,48 +56,90 @@ export default function Marathon({ userData, mergedUsers }) {
                 {activeSwitch === 1 ? (
                     <div className='marathon-data-container'>
                         <div className='marathon-circles-container'>
-                            <div className='marathon-circle' style={{ scale: "0.85", backgroundColor: "#685F83" }}>
+                            <div
+                                className='marathon-circle'
+                                style={{ scale: "0.85", backgroundColor: "#404563" }}
+                                onClick={() => {
+                                    setSelectedUser({ name: sortedUsersTime[1]?.name, id: parseInt(sortedUsersTime[1]?.id) });
+                                    Navigate("/users");
+                                }}
+                            >
                                 <RiMedalFill className='silver-medal' />
                                 <div className='circle-info'> {sortedUsersTime[1]?.name || ""}</div>
                                 <div className='circle-info-data'>{secondsToHoursMins(parseFloat(sortedUsersTime[1]?.total_seconds))}</div>
                             </div>
 
-                            <div className='marathon-circle'>
+                            <div
+                                className='marathon-circle'
+                                onClick={() => {
+                                    setSelectedUser({ name: sortedUsersTime[0]?.name, id: parseInt(sortedUsersTime[0]?.id) });
+                                    Navigate("/users");
+                                }}
+                            >
                                 <RiMedalFill className='gold-medal' />
                                 <div className='circle-info'> {sortedUsersTime[0]?.name || ""}</div>
                                 <div className='circle-info-data'> {secondsToHoursMins(parseFloat(sortedUsersTime[0]?.total_seconds))}</div>
                             </div>
 
-                            <div className='marathon-circle' style={{ scale: "0.75", backgroundColor: "#223652" }}>
+                            <div
+                                className='marathon-circle'
+                                style={{ scale: "0.75", backgroundColor: "#223652" }}
+                                onClick={() => {
+                                    setSelectedUser({ name: sortedUsersTime[2]?.name, id: parseInt(sortedUsersTime[2]?.id) });
+                                    Navigate("/users");
+                                }}
+                            >
                                 <RiMedalFill className='bronze-medal' />
                                 <div className='circle-info'> {sortedUsersTime[2]?.name || ""} </div>
                                 <div className='circle-info-data'> {secondsToHoursMins(parseFloat(sortedUsersTime[2]?.total_seconds))}</div>
                             </div>
                         </div>
-
-                        <p>
-                            You are in position {loggedUserPositionTime + 1} with time {loggedUserTime}
-                            {/* The plus 1 is because it is an array indexs */}
-                        </p>
-                        <p>
-                            Leading by {secondsToHoursMins(parseFloat(sortedUsersTime[loggedUserPositionTime]?.total_seconds) - parseFloat(sortedUsersTime[loggedUserPositionTime + 1]?.total_seconds))}
-                        </p>
-                        {loggedUserPositionTime === 0 ? (
-                            <></>
-                        ) : (
-                            <>
-                                <p>
-                                    Losing by{" "}
-                                    {secondsToHoursMins(parseFloat(sortedUsersTime[loggedUserPositionTime - 1]?.total_seconds) - parseFloat(sortedUsersTime[loggedUserPositionTime]?.total_seconds))}
-                                </p>
-                                <p> Difference first {secondsToHoursMins(parseFloat(sortedUsersTime[0]?.total_seconds) - parseFloat(sortedUsersTime[loggedUserPositionTime]?.total_seconds))}</p>
-                            </>
-                        )}
+                        <div className='marathon-more-info-container'>
+                            <p style={{ fontSize: "1.8rem" }}>
+                                You are in position <span style={{ color: "#e971e3" }}>{loggedUserPositionTime + 1}</span> with time <span style={{ color: "#e971e3" }}>{loggedUserTime}</span>
+                                {/* The plus 1 is because it is an array indexs */}
+                            </p>
+                            <p>
+                                You are leading by{" "}
+                                <span style={{ color: "#3bff0f" }}>
+                                    +{secondsToHoursMins(parseFloat(sortedUsersTime[loggedUserPositionTime]?.total_seconds) - parseFloat(sortedUsersTime[loggedUserPositionTime + 1]?.total_seconds))}
+                                </span>
+                            </p>
+                            {loggedUserPositionTime === 0 ? (
+                                <></>
+                            ) : (
+                                <>
+                                    <p>
+                                        You are losing by{" "}
+                                        <span style={{ color: "#ff0f0f" }}>
+                                            -
+                                            {secondsToHoursMins(
+                                                parseFloat(sortedUsersTime[loggedUserPositionTime - 1]?.total_seconds) - parseFloat(sortedUsersTime[loggedUserPositionTime]?.total_seconds)
+                                            )}
+                                        </span>
+                                    </p>
+                                    <p>
+                                        You are{" "}
+                                        <span style={{ color: "#ff0f0f" }}>
+                                            {secondsToHoursMins(parseFloat(sortedUsersTime[0]?.total_seconds) - parseFloat(sortedUsersTime[loggedUserPositionTime]?.total_seconds))}
+                                        </span>{" "}
+                                        behind {sortedUsersTime[0]?.name}
+                                    </p>
+                                </>
+                            )}
+                        </div>
                     </div>
                 ) : (
                     <div className='marathon-data-container'>
                         <div className='marathon-circles-container'>
-                            <div className='marathon-circle' style={{ scale: "0.85", backgroundColor: "#685F83" }}>
+                            <div
+                                className='marathon-circle'
+                                style={{ scale: "0.85", backgroundColor: "#404563" }}
+                                onClick={() => {
+                                    setSelectedUser({ name: sortedUsersVroomvolts[1]?.name, id: parseInt(sortedUsersVroomvolts[1]?.id) });
+                                    Navigate("/users");
+                                }}
+                            >
                                 <RiMedalFill className='silver-medal' />
                                 <div className='circle-info'>{sortedUsersVroomvolts[1]?.name || ""}</div>
                                 <div className='circle-info-data'>
@@ -102,7 +147,13 @@ export default function Marathon({ userData, mergedUsers }) {
                                 </div>
                             </div>
 
-                            <div className='marathon-circle'>
+                            <div
+                                className='marathon-circle'
+                                onClick={() => {
+                                    setSelectedUser({ name: sortedUsersVroomvolts[0]?.name, id: parseInt(sortedUsersVroomvolts[0]?.id) });
+                                    Navigate("/users");
+                                }}
+                            >
                                 <RiMedalFill className='gold-medal' />
                                 <div className='circle-info'>{sortedUsersVroomvolts[0]?.name || ""}</div>
                                 <div className='circle-info-data'>
@@ -111,7 +162,14 @@ export default function Marathon({ userData, mergedUsers }) {
                                 </div>
                             </div>
 
-                            <div className='marathon-circle' style={{ scale: "0.75", backgroundColor: "#223652" }}>
+                            <div
+                                className='marathon-circle'
+                                style={{ scale: "0.75", backgroundColor: "#223652" }}
+                                onClick={() => {
+                                    setSelectedUser({ name: sortedUsersVroomvolts[2]?.name, id: parseInt(sortedUsersVroomvolts[2]?.id) });
+                                    Navigate("/users");
+                                }}
+                            >
                                 <RiMedalFill className='bronze-medal' />
                                 <div className='circle-info'> {sortedUsersVroomvolts[2]?.name || ""}</div>
                                 <div className='circle-info-data'>
@@ -119,46 +177,43 @@ export default function Marathon({ userData, mergedUsers }) {
                                 </div>
                             </div>
                         </div>
-
-                        <p>
-                            You are in position {loggedUserPositionVroomvolts + 1} with {loggedUserVroomvolts} Vroomvolts
-                            {/* The plus 1 is because it is an array indexs */}
-                        </p>
-                        <p>Leading by {parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts + 1]?.vroomvolts)}</p>
-                        {loggedUserPositionVroomvolts === 0 ? (
-                            <></>
-                        ) : (
-                            <>
-                                <p>
-                                    Losing by{" "}
-                                    {parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts - 1]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts)}
-                                </p>
-                                <p>
-                                    {" "}
-                                    Difference first
-                                    {parseInt(sortedUsersVroomvolts[0]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts)}
-                                </p>
-                            </>
-                        )}
+                        <div className='marathon-more-info-container'>
+                            <p style={{ fontSize: "1.8rem" }}>
+                                You are in position <span style={{ color: "#FFB901" }}>{loggedUserPositionVroomvolts + 1}</span> with <span style={{ color: "#FFB901" }}>{loggedUserVroomvolts}</span>{" "}
+                                Vroomvolts
+                                {/* The plus 1 is because it is an array indexs */}
+                            </p>
+                            <p>
+                                You are leading by{" "}
+                                <span style={{ color: "#3bff0f" }}>
+                                    +{parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts + 1]?.vroomvolts)}
+                                </span>{" "}
+                                Vroomvolts
+                            </p>
+                            {loggedUserPositionVroomvolts === 0 ? (
+                                <></>
+                            ) : (
+                                <>
+                                    <p>
+                                        You are losing by{" "}
+                                        <span style={{ color: "#ff0f0f" }}>
+                                            -{parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts - 1]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts)}
+                                        </span>{" "}
+                                        Vroomvolts
+                                    </p>
+                                    <p>
+                                        You are{" "}
+                                        <span style={{ color: "#ff0f0f" }}>
+                                            {parseInt(sortedUsersVroomvolts[0]?.vroomvolts) - parseInt(sortedUsersVroomvolts[loggedUserPositionVroomvolts]?.vroomvolts)}
+                                        </span>{" "}
+                                        Vroomvolts behind {sortedUsersVroomvolts[0]?.name}
+                                    </p>
+                                </>
+                            )}
+                        </div>
                     </div>
                 )}
             </div>
         </div>
     );
-}
-{
-    /* <h1>Top Times:</h1>
-<p>{`${sortedUsersTime[0]?.name || ""} with time ${secondsToHoursMins(parseFloat(sortedUsersTime[0]?.total_seconds))} ` || ""}</p>
-<p>{`${sortedUsersTime[1]?.name || ""} with time ${secondsToHoursMins(parseFloat(sortedUsersTime[1]?.total_seconds))} ` || ""}</p>
-<p>{`${sortedUsersTime[2]?.name || ""} with time ${secondsToHoursMins(parseFloat(sortedUsersTime[2]?.total_seconds))} ` || ""}</p>
-<h1>
-    You are in position {loggedUserPositionTime} with time {loggedUserTime}
-</h1>
-<h1>Top Vroomvolts:</h1>
-<p>{`${sortedUsersVroomvolts[0]?.name || ""} with vroomvolts ${sortedUsersVroomvolts[0]?.vroomvolts} ` || ""}</p>
-<p>{`${sortedUsersVroomvolts[1]?.name || ""} with vroomvolts ${sortedUsersVroomvolts[1]?.vroomvolts} ` || ""}</p>
-<p>{`${sortedUsersVroomvolts[2]?.name || ""} with vroomvolts ${sortedUsersVroomvolts[2]?.vroomvolts} ` || ""}</p>
-<h1>
-    You are in position {loggedUserPositionVroomvolts} with {loggedUserVroomvolts} Vroomvolts
-</h1> */
 }

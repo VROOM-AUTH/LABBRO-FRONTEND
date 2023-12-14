@@ -74,64 +74,67 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
             });
     };
 
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    };
     return (
-        <div className="menu-container">
-            <div className="user-info-container">
-                <img src={labbroLogo} className="labbro-logo" alt="labbro-logo"></img>
-                <div className="user-info">
-                    <div className="user-info-text">
+        <div className='menu-container'>
+            <div className='user-info-container'>
+                <img src={labbroLogo} className='labbro-logo' alt='labbro-logo'></img>
+                <div className='user-info'>
+                    <div className='user-info-text'>
                         Welcome <span style={{ color: "#e971e3" }}>{userData.username}</span> !
                     </div>
-                    <div className="user-info-text-secondary">
-                        <img className="coin-menu" src={coin} alt="coin"></img>
+                    <div className='user-info-text-secondary'>
+                        <img className='coin-menu' src={coin} alt='coin'></img>
                         <p>{userVroomVolts}</p>
                     </div>
-                    <div className="user-info-text-secondary">
-                        <img className="coin-menu" src={clock} alt="clock"></img>
+                    <div className='user-info-text-secondary'>
+                        <img className='coin-menu' src={clock} alt='clock'></img>
                         <p>{secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
-                    <div className="user-info-text-secondary">
-                        {labStatus.closed ? <TbBulbOff className="menu-icon" /> : <FcIdea className="menu-icon" />}
+                    <div className='user-info-text-secondary'>
+                        {labStatus.closed ? <TbBulbOff className='menu-icon' /> : <FcIdea className='menu-icon' />}
                         {labStatus.closed ? <p>Lab is closed!</p> : <p>Lab is open!</p>}
                     </div>
                 </div>
             </div>
 
-            <div className="menu-buttons-container">
-                <Link className={isClicked === 1 ? "clicked menu-item" : "menu-item"} to="/">
-                    <IoMdHome className="menu-icon" />
-                    <div className="menu-text">Dashboard</div>
+            <div className='menu-buttons-container'>
+                <Link className={isClicked === 1 ? "clicked menu-item" : "menu-item"} to='/'>
+                    <IoMdHome className='menu-icon' onClick={scrollToTop} />
+                    <div className='menu-text'>Dashboard</div>
                 </Link>
-                <Link className={isClicked === 2 ? "clicked menu-item" : "menu-item"} to="/vroomvolts">
-                    <FaCoins className="menu-icon" />
-                    <div className="menu-text">Vroomvolts</div>
+                <Link className={isClicked === 2 ? "clicked menu-item" : "menu-item"} to='/vroomvolts'>
+                    <FaCoins className='menu-icon' onClick={scrollToTop} />
+                    <div className='menu-text'>Vroomvolts</div>
                 </Link>
-                <Link className={isClicked === 3 ? "clicked menu-item" : "menu-item"} to="/users">
-                    <GoPersonFill className="menu-icon" />
-                    <div className="menu-text">Users</div>
+                <Link className={isClicked === 3 ? "clicked menu-item" : "menu-item"} to='/users'>
+                    <GoPersonFill className='menu-icon' onClick={scrollToTop} />
+                    <div className='menu-text'>Users</div>
                 </Link>
-                <Link className={isClicked === 4 ? "clicked menu-item" : "menu-item"} to="/marathon">
-                    <GiPodium className="menu-icon" />
-                    <div className="menu-text">Marathon</div>
+                <Link className={isClicked === 4 ? "clicked menu-item" : "menu-item"} to='/marathon'>
+                    <GiPodium className='menu-icon' onClick={scrollToTop} />
+                    <div className='menu-text'>Marathon</div>
                 </Link>
-                <div className="menu-item" onClick={(e) => handleLogout(e)}>
-                    <FaSignOutAlt className="menu-icon" />
-                    <div className="menu-text">Logout</div>
+                <div className='menu-item' onClick={(e) => handleLogout(e)}>
+                    <FaSignOutAlt className='menu-icon' />
+                    <div className='menu-text'>Logout</div>
                 </div>
                 {userTime.in_lab ? (
-                    <div className="menu-item check-out-mobile" onClick={(e) => handleCheckout(e)}>
-                        <ImExit className="menu-icon" />
-                        <div className="menu-text">Check Out</div>
+                    <div className='menu-item check-out-mobile' onClick={(e) => handleCheckout(e)}>
+                        <ImExit className='menu-icon' />
+                        <div className='menu-text'>Check Out</div>
                     </div>
                 ) : (
                     <></>
                 )}
             </div>
-            <div className="logout-container">
+            <div className='logout-container'>
                 {userTime.in_lab ? (
-                    <div className="check-out-container">
-                        <div className="check-out-title">You are checked in!</div>
-                        <div className="check-out-button" onClick={(e) => handleCheckout(e)}>
+                    <div className='check-out-container'>
+                        <div className='check-out-title'>You are checked in!</div>
+                        <div className='check-out-button' onClick={(e) => handleCheckout(e)}>
                             Check Out
                         </div>
                     </div>
