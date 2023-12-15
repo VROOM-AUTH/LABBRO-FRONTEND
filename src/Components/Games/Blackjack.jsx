@@ -53,10 +53,10 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
         let score = 0;
         let manaScore = 0;
         playerCards.forEach((card) => {
-            score += cardValue(card);
+            score += cardValue(card, score);
         });
         manaCards.forEach((card) => {
-            manaScore += cardValue(card);
+            manaScore += cardValue(card, manaScore);
         });
         setManaScore(manaScore);
         setPlayerScore(score);
@@ -90,8 +90,13 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                 ) : (
                     <div className='blackjack-mana-container'>
                         <div>
+                            {/* Display the first card in manaCards separately */}
                             <PlayingCard card={manaCards[0]} />
-                            <PlayingCard card={"2B"} />
+
+                            {/* Display "2B" cards for the remaining elements in manaCards */}
+                            {manaCards.slice(1).map((_, index) => (
+                                <PlayingCard card={"2B"} key={index} />
+                            ))}
                         </div>
                     </div>
                 )}
