@@ -16,7 +16,7 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
     const [manaScore, setManaScore] = useState(0);
     const [bet, setBet] = useState(20);
     const [startGame, setStartGame] = useState(false);
-    const [message, setMessage] = useState("If you win you gain x2 your bet!");
+    const [message, setMessage] = useState("If you win, you gain x2 your bet!");
     const [showManaCards, setShowManaCards] = useState(false);
     const [gameOver, setGameOver] = useState(true);
     const [restartGame, setRestartGame] = useState(true); // New state for managing game restart flow
@@ -73,14 +73,14 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                         }}
                     />
                     <div className='blackjack-title-group'>
-                        <h1>{userVroomVolts}</h1> <img src={coin} alt='coin'></img>
+                        <h1>{userVroomVolts}</h1> <img src={coin} alt='coin' />
                     </div>
                 </div>
                 <div className='blackjack-instructions'>{message}</div>
 
                 {showManaCards ? (
                     <div className='blackjack-mana-container'>
-                        <div>
+                        <div className='cards-row'>
                             {manaCards.map((card, index) => (
                                 <PlayingCard card={card} key={index} />
                             ))}
@@ -89,7 +89,7 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                     </div>
                 ) : (
                     <div className='blackjack-mana-container'>
-                        <div>
+                        <div className='cards-row'>
                             {/* Display the first card in manaCards separately */}
                             <PlayingCard card={manaCards[0]} />
 
@@ -101,79 +101,72 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                     </div>
                 )}
 
-                <div className='blackjack-player-container'>
-                    {startGame && !gameOver ? (
-                        <>
-                            <div className='cards-row'>
-                                {playerCards.map((card, index) => (
-                                    <PlayingCard card={card} key={index} />
-                                ))}
-                            </div>
-                            <div className='blackjack-game-buttons'>
-                                <div className='blackjack-bet-button' onClick={addCard}>
-                                    Hit
-                                </div>
-                                <div className='blackjack-bet-button' onClick={() => evaluateGame(manaScore, playerScore)}>
-                                    Done
-                                </div>
-                            </div>
-                            <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
-                        </>
-                    ) : (
-                        <div className='blackjack-bet-container'>
-                            {!restartGame ? (
-                                <>
-                                    <div className='cards-row'>
-                                        {playerCards.map((card, index) => (
-                                            <PlayingCard card={card} key={index} />
-                                        ))}
-                                    </div>
-                                    <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
-
-                                    <div
-                                        className='blackjack-bet-button'
-                                        onClick={() => {
-                                            setGameOver(false);
-                                            setRestartGame(true);
-                                            setStartGame(false); // Set startGame to false when playing again
-                                        }}
-                                    >
-                                        Play again
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <h1>Place your bet</h1>
-                                    <input
-                                        defaultValue={bet}
-                                        className='bet-input'
-                                        type='number'
-                                        placeholder='Bet'
-                                        step='5'
-                                        min='20'
-                                        max='1000'
-                                        onChange={(e) => {
-                                            setBet(e.target.value);
-                                        }}
-                                    ></input>
-
-                                    <div
-                                        className='blackjack-bet-button'
-                                        onClick={() => {
-                                            if (bet >= 20 && bet <= userVroomVolts) {
-                                                setStartGame(true);
-                                                setGameOver(false);
-                                                setUserVroomVolts(userVroomVolts - bet);
-                                            }
-                                        }}
-                                    >
-                                        Start
-                                    </div>
-                                </>
-                            )}
+                {startGame && !gameOver ? (
+                    <div className='blackjack-player-container'>
+                        <div className='cards-row'>
+                            {playerCards.map((card, index) => (
+                                <PlayingCard card={card} key={index} />
+                            ))}
                         </div>
-                    )}
-                </div>
+                        <div className='blackjack-game-buttons'>
+                            <div className='blackjack-bet-button' onClick={addCard}>
+                                Hit
+                            </div>
+                            <div className='blackjack-bet-button' onClick={() => evaluateGame(manaScore, playerScore)}>
+                                Done
+                            </div>
+                        </div>
+                        <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
+                    </div>
+                ) : !restartGame ? (
+                    <div className='blackjack-bet-container'>
+                        <div className='cards-row'>
+                            {playerCards.map((card, index) => (
+                                <PlayingCard card={card} key={index} />
+                            ))}
+                        </div>
+                        <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
+
+                        <div
+                            className='blackjack-bet-button'
+                            onClick={() => {
+                                setGameOver(false);
+                                setRestartGame(true);
+                                setStartGame(false); // Set startGame to false when playing again
+                            }}
+                        >
+                            Play again
+                        </div>
+                    </div>
+                ) : (
+                    <div className='blackjack-bet-container'>
+                        <h1>Place your bet</h1>
+                        <input
+                            defaultValue={bet}
+                            className='bet-input'
+                            type='number'
+                            placeholder='Bet'
+                            step='5'
+                            min='20'
+                            max='1000'
+                            onChange={(e) => {
+                                setBet(e.target.value);
+                            }}
+                        />
+                        <div
+                            className='blackjack-bet-button'
+                            onClick={() => {
+                                if (bet >= 20 && bet <= userVroomVolts) {
+                                    setStartGame(true);
+                                    setGameOver(false);
+                                    setUserVroomVolts(userVroomVolts - bet);
+                                }
+                            }}
+                        >
+                            Start
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
