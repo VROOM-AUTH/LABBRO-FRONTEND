@@ -67,7 +67,6 @@ import CardAD from "../Assets/Cards/AD.svg";
 import CardAH from "../Assets/Cards/AH.svg";
 
 export default function PlayingCard({ card }) {
-    console.log(card);
     switch (card) {
         case "2B":
             return <img src={Card2B} className='playing-card' alt='2B' />;

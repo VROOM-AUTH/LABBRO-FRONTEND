@@ -1,6 +1,5 @@
 export default function randomCard() {
     const cardValues = [
-        "2B",
         "2S",
         "2C",
         "2D",

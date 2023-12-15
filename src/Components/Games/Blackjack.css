@@ -53,6 +53,7 @@
 
 .blackjack-mana-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -134,7 +135,7 @@
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
 }
 
 .blackjack-game-buttons {
