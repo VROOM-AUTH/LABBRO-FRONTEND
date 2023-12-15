@@ -11,7 +11,7 @@ import manaCardsGenerator from "../../Utils/manaCardsGenerator";
 export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
     const Navigate = useNavigate();
     const [playerCards, setPlayerCards] = useState([]);
-    const [manaCards, setManaCards] = useState(["2B"]);
+    const [manaCards, setManaCards] = useState(["2B", "2B"]);
     const [playerScore, setPlayerScore] = useState(0);
     const [manaScore, setManaScore] = useState(0);
     const [bet, setBet] = useState(20);
@@ -119,7 +119,7 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                         <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
                     </div>
                 ) : !restartGame ? (
-                    <div className='blackjack-bet-container'>
+                    <div className='blackjack-results'>
                         <div className='cards-row'>
                             {playerCards.map((card, index) => (
                                 <PlayingCard card={card} key={index} />
@@ -128,7 +128,7 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                         <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
 
                         <div
-                            className='blackjack-bet-button'
+                            className='blackjack-playagain-button'
                             onClick={() => {
                                 setGameOver(false);
                                 setRestartGame(true);

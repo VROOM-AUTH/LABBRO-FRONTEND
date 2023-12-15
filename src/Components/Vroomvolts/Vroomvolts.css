@@ -63,11 +63,39 @@
 }
 
 .game-card {
+    color: #fff;
     width: 10rem;
     height: 10rem;
-    background-color: #e3f4f2;
+    background-color: #243a54;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.game-card:hover {
+    transform: scale(1.03);
+}
+
+.game-icon {
+    font-size: 4rem;
+    color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .games-selection {
+        flex-direction: column;
+    }
+    .game-card {
+        margin: 0.5rem;
+    }
 }
