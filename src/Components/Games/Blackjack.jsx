@@ -156,10 +156,16 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                         <div
                             className='blackjack-bet-button'
                             onClick={() => {
-                                if (bet >= 20 && bet <= userVroomVolts) {
+                                if (bet >= 20 && bet <= 10000 && bet <= userVroomVolts) {
                                     setStartGame(true);
                                     setGameOver(false);
                                     setUserVroomVolts(userVroomVolts - bet);
+                                } else if (bet > userVroomVolts) {
+                                    setMessage("You don't have enough VroomVolts!");
+                                } else if (bet < 20) {
+                                    setMessage("Minimum bet is 20 Vroomvolts!");
+                                } else if (bet > 10000) {
+                                    setMessage("Maximum bet is 10000 Vroomvolts!");
                                 }
                             }}
                         >
