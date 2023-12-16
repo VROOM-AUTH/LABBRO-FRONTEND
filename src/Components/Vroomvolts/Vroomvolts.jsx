@@ -17,7 +17,7 @@ export default function Vroomvolts({ userData, mergedUsers, userVroomVolts }) {
                         <img src={coin} className='vroomvolt-img' alt='coin'></img>
                     </h1>
                 </div>
-                <div className='roadmap-container'></div>
+                {/* <div className='roadmap-container'></div> */}
                 <div className='games-selection'>
                     <div className='game-card' onClick={() => Navigate("/vroomvolts/wheel")}>
                         <LuFerrisWheel className='game-icon' />
