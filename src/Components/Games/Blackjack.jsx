@@ -30,6 +30,10 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
         if (playerScore > 21) {
             setMessage("You lost!");
             setGameOver(true);
+        } else if (manaScore > 21) {
+            setMessage("You won!");
+            setUserVroomVolts(userVroomVolts + bet * 2);
+            setGameOver(true);
         } else if (manaScore > playerScore) {
             setMessage("You lost!");
             setGameOver(true);
@@ -148,7 +152,7 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                             placeholder='Bet'
                             step='5'
                             min='20'
-                            max='1000'
+                            max='10000'
                             onChange={(e) => {
                                 setBet(e.target.value);
                             }}

@@ -50,7 +50,7 @@ const first12Numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const second12Numbers = [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 const third12Numbers = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
 const redNumbers = [1, 3, 5, 7, 9, 12, 14, 15, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 35, 36];
-const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 17, 20, 22, 24, 26, 28, 29, 31, 33];
+const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
 const evenNumbers = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36];
 const oddNumbers = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35];
 const oneto18 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
@@ -68,7 +68,11 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
     const [totalBet, setTotalBet] = useState(0);
 
     const handleSpinClick = () => {
-        if (!mustSpin) {
+        if (bets.length === 0) {
+            setMessage("You must place a bet!");
+            return;
+        } else if (!mustSpin) {
+            setMessage("Spinning...");
             const newPrizeNumber = Math.floor(Math.random() * data.length);
             const targetOption = newPrizeNumber.toString(); // The option you want to find
             setWinNumber(parseInt(targetOption));
@@ -308,8 +312,8 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.numbers[0] === 2 && bet.numbers.length === 1) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(2)}>
                             2
-                            {bets.some((bet) => bet.numbers[0] === 2 && bet.type !== "dozen")?.amount !== 0 && (
-                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 2)?.amount}</p>
+                            {bets.some((bet) => bet.numbers[0] === 2 && bet.type === "single")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 2 && bet.type === "single")?.amount}</p>
                             )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 5) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(5)}>
@@ -349,8 +353,8 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.numbers[0] === 1 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(1)}>
                             1
-                            {bets.some((bet) => bet.numbers[0] === 1 && bet.type !== "dozen")?.amount !== 0 && (
-                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 1)?.amount}</p>
+                            {bets.some((bet) => bet.numbers[0] === 1 && bet.type === "single")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 1 && bet.type === "single")?.amount}</p>
                             )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 4) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(4)}>
@@ -365,7 +369,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         <div className={bets.some((bet) => bet.numbers[0] === 13 && bet.numbers.length === 1) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(13)}>
                             13
                             {bets.some((bet) => bet.numbers[0] === 13 && bet.type !== "dozen")?.amount !== 0 && (
-                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 13)?.amount}</p>
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 13 && bet.type !== "dozen")?.amount}</p>
                             )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 16) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(16)}>
@@ -373,8 +377,8 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 19 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(19)}>
                             19{" "}
-                            {bets.some((bet) => bet.numbers[0] === 19 && bet.type !== "dozen")?.amount !== 0 && (
-                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 19)?.amount}</p>
+                            {bets.some((bet) => bet.numbers[0] === 19 && bet.type !== "nineteento36")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 19 && bet.type !== "nineteento36")?.amount}</p>
                             )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 22) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(22)}>
@@ -383,7 +387,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         <div className={bets.some((bet) => bet.numbers[0] === 25 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(25)}>
                             25
                             {bets.some((bet) => bet.numbers[0] === 25 && bet.type !== "dozen")?.amount !== 0 && (
-                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 25)?.amount}</p>
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 25 && bet.type !== "dozen")?.amount}</p>
                             )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 28) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(28)}>

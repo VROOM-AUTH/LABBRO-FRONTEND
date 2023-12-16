@@ -4,8 +4,8 @@ import randomCard from "./randomCard";
 export default function manaCardsGenerator() {
     const randomDecimal = Math.random();
 
-    // 16-21
-    const targetScore = Math.floor(randomDecimal * 6) + 16;
+    // 16-23
+    const targetScore = Math.floor(randomDecimal * 8) + 16;
 
     let hand = [];
     let currentScore = 0;

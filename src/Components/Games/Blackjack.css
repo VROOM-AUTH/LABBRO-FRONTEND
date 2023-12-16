@@ -215,4 +215,9 @@
         width: 8rem;
         font-size: 1.2rem;
     }
+    .blackjack-content-container {
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+    }
 }
