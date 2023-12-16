@@ -218,147 +218,177 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                             6{bets.some((bet) => bet.numbers[0] === 6)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 6)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 9) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(9)}>
-                            9
+                            9{bets.some((bet) => bet.numbers[0] === 9)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 9)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 12) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(12)}>
-                            12
+                            12{bets.some((bet) => bet.numbers[0] === 12)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 12)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 15) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(15)}>
-                            15
+                            15{bets.some((bet) => bet.numbers[0] === 15)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 15)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 18) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(18)}>
-                            18
+                            18{bets.some((bet) => bet.numbers[0] === 18)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 18)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 21) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(21)}>
-                            21
+                            21{bets.some((bet) => bet.numbers[0] === 21)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 21)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 24) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(24)}>
-                            24
+                            24{bets.some((bet) => bet.numbers[0] === 24)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 24)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 27) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(27)}>
-                            27
+                            27{bets.some((bet) => bet.numbers[0] === 27)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 27)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 30) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(30)}>
-                            30
+                            30{bets.some((bet) => bet.numbers[0] === 30)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 30)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 33) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(33)}>
-                            33
+                            33{bets.some((bet) => bet.numbers[0] === 33)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 33)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 36) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(36)}>
-                            36
+                            36{bets.some((bet) => bet.numbers[0] === 36)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 36)?.amount}</p>}
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.numbers[0] === 2 && bet.numbers.length === 1) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(2)}>
                             2
+                            {bets.some((bet) => bet.numbers[0] === 2 && bet.type !== "dozen")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 2)?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 5) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(5)}>
-                            5
+                            5{bets.some((bet) => bet.numbers[0] === 5)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 5)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 8) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(8)}>
-                            8
+                            8{bets.some((bet) => bet.numbers[0] === 8)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 8)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 11) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(11)}>
-                            11
+                            11{bets.some((bet) => bet.numbers[0] === 11)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 11)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 14) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(14)}>
-                            14
+                            14{bets.some((bet) => bet.numbers[0] === 14)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 14)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 17) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(17)}>
-                            17
+                            17{bets.some((bet) => bet.numbers[0] === 17)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 17)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 20) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(20)}>
-                            20
+                            20{bets.some((bet) => bet.numbers[0] === 20)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 20)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 23) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(23)}>
-                            23
+                            23{bets.some((bet) => bet.numbers[0] === 23)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 23)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 26) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(26)}>
-                            26
+                            26{bets.some((bet) => bet.numbers[0] === 26)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 26)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 29) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(29)}>
-                            29
+                            29{bets.some((bet) => bet.numbers[0] === 29)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 29)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 32) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(32)}>
-                            32
+                            32{bets.some((bet) => bet.numbers[0] === 32)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 32)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 35) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(35)}>
-                            35
+                            35{bets.some((bet) => bet.numbers[0] === 35)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 35)?.amount}</p>}
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.numbers[0] === 1 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(1)}>
                             1
+                            {bets.some((bet) => bet.numbers[0] === 1 && bet.type !== "dozen")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 1)?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 4) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(4)}>
-                            4
+                            4{bets.some((bet) => bet.numbers[0] === 4)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 4)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 7) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(7)}>
-                            7
+                            7{bets.some((bet) => bet.numbers[0] === 7)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 7)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 10) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(10)}>
-                            10
+                            10{bets.some((bet) => bet.numbers[0] === 10)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 10)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 13 && bet.numbers.length === 1) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(13)}>
                             13
+                            {bets.some((bet) => bet.numbers[0] === 13 && bet.type !== "dozen")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 13)?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 16) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(16)}>
-                            16
+                            16{bets.some((bet) => bet.numbers[0] === 16)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 16)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 19 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(19)}>
-                            19
+                            19{" "}
+                            {bets.some((bet) => bet.numbers[0] === 19 && bet.type !== "dozen")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 19)?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 22) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(22)}>
-                            22
+                            22{bets.some((bet) => bet.numbers[0] === 22)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 22)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 25 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(25)}>
                             25
+                            {bets.some((bet) => bet.numbers[0] === 25 && bet.type !== "dozen")?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] && (bet.type !== "dozen") === 25)?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 28) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(28)}>
-                            28
+                            28{bets.some((bet) => bet.numbers[0] === 28)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 28)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 31) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(31)}>
-                            31
+                            31{bets.some((bet) => bet.numbers[0] === 31)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 31)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 34) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(34)}>
-                            34
+                            34{bets.some((bet) => bet.numbers[0] === 34)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 34)?.amount}</p>}
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(1)) ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(112)}>
                             1st 12
+                            {bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(1))?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.type === "dozen" && bet.numbers.includes(1))?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(13)) ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(212)}>
                             2nd 12
+                            {bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(13))?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.type === "dozen" && bet.numbers.includes(13))?.amount}</p>
+                            )}
                         </div>
                         <div className={bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(25)) ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(312)}>
                             3d 12
+                            {bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(25))?.amount !== 0 && (
+                                <p className='bet-amount'>{bets.find((bet) => bet.type === "dozen" && bet.numbers.includes(25))?.amount}</p>
+                            )}
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.type === "oneto18") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(118)}>
                             1 to 18
+                            {bets.some((bet) => bet.type === "oneto18")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "oneto18")?.amount}</p>}
                         </div>
                         <div className='bet-number-g' onClick={() => handleBetClick(0)}>
                             0
                         </div>
                         <div className={bets.some((bet) => bet.type === "even") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(-4)}>
                             Even
+                            {bets.some((bet) => bet.type === "even")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "even")?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.type === "red") ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(-1)}>
                             Red
+                            {bets.some((bet) => bet.type === "red")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "red")?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.type === "black") ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(-2)}>
                             Black
+                            {bets.some((bet) => bet.type === "black")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "black")?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.type === "odd") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(-3)}>
                             Odd
+                            {bets.some((bet) => bet.type === "odd")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "odd")?.amount}</p>}
                         </div>
                         <div className='bet-number-g' onClick={() => handleBetClick(0)}>
                             00
                         </div>
                         <div className={bets.some((bet) => bet.type === "nineteento36") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(1936)}>
                             19 to 36
+                            {bets.some((bet) => bet.type === "nineteento36")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "nineteento36")?.amount}</p>}
                         </div>
                     </div>
                 </div>
