@@ -69,7 +69,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
         if (!mustSpin) {
             const newPrizeNumber = Math.floor(Math.random() * data.length);
             // const targetOption = newPrizeNumber.toString(); // The option you want to find
-            const targetOption = "3";
+            const targetOption = "0";
             setWinNumber(parseInt(targetOption));
 
             const index = data.findIndex((entry) => entry.option === targetOption);
@@ -384,8 +384,8 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                             1 to 18
                             {bets.some((bet) => bet.type === "oneto18")?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.type === "oneto18")?.amount}</p>}
                         </div>
-                        <div className='bet-number-g' onClick={() => handleBetClick(0)}>
-                            0
+                        <div className={bets.some((bet) => bet.numbers[0] === 0) ? "bet-number-g bet-active" : "bet-number-g"} onClick={() => handleBetClick(0)}>
+                            0{bets.some((bet) => bet.numbers[0] === 0)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 0)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.type === "even") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(-4)}>
                             Even
