@@ -63,20 +63,27 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
     const [betAmount, setBetAmount] = useState(10);
     const [winNumber, setWinNumber] = useState(0);
     const [bets, setBets] = useState([]);
-    const [totalProfit, setTotalProfit] = useState(0);
+    // const [totalProfit, setTotalProfit] = useState(0);
+    const [message, setMessage] = useState("Welcome to Roulette!");
+    const [totalBet, setTotalBet] = useState(0);
 
     const handleSpinClick = () => {
         if (!mustSpin) {
             const newPrizeNumber = Math.floor(Math.random() * data.length);
-            // const targetOption = newPrizeNumber.toString(); // The option you want to find
-            const targetOption = "0";
+            const targetOption = newPrizeNumber.toString(); // The option you want to find
             setWinNumber(parseInt(targetOption));
 
             const index = data.findIndex((entry) => entry.option === targetOption);
             setPrizeNumber(index);
             setMustSpin(true);
+            setUserVroomVolts((prev) => prev - totalBet);
         }
     };
+
+    useEffect(() => {
+        setTotalBet(calculateTotalBet());
+        // eslint-disable-next-line
+    }, [bets]);
 
     function handleBetClick(b) {
         let newBets;
@@ -187,12 +194,27 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
         return totalProfit;
     };
 
+    const calculateTotalBet = () => {
+        let totalBet = 0;
+
+        bets.forEach((bet) => {
+            totalBet += bet.amount;
+        });
+
+        return totalBet;
+    };
     const stopSpining = () => {
         setMustSpin(false);
         const totalProfit = calculateTotalProfit();
-        setTotalProfit(totalProfit);
+        // setTotalProfit(totalProfit);
+        if (totalProfit > 0) {
+            setMessage(`You won ${totalProfit} VroomVolts!`);
+            setUserVroomVolts((prev) => prev + totalProfit);
+        } else {
+            setMessage("You lost!");
+        }
     };
-    console.log(bets);
+
     return (
         <div className='roulette-container'>
             <div className='roulette-content-container'>
@@ -207,7 +229,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         <h1>{userVroomVolts}</h1> <img src={coin} alt='coin'></img>
                     </div>
                 </div>
-                {/* <div className='roulette-instructions'>Each spin costs 5 Vroomvolts!</div> */}
+                <div className='roulette-instructions'>{message}</div>
                 <Wheel
                     mustStartSpinning={mustSpin}
                     prizeNumber={prizeNumber}
@@ -226,9 +248,24 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                     fontSize={18}
                     fontWeight={700}
                 />
-                <button onClick={handleSpinClick}>SPIN</button>
-                {totalProfit}
-                <button onClick={() => setBetAmount(20)}>BET</button>
+                <div className='roulette-buttons-container'>
+                    <div className='roulette-spin-button' onClick={handleSpinClick}>
+                        SPIN
+                    </div>
+                    {totalBet} Total bet
+                    <input
+                        defaultValue={betAmount}
+                        className='bet-input'
+                        type='number'
+                        placeholder='Bet'
+                        step='5'
+                        min='20'
+                        max='10000'
+                        onChange={(e) => {
+                            setBetAmount(parseInt(e.target.value));
+                        }}
+                    />
+                </div>
                 <div className='roulette-bet-board'>
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.numbers[0] === 3) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(3)}>
