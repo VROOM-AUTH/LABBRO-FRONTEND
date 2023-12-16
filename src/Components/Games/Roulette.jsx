@@ -60,16 +60,17 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
     const Navigate = useNavigate();
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
-    const [betMultiplier, setBetMultiplier] = useState(1);
     const [betAmount, setBetAmount] = useState(10);
     const [winNumber, setWinNumber] = useState(0);
     const [bets, setBets] = useState([]);
+    const [totalProfit, setTotalProfit] = useState(0);
 
     const handleSpinClick = () => {
         if (!mustSpin) {
             const newPrizeNumber = Math.floor(Math.random() * data.length);
-            const targetOption = newPrizeNumber.toString(); // The option you want to find
-            setWinNumber(targetOption);
+            // const targetOption = newPrizeNumber.toString(); // The option you want to find
+            const targetOption = "3";
+            setWinNumber(parseInt(targetOption));
 
             const index = data.findIndex((entry) => entry.option === targetOption);
             setPrizeNumber(index);
@@ -171,6 +172,26 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
     function arraysEqual(arr1, arr2) {
         return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
     }
+
+    const calculateTotalProfit = () => {
+        let totalProfit = 0;
+
+        bets.forEach((bet) => {
+            if (bet.numbers.includes(winNumber)) {
+                // The winning number is in the bet, calculate profit
+                const profit = bet.amount * bet.multiplier;
+                totalProfit += profit;
+            }
+        });
+
+        return totalProfit;
+    };
+
+    const stopSpining = () => {
+        setMustSpin(false);
+        const totalProfit = calculateTotalProfit();
+        setTotalProfit(totalProfit);
+    };
     console.log(bets);
     return (
         <div className='roulette-container'>
@@ -191,9 +212,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                     mustStartSpinning={mustSpin}
                     prizeNumber={prizeNumber}
                     data={data}
-                    onStopSpinning={() => {
-                        setMustSpin(false);
-                    }}
+                    onStopSpinning={stopSpining}
                     textColors={["white"]}
                     radiusLineColor='#EFB98D'
                     radiusLineWidth={3}
@@ -208,6 +227,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                     fontWeight={700}
                 />
                 <button onClick={handleSpinClick}>SPIN</button>
+                {totalProfit}
                 <button onClick={() => setBetAmount(20)}>BET</button>
                 <div className='roulette-bet-board'>
                     <div className='roulette-bet-row'>
