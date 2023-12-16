@@ -53,14 +53,15 @@ const redNumbers = [1, 3, 5, 7, 9, 12, 14, 15, 16, 18, 19, 21, 23, 25, 27, 30, 3
 const blackNumbers = [2, 4, 6, 8, 10, 11, 13, 17, 20, 22, 24, 26, 28, 29, 31, 33];
 const evenNumbers = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36];
 const oddNumbers = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35];
+const oneto18 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+const nineteento36 = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36];
 
 export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
     const Navigate = useNavigate();
     const [mustSpin, setMustSpin] = useState(false);
     const [prizeNumber, setPrizeNumber] = useState(0);
-    const [betNumber, setBetNumber] = useState([]);
     const [betMultiplier, setBetMultiplier] = useState(1);
-    const [betAmount, setBetAmount] = useState(0);
+    const [betAmount, setBetAmount] = useState(10);
     const [winNumber, setWinNumber] = useState(0);
     const [bets, setBets] = useState([]);
 
@@ -76,48 +77,6 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
         }
     };
 
-    // function handleBetClick(b) {
-    //     if (b === 112 || b === 212 || b === 312) {
-    //         // Handle 1st, 2nd, and 3rd 12 cases
-    //         const numbersToCheck = b === 112 ? first12Numbers : b === 212 ? second12Numbers : third12Numbers;
-
-    //         if (numbersToCheck.every((num) => betNumber.includes(num))) {
-    //             // All numbers are present, so remove them
-    //             setBetNumber(betNumber.filter((num) => !numbersToCheck.includes(num)));
-    //         } else {
-    //             // At least one number is not present, so add them
-    //             setBetNumber([...new Set([...betNumber, ...numbersToCheck])]);
-    //         }
-    //     } else if (b === -1 || b === -2) {
-    //         const numbersToCheck = b === -1 ? redNumbers : blackNumbers;
-
-    //         if (numbersToCheck.every((num) => betNumber.includes(num))) {
-    //             // All numbers are present, so remove them
-    //             setBetNumber(betNumber.filter((num) => !numbersToCheck.includes(num)));
-    //         } else {
-    //             // At least one number is not present, so add them
-    //             setBetNumber([...new Set([...betNumber, ...numbersToCheck])]);
-    //         }
-    //     } else if (b === -3 || b === -4) {
-    //         const numbersToCheck = b === -3 ? oddNumbers : evenNumbers;
-
-    //         if (numbersToCheck.every((num) => betNumber.includes(num))) {
-    //             // All numbers are present, so remove them
-    //             setBetNumber(betNumber.filter((num) => !numbersToCheck.includes(num)));
-    //         } else {
-    //             // At least one number is not present, so add them
-    //             setBetNumber([...new Set([...betNumber, ...numbersToCheck])]);
-    //         }
-    //     } else {
-    //         // Handle other cases
-    //         if (betNumber.includes(b)) {
-    //             setBetNumber(betNumber.filter((num) => num !== b));
-    //         } else {
-    //             setBetNumber([...betNumber, b]);
-    //         }
-    //     }
-    // }
-
     function handleBetClick(b) {
         let newBets;
 
@@ -128,6 +87,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                 type: "dozen",
                 numbers: numbersToCheck,
                 multiplier: calculateMultiplier(numbersToCheck),
+                amount: betAmount,
             };
         } else if (b === -1 || b === -2) {
             const numbersToCheck = b === -1 ? redNumbers : blackNumbers;
@@ -135,6 +95,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                 type: b === -1 ? "red" : "black",
                 numbers: numbersToCheck,
                 multiplier: calculateMultiplier(numbersToCheck),
+                amount: betAmount,
             };
         } else if (b === -3 || b === -4) {
             const numbersToCheck = b === -3 ? oddNumbers : evenNumbers;
@@ -142,6 +103,15 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                 type: b === -3 ? "odd" : "even",
                 numbers: numbersToCheck,
                 multiplier: calculateMultiplier(numbersToCheck),
+                amount: betAmount,
+            };
+        } else if (b === 118 || b === 1936) {
+            const numbersToCheck = b === 118 ? oneto18 : nineteento36;
+            newBets = {
+                type: b === 118 ? "oneto18" : "nineteento36",
+                numbers: numbersToCheck,
+                multiplier: calculateMultiplier(numbersToCheck),
+                amount: betAmount,
             };
         } else {
             // Handle other cases
@@ -149,17 +119,24 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                 type: "single",
                 numbers: [b],
                 multiplier: calculateMultiplier([b]),
+                amount: betAmount,
             };
         }
 
-        // Check if the bet already exists
-        const existingBetIndex = bets.findIndex((bet) => JSON.stringify(bet) === JSON.stringify(newBets));
+        const existingBetIndex = bets.findIndex((bet) => bet.type === newBets.type && JSON.stringify(bet.numbers) === JSON.stringify(newBets.numbers));
 
         if (existingBetIndex !== -1) {
-            // Remove the existing bet
-            const updatedBets = [...bets];
-            updatedBets.splice(existingBetIndex, 1);
-            setBets(updatedBets);
+            // If a bet exists with a different amount, replace it with the new amount
+            if (bets[existingBetIndex].amount !== newBets.amount) {
+                const updatedBets = [...bets];
+                updatedBets[existingBetIndex] = newBets;
+                setBets(updatedBets);
+            } else {
+                // If a bet exists with the same amount, delete the old bet
+                const updatedBets = [...bets];
+                updatedBets.splice(existingBetIndex, 1);
+                setBets(updatedBets);
+            }
         } else {
             // Add a new bet
             setBets([...bets, newBets]);
@@ -180,6 +157,9 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
             return 2; // Pays 1:1
         } else if (arraysEqual(numbers, oddNumbers) || arraysEqual(numbers, evenNumbers)) {
             // Odd or even bet
+            return 2; // Pays 1:1
+        } else if (arraysEqual(numbers, oneto18) || arraysEqual(numbers, nineteento36)) {
+            // 1 to 18 or 19 to 36 bet
             return 2; // Pays 1:1
         }
 
@@ -228,13 +208,14 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                     fontWeight={700}
                 />
                 <button onClick={handleSpinClick}>SPIN</button>
+                <button onClick={() => setBetAmount(20)}>BET</button>
                 <div className='roulette-bet-board'>
                     <div className='roulette-bet-row'>
                         <div className={bets.some((bet) => bet.numbers[0] === 3) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(3)}>
-                            3
+                            3{bets.some((bet) => bet.numbers[0] === 3)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 3)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 6) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(6)}>
-                            6
+                            6{bets.some((bet) => bet.numbers[0] === 6)?.amount !== 0 && <p className='bet-amount'>{bets.find((bet) => bet.numbers[0] === 6)?.amount}</p>}
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 9) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(9)}>
                             9
@@ -268,7 +249,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
-                        <div className={bets.some((bet) => bet.numbers[0] === 2) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(2)}>
+                        <div className={bets.some((bet) => bet.numbers[0] === 2 && bet.numbers.length === 1) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(2)}>
                             2
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 5) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(5)}>
@@ -324,7 +305,7 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         <div className={bets.some((bet) => bet.numbers[0] === 16) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(16)}>
                             16
                         </div>
-                        <div className={bets.some((bet) => bet.numbers[0] === 19) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(19)}>
+                        <div className={bets.some((bet) => bet.numbers[0] === 19 && bet.numbers.length === 1) ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(19)}>
                             19
                         </div>
                         <div className={bets.some((bet) => bet.numbers[0] === 22) ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(22)}>
@@ -344,37 +325,41 @@ export default function Roulette({ userVroomVolts, setUserVroomVolts }) {
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
-                        <div className='bet-number-categ' onClick={() => handleBetClick(112)}>
+                        <div className={bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(1)) ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(112)}>
                             1st 12
                         </div>
-                        <div className='bet-number-categ' onClick={() => handleBetClick(212)}>
+                        <div className={bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(13)) ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(212)}>
                             2nd 12
                         </div>
-                        <div className='bet-number-categ' onClick={() => handleBetClick(312)}>
+                        <div className={bets.some((bet) => bet.type === "dozen" && bet.numbers.includes(25)) ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(312)}>
                             3d 12
                         </div>
                     </div>
                     <div className='roulette-bet-row'>
-                        <div className='bet-number-categ'>1 to 18</div>
-                        <div className={betNumber.includes(0) ? "bet-number-g bet-active" : "bet-number-g"} onClick={() => handleBetClick(0)}>
+                        <div className={bets.some((bet) => bet.type === "oneto18") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(118)}>
+                            1 to 18
+                        </div>
+                        <div className='bet-number-g' onClick={() => handleBetClick(0)}>
                             0
                         </div>
-                        <div className='bet-number-categ' onClick={() => handleBetClick(-4)}>
+                        <div className={bets.some((bet) => bet.type === "even") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(-4)}>
                             Even
                         </div>
-                        <div className='bet-number-r' onClick={() => handleBetClick(-1)}>
+                        <div className={bets.some((bet) => bet.type === "red") ? "bet-number-r bet-active" : "bet-number-r"} onClick={() => handleBetClick(-1)}>
                             Red
                         </div>
-                        <div className='bet-number' onClick={() => handleBetClick(-2)}>
+                        <div className={bets.some((bet) => bet.type === "black") ? "bet-number bet-active" : "bet-number"} onClick={() => handleBetClick(-2)}>
                             Black
                         </div>
-                        <div className='bet-number-categ' onClick={() => handleBetClick(-3)}>
+                        <div className={bets.some((bet) => bet.type === "odd") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(-3)}>
                             Odd
                         </div>
                         <div className='bet-number-g' onClick={() => handleBetClick(0)}>
                             00
                         </div>
-                        <div className='bet-number-categ'>19 to 36</div>
+                        <div className={bets.some((bet) => bet.type === "nineteento36") ? "bet-number-categ bet-active" : "bet-number-categ"} onClick={() => handleBetClick(1936)}>
+                            19 to 36
+                        </div>
                     </div>
                 </div>
             </div>

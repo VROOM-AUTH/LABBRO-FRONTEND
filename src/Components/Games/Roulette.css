@@ -79,6 +79,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100%;
     width: 100%;
     border: 1px solid #efb98d;
@@ -127,4 +128,10 @@
 
 .bet-active:hover {
     background-color: #571f58;
+}
+
+.bet-amount {
+    font-size: 0.7rem;
+    color: rgb(0, 255, 0);
+    margin: 0;
 }
