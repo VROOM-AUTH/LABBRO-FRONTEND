@@ -1,0 +1,129 @@
+.dashboard-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-content-container {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.dashboard-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #e3f4f2;
+    margin: 0;
+}
+
+.dashboard-title-container {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-lab-status {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 400;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+    /* margin-top: 2rem; */
+}
+
+.dashboard-card {
+    width: 12rem;
+    height: 12rem;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #243a54;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.03);
+}
+
+.card-icon {
+    font-size: 4rem;
+    color: #fff;
+}
+
+.card-text {
+    font-size: 1.3rem;
+    color: #fff;
+    color: #fd7cbf;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+.card-text-secondary {
+    font-size: 1.1rem;
+    color: #f4f4f4;
+    font-weight: 300;
+    margin: 0;
+    text-align: center;
+}
+
+.bar-chart-min-height {
+    width: 100%;
+    height: 50rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard-content-container {
+        width: 100%;
+        height: 100%;
+    }
+    .dashboard-title-container {
+        width: 90%;
+    }
+    .dashboard-cards-container {
+        margin-bottom: 0.5rem;
+    }
+    .dashboard-card {
+        width: 10rem;
+        height: 10rem;
+        margin: 0.5rem;
+    }
+    .card-icon {
+        font-size: 2.5rem;
+    }
+    .bar-chart-min-height {
+        height: 20rem;
+    }
+    .dashboard-lab-status {
+        font-size: 1.5rem;
+    }
+}

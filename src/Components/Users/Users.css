@@ -1,0 +1,218 @@
+.users-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.users-content-container {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.users-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #e3f4f2;
+    margin: 0;
+}
+
+.users-title-container {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.users-row {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.users-row-centering {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.users-button {
+    width: 9rem;
+    height: 2rem;
+    margin: 0;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7497e1;
+    border-radius: 15px;
+}
+.user-list-container {
+    width: 48%;
+    border-radius: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: scroll;
+    /* background-color: #172637; */
+    /* box-shadow: #101925 0px 20px 30px; */
+}
+
+.user-container {
+    width: 90%;
+    height: fit-content;
+    background: #1d2e44;
+    background: -webkit-linear-gradient(to right, #233a53, #1d2e44);
+    background: linear-gradient(to right, #233a53, #1d2e44);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 0 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.user-container-active {
+    background: #3f659b;
+    width: 92%;
+}
+
+.user-container:hover {
+    width: 92%;
+}
+
+.user-card {
+    width: 90%;
+    height: 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-card-info {
+    width: 10rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.green-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: rgb(0, 255, 0);
+    margin: 0 0.5rem;
+}
+
+.gray-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: rgb(124, 124, 124);
+    margin: 0 0.5rem;
+}
+
+.user-list-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+.user-list-container::-webkit-scrollbar-thumb {
+    background-color: #233a53;
+}
+
+.user-list-container::-webkit-scrollbar-track {
+    background-color: #f4f4f400;
+}
+
+/* Define the scrollbar styles for Firefox */
+.user-list-container {
+    scrollbar-width: thin;
+    scrollbar-color: #7497e1 #f4f4f4;
+}
+
+.user-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #4d6495;
+}
+
+.user-list-container::-webkit-scrollbar-thumb:active {
+    background-color: #303f5f;
+}
+
+@media screen and (max-width: 768px) {
+    .users-content-container {
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+    .users-title-container {
+        width: 90%;
+    }
+    .users-row {
+        width: 100%;
+        display: flex;
+        /* overflow-y: scroll; */
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 45rem;
+    }
+    .user-list-container {
+        width: 100%;
+        height: 100%;
+        box-shadow: #101925 0px 20px 30px;
+        /* overflow-y: scroll; */
+    }
+    .users-row-centering {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .users-row {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .user-list-container {
+        width: 100%;
+        height: 100%;
+        box-shadow: #101925 0px 20px 30px;
+        /* overflow-y: scroll; */
+    }
+    .users-row-centering {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

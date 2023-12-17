@@ -1,0 +1,205 @@
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.menu-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    height: 30%;
+    width: 70%;
+    /* background-color: #1f3044; */
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 3rem;
+    width: 100%;
+    font-size: 1.3rem;
+    color: #9b9b9b;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.1s ease-in-out;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+}
+
+.clicked {
+    font-weight: bolder;
+    font-size: 1.4rem;
+    color: #fff;
+    background-color: #1f3044;
+    border-radius: 15px;
+}
+
+.user-info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 20rem;
+    width: 85%;
+    /* background-color: #1f3044; */
+    border-bottom: #1f3044 2px solid;
+}
+.user-info-container p {
+    margin: 0;
+}
+.labbro-logo {
+    height: 5rem;
+    width: 5rem;
+    margin: 1rem 0;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+}
+
+.user-info-text {
+    font-size: 1.6rem;
+    margin: 0.5rem 0;
+    font-weight: bolder;
+    color: #fff;
+}
+
+.user-info-text-secondary {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0.5rem 0 0.5rem 1rem;
+}
+
+.coin-menu {
+    margin: 0 0.5rem;
+    width: 1.5rem;
+}
+
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 15rem;
+    width: 80%;
+    border-top: #1f3044 2px solid;
+}
+
+.check-out-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 7rem;
+    width: 100%;
+}
+
+.check-out-title {
+    font-size: 1.3rem;
+    font-weight: bolder;
+    color: #fff;
+    margin: 0.5rem 0;
+}
+
+.check-out-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 65%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.1s ease-in-out;
+    background-color: #7497e1;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.check-out-button:hover {
+    background-color: #5c7bc2;
+}
+
+.check-out-mobile {
+    display: none;
+}
+
+.menu-text {
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    /* Make responsive menu for mobile phone */
+    .menu-container {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 18rem;
+        height: fit-content;
+        width: 100vw;
+        background-color: #1f3044;
+        z-index: 100;
+        /* transition: all 0.3s ease-in-out; */
+    }
+    .menu-buttons-container {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 90%;
+    }
+    .menu-item {
+        width: 12rem;
+        display: flex;
+        font-size: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+    .user-info-container {
+        display: none;
+    }
+    .logout-container {
+        display: none;
+    }
+
+    .check-out-mobile {
+        display: flex;
+    }
+
+    .menu-icon {
+        font-size: 1.7rem;
+        color: #676767;
+    }
+    .menu-text {
+        display: none;
+    }
+    .clicked > .menu-icon {
+        color: #fff;
+    }
+}

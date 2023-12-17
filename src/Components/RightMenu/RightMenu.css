@@ -1,0 +1,17 @@
+.right-menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 20rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+@media screen and (max-width: 768px) {
+    .right-menu-container {
+        width: 100%;
+        height: fit-content;
+        padding: 1rem 0 3rem 0;
+    }
+}

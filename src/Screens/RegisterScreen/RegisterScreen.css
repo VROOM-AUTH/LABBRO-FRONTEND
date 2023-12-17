@@ -1,0 +1,119 @@
+.register-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: #0f0c29; /* fallback for old browsers 302b63*/
+    background: -webkit-linear-gradient(to right, #24243e, #413992, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24243e, #413992, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 27rem;
+    height: 70vh;
+    background: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    border-radius: 1rem;
+}
+
+.register-form-title {
+    font-size: 2.5rem;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+.register-form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.register-form-icon1 {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.5rem;
+    font-size: 1.3rem;
+    color: rgb(98, 98, 98);
+    font-weight: bold;
+}
+.register-form-icon2 {
+    position: absolute;
+    top: 4.7rem;
+    left: 0.5rem;
+    font-size: 1.3rem;
+    color: rgb(98, 98, 98);
+    font-weight: bold;
+}
+.register-form-icon3 {
+    position: absolute;
+    top: 8.7rem;
+    left: 0.5rem;
+    font-size: 1.3rem;
+    color: rgb(98, 98, 98);
+    font-weight: bold;
+}
+
+.register-form-group input {
+    width: 16rem;
+    height: 3rem;
+    margin: 0 0 1rem;
+    font-size: large;
+    padding: 0 0.5rem;
+    border: none;
+    padding-left: 2.5rem;
+    background-color: #f0f0f0;
+}
+
+.register-form-group input:focus {
+    outline: 1px solid #6359cc;
+}
+
+.register-form-btn {
+    width: 10rem;
+    height: 3rem;
+    margin: 0 0 1rem;
+    font-size: large;
+    font-weight: bold;
+    color: #fff;
+    padding: 0 0.5rem;
+    border: none;
+    background: #a4a9ff;
+    background: #d84b76;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.register-form-btn:hover {
+    background: #9d3554;
+}
+
+.register-form-subtext {
+    font-size: 1rem;
+    color: rgb(65, 65, 65);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.register-form-subtext a {
+    color: #6359cc;
+    text-decoration: none;
+}
+/* Responsive for mobile */
+.register-logo {
+    width: 5rem;
+    height: 5rem;
+}
+
+@media only screen and (max-width: 700px) {
+    .register-form {
+        width: 90vw;
+        height: 80vh;
+    }
+}

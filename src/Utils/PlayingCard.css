@@ -1,0 +1,14 @@
+.playing-card {
+    height: 10rem;
+    width: 7rem;
+    margin: 0 0.5rem 0 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .playing-card {
+        height: 7.5rem;
+        width: 5.2rem;
+        margin: 0.3rem;
+    }
+}
