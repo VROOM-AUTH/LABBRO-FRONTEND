@@ -55,7 +55,7 @@ export default function randomCard(playerCards, manaCards) {
     ];
     let randomIndex = Math.floor(Math.random() * cardValues.length);
     let randomCard = cardValues[randomIndex];
-    while (playerCards.includes(randomCard) || manaCards.includes(randomCard)) {
+    while (playerCards && manaCards && (playerCards.includes(randomCard) || manaCards.includes(randomCard))) {
         randomIndex = Math.floor(Math.random() * cardValues.length);
         randomCard = cardValues[randomIndex];
     }
