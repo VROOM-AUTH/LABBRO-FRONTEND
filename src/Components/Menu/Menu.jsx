@@ -91,7 +91,7 @@ export default function Menu({ setUserData, userData, labStatus, userTime, userV
                     </div>
                     <div className='user-info-text-secondary'>
                         <img className='coin-menu' src={clock} alt='clock'></img>
-                        <p>{secondsToHoursMins(userTime.total_hours)}</p>
+                        <p>{isNaN(userTime.total_hours) ? "0h 0m" : secondsToHoursMins(userTime.total_hours)}</p>
                     </div>
                     <div className='user-info-text-secondary'>
                         {labStatus.closed ? <TbBulbOff className='menu-icon' /> : <FcIdea className='menu-icon' />}

@@ -1,4 +1,4 @@
-export default function randomCard() {
+export default function randomCard(playerCards, manaCards) {
     const cardValues = [
         "2S",
         "2C",
@@ -53,7 +53,12 @@ export default function randomCard() {
         "AD",
         "AH",
     ];
-    const randomIndex = Math.floor(Math.random() * cardValues.length);
-    const randomCard = cardValues[randomIndex];
+    let randomIndex = Math.floor(Math.random() * cardValues.length);
+    let randomCard = cardValues[randomIndex];
+    while (playerCards.includes(randomCard) || manaCards.includes(randomCard)) {
+        randomIndex = Math.floor(Math.random() * cardValues.length);
+        randomCard = cardValues[randomIndex];
+    }
+
     return randomCard;
 }

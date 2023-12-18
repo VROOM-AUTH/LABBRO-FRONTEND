@@ -11,7 +11,7 @@ export default function manaCardsGenerator() {
     let currentScore = 0;
 
     while (currentScore < targetScore) {
-        const newCard = randomCard();
+        const newCard = randomCard(null, hand);
         const cardScore = cardValue(newCard, currentScore);
 
         if (currentScore + cardScore <= targetScore) {

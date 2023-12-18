@@ -22,7 +22,7 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
     const [restartGame, setRestartGame] = useState(true); // New state for managing game restart flow
 
     const addCard = () => {
-        setPlayerCards([...playerCards, randomCard()]);
+        setPlayerCards([...playerCards, randomCard(playerCards, manaCards)]);
     };
 
     const evaluateGame = (manaScore, playerScore) => {
@@ -48,9 +48,10 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
         if (startGame && !gameOver) {
             setShowManaCards(false);
             setManaCards(manaCardsGenerator());
-            setPlayerCards([randomCard(), randomCard()]);
+            setPlayerCards([randomCard(playerCards, manaCards), randomCard(playerCards, manaCards)]);
             setRestartGame(false); // Reset restartGame to false when starting a new game
         }
+        //eslint-disable-next-line
     }, [startGame, gameOver]);
 
     useEffect(() => {
