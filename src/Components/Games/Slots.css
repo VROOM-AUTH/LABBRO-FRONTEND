@@ -1,0 +1,24 @@
+.reel {
+    overflow: hidden; /* This will hide the overflowed symbols */
+    height: 8em; /* Adjust the height as necessary */
+    width: 15rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.symbol-container {
+    transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1); /* Adjust timing as needed */
+}
+
+.spinning .symbol-container {
+    transform: translateY(-100%);
+}
+
+.symbol {
+    transition: transform 0.3s ease-out;
+    will-change: transform; /* This can help in optimizing the animation performance */
+}
+
+.spinning {
+    animation: none; /* No need for the spin animation if transitioning smoothly */
+}

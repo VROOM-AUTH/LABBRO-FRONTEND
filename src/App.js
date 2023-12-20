@@ -25,6 +25,7 @@ function App() {
                 <Route path='/vroomvolts/wheel' element={<MainScreen path={"/vroomvolts/wheel"} userData={userData} setUserData={setUserData} />} />
                 <Route path='/vroomvolts/blackjack' element={<MainScreen path={"/vroomvolts/blackjack"} userData={userData} setUserData={setUserData} />} />
                 <Route path='/vroomvolts/roulette' element={<MainScreen path={"/vroomvolts/roulette"} userData={userData} setUserData={setUserData} />} />
+                <Route path='/vroomvolts/slots' element={<MainScreen path={"/vroomvolts/slots"} userData={userData} setUserData={setUserData} />} />
             </Routes>
         </Router>
     );

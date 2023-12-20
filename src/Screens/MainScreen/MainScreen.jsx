@@ -10,6 +10,7 @@ import RightMenu from "../../Components/RightMenu/RightMenu";
 import SpinningWheel from "../../Components/Games/SpinningWheel";
 import Blackjack from "../../Components/Games/Blackjack";
 import Roulette from "../../Components/Games/Roulette";
+import Slots from "../../Components/Games/Slots";
 
 export default function MainScreen({ setUserData, userData, path }) {
     const navigate = useNavigate();
@@ -251,6 +252,8 @@ export default function MainScreen({ setUserData, userData, path }) {
                     <Blackjack userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
                 ) : path === "/vroomvolts/roulette" ? (
                     <Roulette userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
+                ) : path === "/vroomvolts/slots" ? (
+                    <Slots userData={userData} mergedUsers={mergedUsers} userVroomVolts={userVroomVolts} setUserVroomVolts={setUserVroomVolts} />
                 ) : (
                     <></>
                 )}

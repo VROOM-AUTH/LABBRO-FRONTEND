@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LuFerrisWheel } from "react-icons/lu";
 import { CgCardSpades } from "react-icons/cg";
 import { GiEightBall } from "react-icons/gi";
+import { TbCherryFilled } from "react-icons/tb";
 export default function Vroomvolts({ userData, mergedUsers, userVroomVolts }) {
     const Navigate = useNavigate();
     return (
@@ -30,6 +31,10 @@ export default function Vroomvolts({ userData, mergedUsers, userVroomVolts }) {
                     <div className='game-card' onClick={() => Navigate("/vroomvolts/roulette")}>
                         <GiEightBall className='game-icon' />
                         Roulette
+                    </div>
+                    <div className='game-card' onClick={() => Navigate("/vroomvolts/slots")}>
+                        <TbCherryFilled className='game-icon' />
+                        Slots
                     </div>
                 </div>
             </div>
