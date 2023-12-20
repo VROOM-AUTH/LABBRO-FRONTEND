@@ -8,7 +8,36 @@ import randomCard from "../../Utils/randomCard";
 import cardValue from "../../Utils/cardValue";
 import manaCardsGenerator from "../../Utils/manaCardsGenerator";
 
-export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
+export default function Blackjack({
+    userVroomVolts,
+    setUserVroomVolts,
+    userData,
+}) {
+    const fetchVroomvolts = () => {
+        return fetch(
+            `${process.env.REACT_APP_BASE_URL}users-levels?user_id=${userData.userId}`,
+            {
+                //Fetch for logged in user vroomvolts data
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Token ${process.env.REACT_APP_AUTH_TOKEN}`,
+                },
+            }
+        )
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((data) => {
+                setUserVroomVolts(data[0]?.vroomvolts || 0);
+                // setFirstVroomvoltFetch(false);
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+            });
+    };
     const Navigate = useNavigate();
     const [playerCards, setPlayerCards] = useState([]);
     const [manaCards, setManaCards] = useState(["2B", "2B"]);
@@ -25,6 +54,21 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
         setPlayerCards([...playerCards, randomCard()]);
     };
 
+    const startGameHandler = () => {
+        fetchVroomvolts().then(() => {
+            if (bet >= 20 && bet <= 10000 && bet <= userVroomVolts) {
+                setStartGame(true);
+                setGameOver(false);
+                setUserVroomVolts((prev) => prev - bet);
+            } else if (bet > userVroomVolts) {
+                setMessage("You don't have enough VroomVolts!");
+            } else if (bet < 20) {
+                setMessage("Minimum bet is 20 Vroomvolts!");
+            } else if (bet > 10000) {
+                setMessage("Maximum bet is 10000 Vroomvolts!");
+            }
+        });
+    };
     const evaluateGame = (manaScore, playerScore) => {
         setShowManaCards(true);
         if (playerScore > 21) {
@@ -67,33 +111,37 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
     }, [playerCards, manaCards]);
 
     return (
-        <div className='blackjack-container'>
-            <div className='blackjack-content-container'>
-                <div className='blackjack-title'>
+        <div className="blackjack-container">
+            <div className="blackjack-content-container">
+                <div className="blackjack-title">
                     <IoArrowBackCircle
-                        className='return-back'
+                        className="return-back"
                         onClick={() => {
                             Navigate("/vroomvolts");
                         }}
                     />
-                    <div className='blackjack-title-group'>
-                        <h1>{userVroomVolts}</h1> <img src={coin} alt='coin' />
+                    <div className="blackjack-title-group">
+                        <h1>{userVroomVolts}</h1> <img src={coin} alt="coin" />
                     </div>
                 </div>
-                <div className='blackjack-instructions'>{message}</div>
+                <div className="blackjack-instructions">{message}</div>
 
                 {showManaCards ? (
-                    <div className='blackjack-mana-container'>
-                        <div className='cards-row'>
+                    <div className="blackjack-mana-container">
+                        <div className="cards-row">
                             {manaCards.map((card, index) => (
                                 <PlayingCard card={card} key={index} />
                             ))}
                         </div>
-                        {gameOver ? <div className='blackjack-score'>ENEMY SCORE : {manaScore}</div> : null}
+                        {gameOver ? (
+                            <div className="blackjack-score">
+                                ENEMY SCORE : {manaScore}
+                            </div>
+                        ) : null}
                     </div>
                 ) : (
-                    <div className='blackjack-mana-container'>
-                        <div className='cards-row'>
+                    <div className="blackjack-mana-container">
+                        <div className="cards-row">
                             {/* Display the first card in manaCards separately */}
                             <PlayingCard card={manaCards[0]} />
 
@@ -106,33 +154,45 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                 )}
 
                 {startGame && !gameOver ? (
-                    <div className='blackjack-player-container'>
-                        <div className='cards-row'>
+                    <div className="blackjack-player-container">
+                        <div className="cards-row">
                             {playerCards.map((card, index) => (
                                 <PlayingCard card={card} key={index} />
                             ))}
                         </div>
-                        <div className='blackjack-game-buttons'>
-                            <div className='blackjack-bet-button' onClick={addCard}>
+                        <div className="blackjack-game-buttons">
+                            <div
+                                className="blackjack-bet-button"
+                                onClick={addCard}
+                            >
                                 Hit
                             </div>
-                            <div className='blackjack-bet-button' onClick={() => evaluateGame(manaScore, playerScore)}>
+                            <div
+                                className="blackjack-bet-button"
+                                onClick={() =>
+                                    evaluateGame(manaScore, playerScore)
+                                }
+                            >
                                 Done
                             </div>
                         </div>
-                        <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
+                        <div className="blackjack-score">
+                            YOUR SCORE : {playerScore}
+                        </div>
                     </div>
                 ) : !restartGame ? (
-                    <div className='blackjack-results'>
-                        <div className='cards-row'>
+                    <div className="blackjack-results">
+                        <div className="cards-row">
                             {playerCards.map((card, index) => (
                                 <PlayingCard card={card} key={index} />
                             ))}
                         </div>
-                        <div className='blackjack-score'>YOUR SCORE : {playerScore}</div>
+                        <div className="blackjack-score">
+                            YOUR SCORE : {playerScore}
+                        </div>
 
                         <div
-                            className='blackjack-playagain-button'
+                            className="blackjack-playagain-button"
                             onClick={() => {
                                 setGameOver(false);
                                 setRestartGame(true);
@@ -143,35 +203,23 @@ export default function Blackjack({ userVroomVolts, setUserVroomVolts }) {
                         </div>
                     </div>
                 ) : (
-                    <div className='blackjack-bet-container'>
+                    <div className="blackjack-bet-container">
                         <h1>Place your bet</h1>
                         <input
                             defaultValue={bet}
-                            className='bet-input'
-                            type='number'
-                            placeholder='Bet'
-                            step='5'
-                            min='20'
-                            max='10000'
+                            className="bet-input"
+                            type="number"
+                            placeholder="Bet"
+                            step="5"
+                            min="20"
+                            max="10000"
                             onChange={(e) => {
                                 setBet(e.target.value);
                             }}
                         />
                         <div
-                            className='blackjack-bet-button'
-                            onClick={() => {
-                                if (bet >= 20 && bet <= 10000 && bet <= userVroomVolts) {
-                                    setStartGame(true);
-                                    setGameOver(false);
-                                    setUserVroomVolts(userVroomVolts - bet);
-                                } else if (bet > userVroomVolts) {
-                                    setMessage("You don't have enough VroomVolts!");
-                                } else if (bet < 20) {
-                                    setMessage("Minimum bet is 20 Vroomvolts!");
-                                } else if (bet > 10000) {
-                                    setMessage("Maximum bet is 10000 Vroomvolts!");
-                                }
-                            }}
+                            className="blackjack-bet-button"
+                            onClick={startGameHandler}
                         >
                             Start
                         </div>
